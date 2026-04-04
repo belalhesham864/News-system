@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('slag');
+            $table->string('slug');
             $table->longText('desc');
             $table->boolean('comment_able')->default(1);
             $table->boolean('status')->default(1);

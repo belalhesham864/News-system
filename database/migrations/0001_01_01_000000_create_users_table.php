@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('phone')->unique();
             $table->string('image')->nullable();
-            $table->enum('status',['active','archived']);
+            $table->boolean('status')->default(1);
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->string('street')->nullable();
