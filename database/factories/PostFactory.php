@@ -28,6 +28,7 @@ class PostFactory extends Factory
             'slug' => Str::slug($title),
             'status'=>rand(0,1),
             'comment_able'=>rand(0,1),
+            'numer_of_view'=>rand(0,100),
             'user_id'=>User::inRandomOrder()->first()->id,
             'category_id'=>Category::inRandomOrder()->first()->id,
             'created_at'=>$date,
