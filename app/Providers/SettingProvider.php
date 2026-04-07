@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Category;
+use App\Models\RelatedNewsSite;
 use App\Models\Setting;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,23 +22,28 @@ class SettingProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Setting::firstOr(function(){
+       $setting=Setting::firstOr(function(){
             return Setting::create([
      'site_name'=>'news',
-     'logo'=>'default',
+     'logo'=>'/img/logo.png',
      'favicon'=>'default',
      'email'=>'news@gmail.com',
-     'facebook'=>'default',
-     'tiwter'=>'default',
-     'instgram'=>'default',
-     'youtube'=>'default',
-     'phone'=>'default',
-     'country'=>'default country',
-     'city'=>'default city',
-     'street'=>'default street',
+     'facebook'=>'https://www.facebook.com/',
+     'tiwter'=>'https://x.com/',
+     'instgram'=>'https://www.instagram.com/',
+     'youtube'=>'https://www.youtube.com/',
+     'phone'=>'01028673838',
+     'country'=>'Egypt',
+     'city'=>'Mansoura',
+     'street'=>'Belqas',
    
     
             ]);
         });
+
+        view()->share([
+            'setting'=>$setting,
+       
+        ]);
     }
 }

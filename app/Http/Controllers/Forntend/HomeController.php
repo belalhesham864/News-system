@@ -11,11 +11,10 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('images')->latest()->paginate(9);
+      
         $greats_view = Post::with('images')->orderBy('numer_of_view', 'desc')->limit(3)->get();
         // $oldest_news=Post::with('images')->orderBy('created_at','asc')->limit(3)->get();
         $oldest_news = Post::with('images')->oldest()->limit(3)->get();
-        $greats_post_comment = Post::withCount('comment')->orderBy('comment_count', 'desc')->take(3)->get();
         // $category=Category::with('posts')->get();
         // dd($category);
         $categories=Category::all();
@@ -24,6 +23,6 @@ class HomeController extends Controller
             return $category;
         });
         // dd($categories_with_posts);
-        return view('forntend.index', compact('posts', 'greats_view', 'oldest_news','greats_post_comment','categories_with_posts'));
+        return view('forntend.index', compact( 'greats_view', 'oldest_news','categories_with_posts'));
     }
 }

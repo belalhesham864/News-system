@@ -22,7 +22,7 @@ class CacheSerivesProvider extends ServiceProvider
     public function boot(): void
     {
         if(!Cache::has('read_post_more')){
-            $read_post_more=Post::select('id','title')->latest()->limit(10)->get();
+            $read_post_more=Post::select('id','title','slug')->latest()->limit(10)->get();
             Cache::remember('read_post_more',3600,function() use($read_post_more){
           return $read_post_more;
             });

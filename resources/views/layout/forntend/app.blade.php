@@ -9,6 +9,6 @@
 
 
 @include('layout.forntend.footer')
-
+  @stack('js')
   </body>
 </html>

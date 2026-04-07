@@ -27,7 +27,7 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
           'username'=>fake()->userName(),
-          'image'=>fake()->imageUrl(),
+          'image'=>'https://randomuser.me/api/portraits/men/' . rand(1, 99) . '.jpg',
           'phone'=>fake()->phoneNumber(),
           'status'=>fake()->randomElement([0,1]),
           'country'=>fake()->country(),

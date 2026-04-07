@@ -19,7 +19,7 @@ $latest_four=$posts->take(4);
               <div class="tn-img">
                 <img src="{{ $post->images->first()->path}}" />
                 <div class="tn-title">
-                  <a href="">{{ $post->title }}</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
               </div>
             </div>
@@ -34,7 +34,7 @@ $latest_four=$posts->take(4);
               <div class="tn-img">
                 <img src="{{$post->images->first()->path }}" />
                 <div class="tn-title">
-                  <a href="">{{ $post->title }}</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
               </div>
             </div>
@@ -62,7 +62,7 @@ $latest_four=$posts->take(4);
               <div class="cn-img">
                 <img src="{{ $post->images->first()->path }}" />
                 <div class="cn-title">
-                  <a href="">{{ $post->title }}</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
               </div>
             </div>
@@ -103,7 +103,7 @@ $latest_four=$posts->take(4);
                   <img src="{{ $post->images->first()->path }}" />
                 </div>
                 <div class="tn-title">
-                  <a href="">{{$post->title}}</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}}</a>
                 </div>
               </div>
           
@@ -112,7 +112,9 @@ $latest_four=$posts->take(4);
             </div>
 
 
-
+@php
+  $greats_post_comment=$greats_post_comment->take(3);
+@endphp
             <div id="popular" class="container tab-pane fade">
            @foreach ($greats_post_comment as $post )
               <div class="tn-news">
@@ -120,7 +122,7 @@ $latest_four=$posts->take(4);
                   <img src="{{$post->images->first()->path}}" />
                 </div>
                 <div class="tn-title">
-                  <a href="">{{$post->title}} ({{ $post->comment_count }})</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}} ({{ $post->comment_count }})</a>
                 </div>
               </div>
            
@@ -150,7 +152,7 @@ $latest_four=$posts->take(4);
                   <img src="{{ $last->images->first()->path }}" />
                 </div>
                 <div class="tn-title">
-                  <a href="">{{ $last->title }}</a>
+                  <a href="{{ route('forntend.post.show',$last->slug) }}">{{ $last->title }}</a>
                 </div>
               </div>
             
@@ -164,7 +166,7 @@ $latest_four=$posts->take(4);
                   <img src="{{ $post->images->first()->path }}" />
                 </div>
                 <div class="tn-title">
-                  <a href="">{{ $post->title }} ({{ $post->numer_of_view }})</a>
+                  <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }} ({{ $post->numer_of_view }})</a>
                 </div>
               </div>
             @endforeach
@@ -189,7 +191,7 @@ $latest_four=$posts->take(4);
                 <div class="mn-img">
                   <img src="{{ $post->images->first()->path }}" />
                   <div class="mn-title">
-                    <a href="">{{ $post->title }}</a>
+                    <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                   </div>
                 </div>
               </div>
@@ -204,7 +206,7 @@ $latest_four=$posts->take(4);
             <ul>
               @foreach ($read_post_more as $post )
                 
-              <li><a href="">{{ $post->title }}</a></li>
+              <li><a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a></li>
               @endforeach
      
               

@@ -4,8 +4,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="tb-contact">
-              <p><i class="fas fa-envelope"></i>info@mail.com</p>
-              <p><i class="fas fa-phone-alt"></i>+012 345 6789</p>
+              <p><i class="fas fa-envelope"></i>{{ $setting->email }}</p>
+              <p><i class="fas fa-phone-alt"></i>{{ $setting->phone }}</p>
             </div>
           </div>
           <div class="col-md-6">
@@ -28,15 +28,13 @@
           <div class="col-lg-3 col-md-4">
             <div class="b-logo">
               <a href="index.html">
-                <img src="{{ asset('assets/forntend/img/logo.png') }}" alt="Logo" />
+                <img src="{{ asset('assets/forntend') }}{{ $setting->logo }}" alt="Logo" />
               </a>
             </div>
           </div>
           <div class="col-lg-6 col-md-4">
             <div class="b-ads">
-              <a href="https://htmlcodex.com">
-                <img src="{{ asset('assets/forntend/img/ads-1.jpg') }}" alt="Ads" />
-              </a>
+            
             </div>
           </div>
           <div class="col-lg-3 col-md-4">
@@ -75,25 +73,27 @@
                   href="#"
                   class="nav-link dropdown-toggle"
                   data-toggle="dropdown"
-                  >Dropdown</a
+                  >Categories</a
                 >
                 <div class="dropdown-menu">
-                  <a href="#" class="dropdown-item">Sub Item 1</a>
-                  <a href="#" class="dropdown-item">Sub Item 2</a>
+                  @foreach ($categories as $category )
+                  <a href="{{ route('forntend.category.posts',$category->slag) }}" title="{{ $category->name }}" class="dropdown-item">{{ $category->name }}</a>
+                  
+                  @endforeach
+                
                 </div>
               </div>
               <a href="single-page.html" class="nav-item nav-link"
                 >Single Page</a
               >
               <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
-              <a href="contact.html" class="nav-item nav-link">Contact Us</a>
+              <a href="{{ route('con') }}" class="nav-item nav-link">Contact Us</a>
             </div>
             <div class="social ml-auto">
-              <a href=""><i class="fab fa-twitter"></i></a>
-              <a href=""><i class="fab fa-facebook-f"></i></a>
-              <a href=""><i class="fab fa-linkedin-in"></i></a>
-              <a href=""><i class="fab fa-instagram"></i></a>
-              <a href=""><i class="fab fa-youtube"></i></a>
+              <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>
+              <a href="{{ $setting->facebook }}" title="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+              <a href="{{ $setting->instgram }}" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+              <a href="{{ $setting->youtube }}" title="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
         </nav>
