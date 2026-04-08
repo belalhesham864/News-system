@@ -21,6 +21,7 @@ class HomeController extends Controller
         $categories_with_posts=$categories->map(function ($category) {
             $category->posts =$category->posts()->limit(4)->get();
             return $category;
+            
         });
         // dd($categories_with_posts);
         return view('forntend.index', compact( 'greats_view', 'oldest_news','categories_with_posts'));

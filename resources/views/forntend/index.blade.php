@@ -2,12 +2,12 @@
 @section('title')
 News
 @stop
-@section('body')
-@php
-$latest_three=$posts->take(3);
-$latest_four=$posts->take(4);
+@section('breadcrumb')
+  @parent
 
-@endphp
+@endsection
+@section('body')
+
   <div class="top-news">
     <div class="container">
       <div class="row">
@@ -17,7 +17,7 @@ $latest_four=$posts->take(4);
             
             <div class="col-md-6">
               <div class="tn-img">
-                <img src="{{ $post->images->first()->path}}" />
+               ف <img src="{{ $post->images->first()->path}}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
@@ -196,8 +196,8 @@ $latest_four=$posts->take(4);
                 </div>
               </div>
             @endforeach
-{{ $posts->links() }}
           </div>
+          {{ $posts->links() }}
         </div>
 
         <div class="col-lg-3">

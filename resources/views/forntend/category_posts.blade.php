@@ -3,6 +3,11 @@
     posts
 @endsection
 
+@section('breadcrumb')
+  @parent
+            <li class="breadcrumb-item active"></li>
+@endsection
+
 @section('body')
 <br>
 <br>
