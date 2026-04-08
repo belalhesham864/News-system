@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
         foreach ($data as $d) {
             Category::create([
                 'name' => $d,
-                'slag' => Str::slug($d),
+                'slug' => Str::slug($d),
                 'status' => 1,
                 'created_at' => $date,
                 'updated_at' => $date,

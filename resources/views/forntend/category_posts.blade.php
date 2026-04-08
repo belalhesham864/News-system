@@ -36,7 +36,7 @@
               <ul>
                 @foreach ($categories as $category )
                 
-                <li><a href="{{ route('forntend.category.posts',$category->slag) }}" title="{{ $category->name }}">{{ $category->name }}</a></li>
+                <li><a href="{{ route('forntend.category.posts',$category->slug) }}" title="{{ $category->name }}">{{ $category->name }}</a></li>
                 @endforeach
               </ul>
             </div>

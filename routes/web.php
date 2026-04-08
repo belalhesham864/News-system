@@ -27,5 +27,7 @@ Route::get('post/comment/{slug}',[PostController::class,'getallcomment'])->name(
 Route::post('post/comment/store',[PostController::class,'savecomment'])->name('post.comment.store');
 
 ///////// contact us /////////// 
+Route::get('/contact-us',[ContactUsController::class,'index'])->name('contact');
+Route::post('/contact-us',[ContactUsController::class,'store'])->name('contact.store');
 
 });

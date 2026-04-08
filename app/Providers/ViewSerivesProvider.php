@@ -24,7 +24,7 @@ class ViewSerivesProvider extends ServiceProvider
     public function boot(): void
     {
         $relatedsite = RelatedNewsSite::select(['name', 'url'])->get();
-        $categories = Category::select('id', 'name', 'slag')->get();
+        $categories = Category::select('id', 'name', 'slug')->get();
 
 
         if (!Cache::has('greats_post_comment')) {

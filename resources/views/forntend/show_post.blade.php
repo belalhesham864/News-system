@@ -159,9 +159,7 @@
                           <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
                         </div>
                         <div class="tn-title">
-                          <a href="{{ route('forntend.category.posts',$post->slug) }}"
-                        title="{{  $post->title }}"     >{{ $post->title }}</a
-                          >
+                          <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}} ({{ $post->comment_count }})</a>
                         </div>
                       </div>
                       
@@ -201,7 +199,7 @@
                   <ul>
                     @foreach ($categories as $category )
                         
-                    <li><a href="{{ route('forntend.category.posts',$category->slag) }}">{{ $category->name }}</a><span>({{ $category->posts->count() }})</span></li>
+                    <li><a href="{{ route('forntend.category.posts',$category->slug) }}">{{ $category->name }}</a><span>({{ $category->posts->count() }})</span></li>
                     @endforeach 
                 
                   </ul>
@@ -251,7 +249,8 @@
      });
       })
      // save comment 
-     $(document).on('submit','#commentform',function(e){
+
+  $(document).on('submit','#commentform',function(e){
      e.preventDefault();
       var formdata= new FormData ($(this)[0]);
           $('#commentid').val('');

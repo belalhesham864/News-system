@@ -13,7 +13,7 @@
               <a href="">About</a>
               <a href="">Privacy</a>
               <a href="">Terms</a>
-              <a href="">Contact</a>
+              <a href="{{ route('forntend.contact') }}">Contact</a>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
             id="navbarCollapse"
           >
             <div class="navbar-nav mr-auto">
-              <a href="index.html" class="nav-item nav-link active">Home</a>
+              <a href="{{ route('forntend.index') }}" class="nav-item nav-link active">Home</a>
               <div class="nav-item dropdown">
                 <a
                   href="#"
@@ -77,7 +77,7 @@
                 >
                 <div class="dropdown-menu">
                   @foreach ($categories as $category )
-                  <a href="{{ route('forntend.category.posts',$category->slag) }}" title="{{ $category->name }}" class="dropdown-item">{{ $category->name }}</a>
+                  <a href="{{ route('forntend.category.posts',$category->slug) }}" title="{{ $category->name }}" class="dropdown-item">{{ $category->name }}</a>
                   
                   @endforeach
                 
@@ -87,7 +87,7 @@
                 >Single Page</a
               >
               <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
-              <a href="{{ route('con') }}" class="nav-item nav-link">Contact Us</a>
+              <a href="{{ route('forntend.contact') }}" class="nav-item nav-link">Contact Us</a>
             </div>
             <div class="social ml-auto">
               <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>

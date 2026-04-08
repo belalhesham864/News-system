@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function __invoke($slug)
     {
-    $categories=Category::where('slag',$slug)->first();    
+    $categories=Category::where('slug',$slug)->first();  
+dd($slug, $categories);  
     $posts=$categories->posts()->paginate(9);
 
         return view('forntend.category_posts',compact('posts'));

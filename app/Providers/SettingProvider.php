@@ -36,7 +36,10 @@ class SettingProvider extends ServiceProvider
      'country'=>'Egypt',
      'city'=>'Mansoura',
      'street'=>'Belqas',
-   
+     'contact'=>'
+We’d love to hear from you! Whether you have a question about our services, news suggestions, or anything else, our team is ready to help you.
+
+Feel free to reach out and we’ll get back to you as soon as possible.',
     
             ]);
         });

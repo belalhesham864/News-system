@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('street');
+            $table->text('contact')->nullable();
             $table->timestamps();
         });
     }
