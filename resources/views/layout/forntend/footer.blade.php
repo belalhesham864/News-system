@@ -50,8 +50,8 @@
               <h3 class="title">Newsletter</h3>
               <div class="newsletter">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Vivamus sed porta dui. Class aptent taciti sociosqu
+                 Subscribe to our newsletter
+Get the latest updates, news, and exclusive offers directly to your inbox.
                 </p>
                 <form method="post" action="{{ route('forntend.subscribe') }}">
                   @csrf
@@ -74,20 +74,7 @@
     </div>
     <!-- Footer End -->
 
-    <!-- Footer Menu Start -->
-    <div class="footer-menu">
-      <div class="container">
-        <div class="f-menu">
-          <a href="">Terms of use</a>
-          <a href="">Privacy policy</a>
-          <a href="">Cookies</a>
-          <a href="">Accessibility help</a>
-          <a href="">Advertise with us</a>
-          <a href="">Contact us</a>
-        </div>
-      </div>
-    </div>
-    <!-- Footer Menu End -->
+
 
     <!-- Footer Bottom Start -->
     <div class="footer-bottom">
@@ -95,14 +82,14 @@
         <div class="row">
           <div class="col-md-6 copyright">
             <p>
-              Copyright &copy; <a href="">Your Site Name</a>. All Rights
+              Copyright &copy; <a href="">{{ config('app.name') }}</a>. All Rights
               Reserved
             </p>
           </div>
 
           <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
           <div class="col-md-6 template-by">
-            <p>Designed By <a href="https://htmlcodex.com">HTML Codex</a></p>
+            <p>Designed By <a href="https://belal-hesham.my.canva.site/portfolio">Belal Hesham</a></p>
           </div>
         </div>
       </div>
@@ -118,6 +105,11 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/forntend/lib/easing/easing.min.js') }}"></script>
     <script src="{{ asset('assets/forntend/lib/slick/slick.min.js') }}"></script>
+    <!--  file input -->
+<script src="{{ asset('assets/forntend/vendor/file-input/js/fileinput.min.js') }}"></script>
+<script src="{{ asset('assets/forntend/vendor/file-input/themes/fa5/theme.min.js') }}"> </script>
 
+{{-- summer notee --}}
+<script src="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.js') }}"> </script>
     <!-- Template Javascript -->
     <script src="{{ asset('assets/forntend/js/main.js') }}"></script>

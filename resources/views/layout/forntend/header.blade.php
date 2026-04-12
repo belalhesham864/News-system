@@ -14,6 +14,26 @@
               <a href="">Privacy</a>
               <a href="">Terms</a>
               <a href="{{ route('forntend.contact') }}">Contact</a>
+              @guest
+                
+              <a href="{{ route('register') }}">Register</a>
+              <a href="{{ route('login') }}">Login</a>
+              @endguest
+              @auth
+              
+              <a href="#" onclick="
+              event.preventDefault();
+              if(confirm('do you sure logout')){
+              document.getElementById('formlogout').submit()
+              }
+              return false
+              " >Logout</a>
+              @endauth
+              <form id="formlogout" action="{{ route('logout') }}" method="post">
+                @csrf
+                
+
+              </form>
             </div>
           </div>
         </div>
@@ -43,6 +63,10 @@
 
               <div class="b-search">
                 <input type="text" title="search" name="search" placeholder="Search" />
+                @error('search')
+                  
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
                 <button type="submit"><i class="fa fa-search"></i></button>
               </div>
             </form>
@@ -87,11 +111,9 @@
                 
                 </div>
               </div>
-              <a href="single-page.html" class="nav-item nav-link"
-                >Single Page</a
-              >
-              <a href="dashboard.html" class="nav-item nav-link">Dashboard</a>
+             
               <a href="{{ route('forntend.contact') }}" class="nav-item nav-link">Contact Us</a>
+              <a href="{{ route('forntend.dashboard.porfile') }}" class="nav-item nav-link">Dashboard</a>
             </div>
             <div class="social ml-auto">
               <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>

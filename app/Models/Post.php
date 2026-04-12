@@ -31,5 +31,8 @@ class Post extends Model
             ]
         ];
     }
+    public function scopeActive($query){
+      $query->where('status',1);
+    }
 
 }

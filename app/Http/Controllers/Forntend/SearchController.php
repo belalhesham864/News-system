@@ -13,9 +13,14 @@ class SearchController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $posts = Post::where('title', 'LIKE', '%' . $request->search . '%')
-            ->orWhere('desc', 'Like', '%' . $request->search . '%')
-            ->paginate(14);
-        return view('forntend.searchPost',compact('posts'));
+        $request->validate([
+            'search'=>'required|string|max:100'
+        ]);
+        $keyword=strip_tags($request->search);
+        $posts = Post::active()->where('title', 'LIKE', '%' . $keyword . '%')
+        ->orWhere('desc', 'Like', '%' . $keyword . '%')
+        ->paginate(14);
+     
+        return view('forntend.searchPost',compact('posts','keyword'));
     }
 }

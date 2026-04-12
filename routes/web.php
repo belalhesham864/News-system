@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Forntend\CategoryController;
 use App\Http\Controllers\Forntend\ContactUsController;
 use App\Http\Controllers\Forntend\HomeController;
 use App\Http\Controllers\Forntend\NewsSubscrriberController;
+use App\Http\Controllers\Forntend\porfilecontroller;
 use App\Http\Controllers\Forntend\PostController;
 use App\Http\Controllers\Forntend\SearchController;
 use Illuminate\Support\Facades\Auth;
@@ -17,12 +19,24 @@ use function Laravel\Prompts\search;
 //     return view('forntend.contact-us');
 // });
 
+/////////////AUTH//////////////////////////////
+Route::controller(VerificationController::class)->prefix('email')->name('verification.')->group(function(){
+
+    Route::get('/verify', 'show')->name('notice');
+    Route::get('/verify/{id}/{hash}', 'verify')->name('verify');
+    Route::post('/resend','resend')->name('resend');
+    });
+
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::redirect('/','/home');
+
+
 Route::group(['as'=>'forntend.',],function(){
     //////////////// home page /////////////////////////
-Route::get('/',[HomeController::class,'index'])->name('index');
+Route::get('/home',[HomeController::class,'index'])->name('index');
 /////////////// NewsSubscrribe /////////////////////////////////////
 Route::post('/news-sub',[NewsSubscrriberController::class,'store'])->name('subscribe');
 //////////////// category Post //////////////////////////////////
@@ -41,6 +55,15 @@ Route::controller(ContactUsController::class)->prefix('contact-us')->group(funct
       
     ///////////// Search Post //////////////////
     Route::match(['get','post'],'Search/',SearchController::class)->name('search');
+    
+/////////////// dashboard user /////////////////
+Route::prefix('account')->name('dashboard.')->middleware(['auth:web','verified'])->group(function(){
+  Route::controller(porfilecontroller::class)->group(function(){
+  Route::get('porfile','index')->name('porfile');
+  Route::post('post/store','store')->name('post.store');
+  });
+    
+        });
 
 });
 

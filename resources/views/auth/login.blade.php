@@ -1,6 +1,12 @@
-@extends('layouts.app')
-
-@section('content')
+@extends('layout.forntend.app')
+@section('title')
+Login
+@endsection
+@section('breadcrumb')
+  @parent
+            <li class="breadcrumb-item active">Login</li>
+@endsection
+@section('body')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -66,8 +72,10 @@
                         </div>
                     </form>
                 </div>
+                   
             </div>
         </div>
     </div>
 </div>
+  <br>  <br>
 @endsection

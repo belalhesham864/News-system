@@ -4,9 +4,15 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
+use function Flasher\Prime\flash;
 
 class RegisterController extends Controller
 {
@@ -48,10 +54,33 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:50', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'username'=>['required', 'string', 'max:255','unique:users'],
+            'phone'=>['required', 'string', 'max:16','unique:users'],
+            'country'=>['nullable', 'string', 'max:50'],
+            'city'=>['nullable', 'string', 'max:50'],
+            'street'=>['nullable', 'string', 'max:50'],
+            'image'=>['nullable','image','mimes:jpg,jpeg,png,webp','max:2048']
         ]);
+    }
+        public function register(Request $request)
+    {
+        
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return $request->wantsJson()
+                    ? new JsonResponse([], 201)
+                    : redirect($this->redirectPath());
     }
 
     /**
@@ -61,10 +90,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'username'=>$data['username'],
+            'phone'=>$data['phone'],
+            'country'=>$data['country'],
+            'street'=>$data['street'],
+            'status'=>1,
+            'city'=>$data['city'],
             'password' => Hash::make($data['password']),
         ]);
+if($data['image']){
+    $file=$data['image'];
+    $filename=str::slug($user->username).time().'.'.$file->getClientOriginalExtension();
+    $path=$file->storeAs('uploads/users',$filename,['disk'=>'uploads']);
+    $user->update([
+        'image'=>$path
+    ]);
+}
+        return $user;
+        
+    }
+        protected function registered(Request $request, $user)
+    {
+        flash()->success('Account created successfully');
     }
 }

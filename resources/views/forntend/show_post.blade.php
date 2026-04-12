@@ -1,6 +1,6 @@
 @extends('layout.forntend.app')
 @section('title')
-    show post
+     post  {{ $mainpost->title}}
 @endsection
 @section('breadcrumb')
   @parent

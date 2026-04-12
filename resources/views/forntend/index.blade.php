@@ -1,6 +1,6 @@
 @extends('layout.forntend.app')
 @section('title')
-News
+Home
 @stop
 @section('breadcrumb')
   @parent
@@ -17,7 +17,7 @@ News
             
             <div class="col-md-6">
               <div class="tn-img">
-               ف <img src="{{ $post->images->first()->path}}" />
+               <img src="{{ $post->images->first()->path}}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>

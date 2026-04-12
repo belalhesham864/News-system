@@ -15,11 +15,14 @@ class PostController extends Controller
             $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
         $category = $mainpost->category;
+
+
+
         $belongstocategory = $category->posts()->select('id', 'title', 'slug')->latest()->limit(5)->get();
         return view('forntend.show_post', compact('mainpost', 'belongstocategory'));
     }
     public function getallcomment($slug){
-   $post=post::where('slug',$slug)->first();
+   $post=post::active()->where('slug',$slug)->first();
    $comments=$post->comment()->with('user')->latest()->get();
  return response()->json($comments);
     }

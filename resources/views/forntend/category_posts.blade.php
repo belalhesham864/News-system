@@ -1,11 +1,11 @@
 @extends('layout.forntend.app')
 @section('title')
-    posts
+    Category  {{ $category->name}}
 @endsection
 
 @section('breadcrumb')
   @parent
-            <li class="breadcrumb-item active"></li>
+            <li class="breadcrumb-item active">{{ $category->name }}</li>
 @endsection
 
 @section('body')

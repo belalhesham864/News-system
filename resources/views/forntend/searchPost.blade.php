@@ -9,6 +9,9 @@
       <div class="row">
         <div class="col-lg-12">
           <div class="row">
+            @if ($posts->count()>0)
+                
+           
             @foreach ($posts as $post)
               <div class="col-md-4">
                 <div class="mn-img">
@@ -19,7 +22,12 @@
                 </div>
               </div>
             @endforeach
+  @else
+<p class="text-center mt-4">
+    No results for "<strong>{{ $keyword }}</strong>" 
+</p>   
 
+@endif
           </div>
         </div>
 
