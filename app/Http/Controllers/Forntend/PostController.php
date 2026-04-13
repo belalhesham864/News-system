@@ -19,6 +19,7 @@ class PostController extends Controller
 
 
         $belongstocategory = $category->posts()->select('id', 'title', 'slug')->latest()->limit(5)->get();
+        $mainpost->increment('numer_of_view');
         return view('forntend.show_post', compact('mainpost', 'belongstocategory'));
     }
     public function getallcomment($slug){

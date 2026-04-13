@@ -159,9 +159,12 @@
                               </a>
                              <a class="btn btn-sm btn-outline-danger" data-effect="effect-scale"
                                                        data-toggle="modal"
-                                                       href="#delete{{$post->id}}" title="حذف">  <i class="fas fa-trash"></i> Delete</a>
-                                                           <button id="getcommit" post-id="{{ $post->id }}" class="btn btn-sm btn-outline-secondary">
+                                                       href="#delete{{$post->id}}" title="delete">  <i class="fas fa-trash"></i> Delete</a>
+                                                           <button id="getcommit_{{ $post->id }}" class="btncommit" post-id="{{ $post->id }}" class="btn btn-sm btn-outline-secondary">
                                   <i class="fas fa-comment"></i> Comments
+                            </button>
+                                                           <button id="hide_commit_{{ $post->id }}" style="display: none" class="hide_commit" post-id="{{ $post->id }}" class="btn btn-sm btn-outline-secondary">
+                                  <i class="fas fa-comment"></i>    Hide Comments
                             </button>
                           </div>
                       </div>
@@ -233,7 +236,7 @@
          });
     })
     //get post comment
-    $(document).on('click','#getcommit',function(e){
+    $(document).on('click','.btncommit',function(e){
      e.preventDefault();
     var postId=$(this).attr('post-id')
      let url ="{{ route('forntend.dashboard.post.getallcomment',':id') }}"
@@ -244,8 +247,8 @@
      
 
         success:function(responce){
+            $('#displaycomment_'+postId).empty()
    $.each(responce.data,function(index,comment){
-  $('#displaycomment_'+postId).empty()
        $('#displaycomment_'+postId).append(`  <div class="comment">
         <img src="${comment.user.image}" alt="User Image" class="comment-img" />
         <div class="comment-content">
@@ -255,12 +258,21 @@
             </div>`);
             });
              $('#displaycomment_' + postId).show(); 
+             $('#getcommit_'+postId).hide();
+             $('#hide_commit_'+postId).show();
         },
         error:function(){
 
         }
     });
     });
+    $(document).on('click','.hide_commit',function(e){
+        var post_id=$(this).attr('post-id')
+        e.preventDefault();
+        $('#displaycomment_'+post_id).hide();
+        $('#hide_commit_'+post_id).hide();
+         $('#getcommit_'+post_id).show();
+    })
 </script>
     
 @endpush
