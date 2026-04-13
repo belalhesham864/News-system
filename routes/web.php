@@ -8,6 +8,7 @@ use App\Http\Controllers\Forntend\NewsSubscrriberController;
 use App\Http\Controllers\Forntend\porfilecontroller;
 use App\Http\Controllers\Forntend\PostController;
 use App\Http\Controllers\Forntend\SearchController;
+use App\Http\Controllers\Forntend\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use function Laravel\Prompts\search;
@@ -57,7 +58,7 @@ Route::controller(ContactUsController::class)->prefix('contact-us')->group(funct
     Route::match(['get','post'],'Search/',SearchController::class)->name('search');
     
 /////////////// dashboard user /////////////////
-Route::prefix('account')->name('dashboard.')->middleware(['auth:web','verified'])->group(function(){
+Route::prefix('account/')->name('dashboard.')->middleware(['auth:web','verified'])->group(function(){
     // manage porfile
   Route::controller(porfilecontroller::class)->group(function(){
   Route::get('porfile','index')->name('porfile');
@@ -66,6 +67,12 @@ Route::prefix('account')->name('dashboard.')->middleware(['auth:web','verified']
   Route::delete('post/delete/{id}','delete')->name('post.delete');
   Route::get('post/comment/{id}','getallcomment')->name('post.getallcomment');
 
+  });
+       ////// setting Porfile //////////////////////////
+  Route::controller(SettingController::class)->prefix('setting')->group(function(){
+  Route::get('/','getsetting')->name('setting');
+  Route::post('/update','update')->name('update');
+  Route::match(['get','post'],'/changepassword','changepassword')->name('changepassword');
   });
     
         });

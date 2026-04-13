@@ -10,7 +10,7 @@
   <aside class="col-md-3 nav-sticky dashboard-sidebar">
       <!-- User Info Section -->
       <div class="user-info text-center p-3">
-          <img src="{{ asset('default.jpg') }}" alt="User Image" class="rounded-circle mb-2"
+          <img src="{{ asset(auth()->user()->image) }}" alt="User Image" class="rounded-circle mb-2"
               style="width: 80px; height: 80px; object-fit: cover" />
           <h5 class="mb-0" style="color: #ff6f61">{{ auth()->user()->name }}</h5>
       </div>
@@ -23,7 +23,7 @@
           <a href="./notifications.html" class="list-group-item list-group-item-action menu-item" data-section="notifications">
               <i class="fas fa-bell"></i> Notifications
           </a>
-          <a href="./setting.html" class="list-group-item list-group-item-action menu-item" data-section="settings">
+          <a href="{{ route('forntend.dashboard.setting') }}" class="list-group-item list-group-item-action menu-item" data-section="settings">
               <i class="fas fa-cog"></i> Settings
           </a>
       </div>
@@ -35,7 +35,7 @@
       <section id="profile" class="content-section active">
           <h2>User Profile</h2>
           <div class="user-profile mb-3">
-              <img src="{{ asset('default.jpg') }}" alt="User Image" class="profile-img rounded-circle" style="width: 100px; height: 100px;" />
+              <img src="{{ asset(auth()->user()->image) }}" alt="User Image" class="profile-img rounded-circle" style="width: 100px; height: 100px;" />
               <span class="username">{{ auth()->user()->name }}</span>
           </div>
           <br>
