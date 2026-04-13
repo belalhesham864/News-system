@@ -17,7 +17,7 @@ Home
             
             <div class="col-md-6">
               <div class="tn-img">
-               <img src="{{ $post->images->first()->path}}" />
+               <img style="height: 383px; width: 510px;" src="{{ asset($post->images->first()->path)}}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
@@ -32,7 +32,7 @@ Home
             @foreach ($latest_four as $post )
              <div class="col-md-6">
               <div class="tn-img">
-                <img src="{{$post->images->first()->path }}" />
+                <img style="height: 383px; width: 510px;" src="{{asset($post->images->first()->path) }}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
@@ -60,7 +60,7 @@ Home
           @foreach ($categoriy->posts as  $post)
               <div class="col-md-6">
               <div class="cn-img">
-                <img src="{{ $post->images->first()->path }}" />
+                <img style="height: 180px; width: 240px;" src="{{ asset($post->images->first()->path) }}" />
                 <div class="cn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
@@ -100,7 +100,7 @@ Home
           @foreach ($oldest_news as $post )
               <div class="tn-news">
                 <div class="tn-img">
-                  <img src="{{ $post->images->first()->path }}" />
+                  <img style="height: 113px; width: 150px;" src="{{ asset($post->images->first()->path) }}" />
                 </div>
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}}</a>
@@ -119,7 +119,7 @@ Home
            @foreach ($greats_post_comment as $post )
               <div class="tn-news">
                 <div class="tn-img">
-                  <img src="{{$post->images->first()->path}}" />
+                  <img style="height: 113px; width: 150px;" src="{{asset($post->images->first()->path)}}" />
                 </div>
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}} ({{ $post->comment_count }})</a>
@@ -149,7 +149,7 @@ Home
           @foreach ($latest_three as $last )
               <div class="tn-news">
                 <div class="tn-img">
-                  <img src="{{ $last->images->first()->path }}" />
+                  <img style="height: 113px; width: 150px;" src="{{asset($last->images->first()->path)}}" />
                 </div>
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$last->slug) }}">{{ $last->title }}</a>
@@ -163,7 +163,7 @@ Home
             @foreach ($greats_view as $post )
                 <div class="tn-news">
                 <div class="tn-img">
-                  <img src="{{ $post->images->first()->path }}" />
+                  <img style="height: 113px; width: 150px;" src="{{asset($post->images->first()->path) }}" />
                 </div>
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }} ({{ $post->numer_of_view }})</a>
@@ -189,7 +189,7 @@ Home
             @foreach ($posts as $post)
               <div class="col-md-4">
                 <div class="mn-img">
-                  <img src="{{ $post->images->first()->path }}" />
+                  <img style="height: 191px; width: 255px;" src="{{ asset($post->images->first()->path) }}" />
                   <div class="mn-title">
                     <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                   </div>

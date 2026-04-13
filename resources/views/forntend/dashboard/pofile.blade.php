@@ -12,7 +12,7 @@
       <div class="user-info text-center p-3">
           <img src="{{ asset('default.jpg') }}" alt="User Image" class="rounded-circle mb-2"
               style="width: 80px; height: 80px; object-fit: cover" />
-          <h5 class="mb-0" style="color: #ff6f61">Salem Taha</h5>
+          <h5 class="mb-0" style="color: #ff6f61">{{ auth()->user()->name }}</h5>
       </div>
 
       <!-- Sidebar Menu -->
@@ -36,7 +36,7 @@
           <h2>User Profile</h2>
           <div class="user-profile mb-3">
               <img src="{{ asset('default.jpg') }}" alt="User Image" class="profile-img rounded-circle" style="width: 100px; height: 100px;" />
-              <span class="username">Salem Taha</span>
+              <span class="username">{{ auth()->user()->name }}</span>
           </div>
           <br>
     @if (session()->has('errors'))
@@ -88,98 +88,117 @@
               </div>
           </section>
 </form>
-          <!-- Posts Section -->
+          <!-- Show Posts  -->
           <section id="posts" class="posts-section">
               <h2>Recent Posts</h2>
               <div class="post-list">
                   <!-- Post Item -->
+                  @forelse ($postsuser as $post )
                   <div class="post-item mb-4 p-3 border rounded">
                       <div class="post-header d-flex align-items-center mb-2">
-                          <img src="{{ asset('default.jpg') }}" alt="User Image" class="rounded-circle" style="width: 50px; height: 50px;" />
+                          <img src="{{ asset(auth()->user()->image) }}" alt="User Image" class="rounded-circle" style="width: 50px; height: 50px;" />
                           <div class="ms-3">
-                              <h5 class="mb-0">Salem Taha</h5>
-                              <small class="text-muted">2 hours ago</small>
+                              <h5 class="mb-0">{{ auth()->user()->name }}</h5>
+                            
                           </div>
                       </div>
-                      <h4 class="post-title">Post Title Here</h4>
-                      <p class="post-content">This is an example post content. The user can share their thoughts, upload images, and more.</p>
-
-                      <div id="newsCarousel" class="carousel slide" data-ride="carousel">
-                          <ol class="carousel-indicators">
-                              <li data-target="#newsCarousel" data-slide-to="0" class="active"></li>
-                              <li data-target="#newsCarousel" data-slide-to="1"></li>
-                              <li data-target="#newsCarousel" data-slide-to="2"></li>
-                          </ol>
+                
+                          
+                      <h4 class="post-title"><a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a></h4>
+                      <p class="post-content">{!! $post->desc !!}</p>
+                 
+@if($post->images->count()>0)
+                <div id="newsCarousel{{ $post->id }}" class="carousel slide">
+    
+    <ol class="carousel-indicators">
+        @foreach ($post->images as $image)
+            <li 
+                data-target="#newsCarousel{{ $post->id }}" 
+                data-slide-to="{{ $loop->index }}" 
+                class="{{ $loop->first ? 'active' : '' }}">
+            </li>
+        @endforeach
+    </ol>
                           <div class="carousel-inner">
-                              <div class="carousel-item  active">
-                                  <img src="{{ asset('default.jpg') }}" class="d-block w-100" alt="First Slide">
+                           @foreach ($post->images as $image )
+                                  <div class="carousel-item  @if ($loop->index==0) active @endif ">
+                                  <img style="width: 678px; height: 508px;" src="{{ asset($image->path)}}" class="d-block w-100" alt="First Slide">
                                   <div class="carousel-caption d-none d-md-block">
-                                      <h5>dsfdk</h5>
-                                      <p>
-                                          oookok
-                                      </p>
+                                      <h5 style="color: #fff; text-shadow: 2px 2px 6px rgba(0,0,0,0.8); font-weight: bold;">{{ $post->title }}</h5>
+                       
+                                      
+                            
                                   </div>
                               </div>
-                              <div class="carousel-item ">
-                                  <img src="{{ asset('default.jpg') }}" class="d-block w-100" alt="First Slide">
-                                  <div class="carousel-caption d-none d-md-block">
-                                      <h5>dsfdk</h5>
-                                      <p>
-                                          oookok
-                                      </p>
-                                  </div>
-                              </div>
-
+                              @endforeach
+  
                               <!-- Add more carousel-item blocks for additional slides -->
                           </div>
-                          <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                          <a class="carousel-control-prev" href="#newsCarousel{{ $post->id }}" role="button" data-slide="prev">
                               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                               <span class="sr-only">Previous</span>
                           </a>
-                          <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                          <a class="carousel-control-next" href="#newsCarousel{{ $post->id }}" role="button" data-slide="next">
                               <span class="carousel-control-next-icon" aria-hidden="true"></span>
                               <span class="sr-only">Next</span>
                           </a>
                       </div>
-
+   @endif
                       <div class="post-actions d-flex justify-content-between">
                           <div class="post-stats">
                               <!-- View Count -->
                               <span class="me-3">
-                                  <i class="fas fa-eye"></i> 123 views
+                                  <i class="fas fa-eye"></i> {{ $post->numer_of_view }}
                               </span>
                           </div>
 
                           <div>
-                              <a href="" class="btn btn-sm btn-outline-primary">
+                              <a href="{{ route('forntend.dashboard.post.edit',$post->slug) }}" class="btn btn-sm btn-outline-primary">
                                   <i class="fas fa-edit"></i> Edit
                               </a>
-                              <a href="" class="btn btn-sm btn-outline-primary">
-                                  <i class="fas fa-thumbs-up"></i> Delete
-                              </a>
-                              <button class="btn btn-sm btn-outline-secondary">
-                                  <i class="fas fa-comment"></i> Comments
-                              </button>
+                             <a class="btn btn-sm btn-outline-danger" data-effect="effect-scale"
+                                                       data-toggle="modal"
+                                                       href="#delete{{$post->id}}" title="حذف">  <i class="fas fa-trash"></i> Delete</a>
                           </div>
                       </div>
 
-                        <!-- Display Comments -->
-                        <div class="comments">
-                              <div class="comment">
-                                  <img src="{{ asset('default.jpg') }}" alt="User Image" class="comment-img" />
-                                  <div class="comment-content">
-                                      <span class="username"></span>
-                                      <p class="comment-text">first comment</p>
-                                  </div>
-                              </div>
-                          <!-- Add more comments here for demonstration -->
-                         </div>
+                    
                   </div>
 
                   <!-- Add more posts here dynamically -->
+                  @empty
+                  <div class="alert alert-info"> NO posts</div>
+                     @endforelse
+                  
               </div>
           </section>
       </section>
+      @foreach ($postsuser as $post)
+          
+   
+      <div class="modal" id="delete{{$post->id}}">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content modal-content-demo">
+                                <div class="modal-header">
+                                    <h6 class="modal-title">Delete post</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                                                   type="button"><span aria-hidden="true">&times;</span></button>
+                                </div>
+                                <form action="{{route('forntend.dashboard.post.delete', $post->id)}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <div class="modal-body">
+                                        <p>Do you sure wabt delete the post</p><br>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">close</button>
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </div>
+                            </div>
+                            </form>
+	
+                        </div>
+                    </div>
+                    @endforeach
   </div>
 </div>
 <!-- Profile End -->

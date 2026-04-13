@@ -58,9 +58,13 @@ Route::controller(ContactUsController::class)->prefix('contact-us')->group(funct
     
 /////////////// dashboard user /////////////////
 Route::prefix('account')->name('dashboard.')->middleware(['auth:web','verified'])->group(function(){
+    // manage porfile
   Route::controller(porfilecontroller::class)->group(function(){
   Route::get('porfile','index')->name('porfile');
   Route::post('post/store','store')->name('post.store');
+  Route::get('post/edit{slug}','edit')->name('post.edit');
+  Route::delete('post/delete/{id}','delete')->name('post.delete');
+
   });
     
         });

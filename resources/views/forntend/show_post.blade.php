@@ -25,12 +25,10 @@
                 <div class="carousel-inner">
                @foreach ($mainpost->images as $image )
                   <div class="carousel-item @if ($loop->index==0)active @endif">
-                      <img src="{{ $image->path }}" class="d-block w-100" alt="First Slide">
+                      <img style="height: 480px; width: 640px;" src="{{asset( $image->path) }}" class="d-block w-100" alt="First Slide">
                       <div class="carousel-caption d-none d-md-block">
                         <h5 style="color: #fff; text-shadow: 2px 2px 6px rgba(0,0,0,0.8); font-weight: bold;">{{ $mainpost->title }}</h5>
-                        <p style="color: #fff; text-shadow: 1px 1px 5px rgba(0,0,0,0.7); font-size: 14px;">
-                            {{ substr($mainpost->desc, 0,80) }}
-                        </p>
+                       
                       </div>
                     </div>
                @endforeach
@@ -47,21 +45,25 @@
                 </a>
               </div>
               <div class="sn-content">
-              {{ $mainpost->desc }}
+              {!! $mainpost->desc !!}
                  </div>
 
               <!-- Comment Section -->
               <div class="comment-section">
                 <!-- Comment Input -->
+           @if($mainpost->comment_able==true)
                 <form action="" id='commentform'>
                 <div class="comment-input">
             @csrf
                     <input title="comment" id="commentid" name="comment" type="text" placeholder="Add a comment..." id="commentBox" />
-                    <input type="hidden" name="user_id" value="1">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                     <input type="hidden" name="post_id" value="{{ $mainpost->id }}">
                   <button title="submit" id="addCommentBtn">Comment</button>
                 </div>
               </form>
+              @else
+              <div class="alert alert-info">unable to comment</div>
+           @endif
 
 
               <div style="display: none" id="errormessage" class="alert alert-danger"></div>
@@ -71,7 +73,7 @@
                         
                
                   <div class="comment">
-                    <img src="{{ $comment->user->image }}" alt="User Image" class="comment-img" />
+                    <img src="{{ asset($comment->user->image) }}" alt="User Image" class="comment-img" />
                     <div class="comment-content">
                       <span class="username">{{$comment->user->name}}</span>
                       <p class="comment-text">{{ $comment->comment }}</p>
@@ -83,7 +85,10 @@
                 </div>
 
                 <!-- Show More Button -->
+              @if ($mainpost->comment()->count() >3)
                 <button id="showMoreBtn" class="show-more-btn">Show more</button>
+                
+              @endif
               </div>
 
               <!-- Related News -->
@@ -93,7 +98,7 @@
                  @foreach ($belongstocategory as $post )
  <div class="col-md-4">
                     <div class="sn-img">
-                      <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" class="img-fluid" alt="Related News 1" />
+                      <img style="height: 161px; width: 214px;" src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" class="img-fluid" alt="Related News 1" />
                       <div class="sn-title">
                         <a href="{{ route('forntend.post.show',$post->slug) }}" title="{{ $post->title }}">{{ $post->title }}</a>
                       </div>
@@ -113,7 +118,7 @@
                @foreach ($belongstocategory as $post )
                   <div class="nl-item">
                     <div class="nl-img">
-                      <img src="{{ $post->images->first()->path }}" />
+                      <img style="height: 75px; width: 100px;" src="{{ asset($post->images->first()->path) }}" />
                     </div>
                     <div class="nl-title">
                       <a href="{{ route('forntend.post.show',$post->slug) }}"
@@ -151,7 +156,7 @@
                           @foreach ($greats_post_comment as $post )
                       <div class="tn-news">
                         <div class="tn-img">
-                          <img src="{{ $post->images->first()->path }}" alt="{{ $post->title }}" />
+                          <img style="height: 75px; width: 100px;" src="{{ asset($post->images->first()->path) }}" alt="{{ $post->title }}" />
                         </div>
                         <div class="tn-title">
                           <a href="{{ route('forntend.post.show',$post->slug) }}">{{$post->title}} ({{ $post->comment_count }})</a>
@@ -171,7 +176,7 @@
                   @foreach ($latest as $post)
                       <div class="tn-news">
                         <div class="tn-img">
-                          <img src="{{ $post->images->first()->path }}" />
+                          <img style="height: 75px; width: 100px;" src="{{ asset($post->images->first()->path) }}" />
                         </div>
                         <div class="tn-title">
                           <a href="{{ route('forntend.post.show',$post->slug) }}"

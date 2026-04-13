@@ -37,6 +37,7 @@ $latest_four  = Post::latest()->take(4)->get();
 
         $greats_post_comment = Cache::get('greats_post_comment');
         $posts = Post::with('images')->latest()->paginate(9);
+                  
 
         
         view()->share([
@@ -46,6 +47,7 @@ $latest_four  = Post::latest()->take(4)->get();
             'categories' => $categories,
             'latest_three'=>$latest_three,
             'latest_four'=>$latest_four,
+          
         ]);
     }
 }

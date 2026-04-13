@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Forntend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forntend\PorfileRequest;
 use App\Models\Post;
+use App\Utils\ImageManger;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 use function Flasher\Prime\flash;
@@ -14,7 +17,8 @@ use function Flasher\Prime\flash;
 class porfilecontroller extends Controller
 {
     public function index(){
-        return view('forntend.dashboard.pofile');
+        $postsuser=Post::active()->with('images')->where('user_id',auth()->user()->id)->get();
+        return view('forntend.dashboard.pofile',compact('postsuser'));
     }
     public function store(PorfileRequest $request){
         try{
@@ -28,16 +32,9 @@ $request->comment_able=='on' ? $request->merge(['comment_able'=>1]):$request->me
 
  $post=Post::create($request->except('images'));
 
- if($request->hasFile('images')){
-    foreach($request->images as $image){
-        $imagename= $post->slug . time(). ".". $image->getClientOriginalExtension();
-        $path=$image->storeAs('uploads/news', $imagename,['disk'=>'uploads']);
-        $post->images()->create([
-            'path'=>$path,
-        ]);
-    }
- }
+ImageManger::upload($request,$post);
  DB::commit();
+ Cache::forget('read_post_more');
         }catch(\Exception $e){
             DB::rollBack();
             return redirect()->back()->withErrors(['errors',$e->getMessage()]);
@@ -47,4 +44,25 @@ $request->comment_able=='on' ? $request->merge(['comment_able'=>1]):$request->me
  flash()->success('Your news has been published successfully');
  return redirect()->back();
         }
+
+        public function edit($slug){
+            $post=Post::where('slug',$slug)->first();
+          
+        }
+      public function delete($id){
+         $post=Post::where('id',$id)->first();
+      if(!$post){
+       abort(404);
+      }
+      if($post->images()->count()>0){
+  foreach($post->images as $image){
+    if((File::exists(public_path($image->path)))){
+        File::delete(public_path($image->path));
+    }
+  }
+      }
+      $post->delete();
+     flash()->success('post deleted successfully');
+     return back();
+      }
 }
