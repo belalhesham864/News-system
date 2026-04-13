@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Forntend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forntend\PorfileRequest;
+use App\Models\Comment;
 use App\Models\Post;
 use App\Utils\ImageManger;
 use Illuminate\Http\Request;
@@ -54,15 +55,25 @@ ImageManger::upload($request,$post);
       if(!$post){
        abort(404);
       }
-      if($post->images()->count()>0){
-  foreach($post->images as $image){
-    if((File::exists(public_path($image->path)))){
-        File::delete(public_path($image->path));
-    }
-  }
-      }
+   ImageManger::delete($post);
       $post->delete();
      flash()->success('post deleted successfully');
      return back();
+      }
+
+      public function getallcomment($id){
+  $comments=Comment::with(['user'])->where('post_id',$id)->get();
+  if(!$comments){
+
+      return response()->json([
+          'data'=>null,
+          'msg'=>'No comment'
+          ]);
+          }
+          return response()->json([
+            'data'=>$comments
+          ]);
+
+       
       }
 }

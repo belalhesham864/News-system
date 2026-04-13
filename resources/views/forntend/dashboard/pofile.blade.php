@@ -105,7 +105,7 @@
                 
                           
                       <h4 class="post-title"><a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a></h4>
-                      <p class="post-content">{!! $post->desc !!}</p>
+                      <p class="post-content">{!! chunk_split($post->desc,78,'<br>') !!}</p>
                  
 @if($post->images->count()>0)
                 <div id="newsCarousel{{ $post->id }}" class="carousel slide">
@@ -142,6 +142,7 @@
                               <span class="carousel-control-next-icon" aria-hidden="true"></span>
                               <span class="sr-only">Next</span>
                           </a>
+                          
                       </div>
    @endif
                       <div class="post-actions d-flex justify-content-between">
@@ -159,9 +160,17 @@
                              <a class="btn btn-sm btn-outline-danger" data-effect="effect-scale"
                                                        data-toggle="modal"
                                                        href="#delete{{$post->id}}" title="حذف">  <i class="fas fa-trash"></i> Delete</a>
+                                                           <button id="getcommit" post-id="{{ $post->id }}" class="btn btn-sm btn-outline-secondary">
+                                  <i class="fas fa-comment"></i> Comments
+                            </button>
                           </div>
                       </div>
-
+ <!-- Display Comments -->
+                        <div id="displaycomment_{{ $post->id }}" class="comments" style="display: none">
+                              
+                           
+                          <!-- Add more comments here for demonstration -->
+                         </div>
                     
                   </div>
 
@@ -220,10 +229,38 @@
               placeholder: 'Whats on your mind?',
         tabsize: 2,
         height: 100,
-        
+       
          });
     })
+    //get post comment
+    $(document).on('click','#getcommit',function(e){
+     e.preventDefault();
+    var postId=$(this).attr('post-id')
+     let url ="{{ route('forntend.dashboard.post.getallcomment',':id') }}"
+     url=url.replace(':id',postId)
+    $.ajax({
+        url: url,
+        type: "get",
+     
 
+        success:function(responce){
+   $.each(responce.data,function(index,comment){
+  $('#displaycomment_'+postId).empty()
+       $('#displaycomment_'+postId).append(`  <div class="comment">
+        <img src="${comment.user.image}" alt="User Image" class="comment-img" />
+        <div class="comment-content">
+            <span class="username">${comment.user.name}</span>
+            <p class="comment-text">${comment.comment}</p>
+            </div>
+            </div>`);
+            });
+             $('#displaycomment_' + postId).show(); 
+        },
+        error:function(){
+
+        }
+    });
+    });
 </script>
     
 @endpush

@@ -64,6 +64,7 @@ Route::prefix('account')->name('dashboard.')->middleware(['auth:web','verified']
   Route::post('post/store','store')->name('post.store');
   Route::get('post/edit{slug}','edit')->name('post.edit');
   Route::delete('post/delete/{id}','delete')->name('post.delete');
+  Route::get('post/comment/{id}','getallcomment')->name('post.getallcomment');
 
   });
     
