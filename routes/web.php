@@ -63,9 +63,12 @@ Route::prefix('account/')->name('dashboard.')->middleware(['auth:web','verified'
   Route::controller(porfilecontroller::class)->group(function(){
   Route::get('porfile','index')->name('porfile');
   Route::post('post/store','store')->name('post.store');
-  Route::get('post/edit{slug}','edit')->name('post.edit');
+  Route::get('post/edit/{slug}','edit')->name('post.edit');
+  Route::put('post/update','update')->name('post.update');
+  Route::post('post/image/delete/{image_id}','deletePostimage')->name('post.imagge.delete');
   Route::delete('post/delete/{id}','delete')->name('post.delete');
   Route::get('post/comment/{id}','getallcomment')->name('post.getallcomment');
+
 
   });
        ////// setting Porfile //////////////////////////

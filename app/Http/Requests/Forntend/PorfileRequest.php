@@ -27,7 +27,7 @@ class PorfileRequest extends FormRequest
             'desc'=> 'required|string|min:50',
             'category_id'=>'required|exists:categories,id',
             'comment_able'=>'in:on, off',
-            'images'=>'required',
+            'images'=>'nullable',
             'images.*'=> 'image','mimes:jpg,jpeg,png,webp',
         ];
     }

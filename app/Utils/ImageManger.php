@@ -32,9 +32,10 @@ class ImageManger{
     public static function delete($post){
               if($post->images()->count()>0){
   foreach($post->images as $image){
-    if((File::exists(public_path($image->path)))){
+    if(File::exists(public_path($image->path))){
         File::delete(public_path($image->path));
     }
+    $image->delete();
   }
       }
     }
