@@ -95,7 +95,7 @@
             id="navbarCollapse"
           >
             <div class="navbar-nav mr-auto">
-              <a href="{{ route('forntend.index') }}" class="nav-item nav-link active">Home</a>
+              <a href="{{ route('forntend.index') }}" class="nav-item nav-link   {{ request()->routeIs('forntend.index') ? 'active' : '' }}">Home</a>
               <div class="nav-item dropdown">
                 <a
                   href="#"
@@ -105,17 +105,41 @@
                 >
                 <div class="dropdown-menu">
                   @foreach ($categories as $category )
-                  <a href="{{ route('forntend.category.posts',$category->slug) }}" title="{{ $category->name }}" class="dropdown-item">{{ $category->name }}</a>
+                  <a href="{{ route('forntend.category.posts',$category->slug) }}" title="{{ $category->name }}" class="dropdown-item {{ request()->routeIs('forntend.category.posts') && request()->route('slug') == $category->slug ? 'active' : '' }}">{{ $category->name }}</a>
                   
                   @endforeach
                 
                 </div>
               </div>
              
-              <a href="{{ route('forntend.contact') }}" class="nav-item nav-link">Contact Us</a>
-              <a href="{{ route('forntend.dashboard.porfile') }}" class="nav-item nav-link">Dashboard</a>
+              <a href="{{ route('forntend.contact') }}"class="nav-item nav-link   {{ request()->routeIs('forntend.contact') ? 'active' : '' }}">Contact Us</a>
+              <a href="{{ route('forntend.dashboard.porfile') }}" class="nav-item nav-link   {{ request()->routeIs('forntend.dashboard.porfile') ? 'active' : '' }}" >Dashboard</a>
             </div>
             <div class="social ml-auto">
+              @auth
+                
+              
+                            <!-- Notification Dropdown -->
+ <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <i class="fas fa-bell"></i>
+    <span class="badge badge-danger">{{ auth()->user()->unreadNotifications()->count() }}</span>
+</a>
+<div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
+  <h6 class="dropdown-header">Notifications</h6>
+
+
+
+@forelse (auth()->user()->unreadNotifications as  $notification)
+<div class="dropdown-item d-flex justify-content-between align-items-center">
+       <span>new comment on post :{{ $notification->data['post_title'] }}</span>
+          <a  href="{{ $notification->data['link'] }}?notify={{ $notification->id }}"> <i class="fa fa-eye"></i> </a>
+
+        </div>
+@empty
+  <div class="dropdown-item text-center">No notifications</div>  
+@endforelse
+</div>
+@endauth
               <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>
               <a href="{{ $setting->facebook }}" title="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
               <a href="{{ $setting->instgram }}" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a>

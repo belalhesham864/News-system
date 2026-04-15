@@ -5,10 +5,11 @@ use App\Http\Controllers\Forntend\CategoryController;
 use App\Http\Controllers\Forntend\ContactUsController;
 use App\Http\Controllers\Forntend\HomeController;
 use App\Http\Controllers\Forntend\NewsSubscrriberController;
-use App\Http\Controllers\Forntend\porfilecontroller;
+use App\Http\Controllers\Forntend\dashboard\NotifactionController;
+use App\Http\Controllers\Forntend\dashboard\porfilecontroller;
 use App\Http\Controllers\Forntend\PostController;
 use App\Http\Controllers\Forntend\SearchController;
-use App\Http\Controllers\Forntend\SettingController;
+use App\Http\Controllers\Forntend\dashboard\SettingController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use function Laravel\Prompts\search;
@@ -30,7 +31,9 @@ Route::controller(VerificationController::class)->prefix('email')->name('verific
 
 Auth::routes();
 
-
+Route::get('test',function(){
+return view('forntend.dashboard.notifaction');
+});
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::redirect('/','/home');
 
@@ -76,6 +79,11 @@ Route::prefix('account/')->name('dashboard.')->middleware(['auth:web','verified'
   Route::get('/','getsetting')->name('setting');
   Route::post('/update','update')->name('update');
   Route::match(['get','post'],'/changepassword','changepassword')->name('changepassword');
+  });
+
+  //////// Notifaction ///////////
+  Route::controller(NotifactionController::class)->prefix('Notifaction/')->name('notifaction.')->group(function(){
+    Route::get('','index')->name('show');
   });
     
         });

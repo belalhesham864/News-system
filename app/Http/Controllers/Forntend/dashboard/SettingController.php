@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Forntend;
+namespace App\Http\Controllers\Forntend\dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Forntend\SettingRequest;

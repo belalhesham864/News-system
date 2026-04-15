@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Forntend;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Post;
+use App\Notifications\NewCommentNotify;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -40,6 +41,12 @@ class PostController extends Controller
       'post_id'=>$request->post_id,
       'ip_address'=>$request->ip(),
        ]);
+
+     $post=Post::findOrFail($request->post_id);
+     $user=$post->user;
+    $user->notify(new NewCommentNotify($comment,$post));
+
+
        $comment=$comment->load('user');
        if(!$comment){
        return response()->json([

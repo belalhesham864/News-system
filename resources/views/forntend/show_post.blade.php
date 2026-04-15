@@ -44,7 +44,20 @@
                   <span class="sr-only">Next</span>
                 </a>
               </div>
-              <div class="sn-content">
+<div class="alert shadow-sm bg-white border d-flex align-items-center gap-2 p-2">
+
+    <img
+        src="{{ asset($mainpost->user->image) }}"
+        alt="User Image"
+        style="width: 38px; height: 38px; object-fit: cover; border-radius: 50%; border: 2px solid #fff;"
+    />
+
+    <div>
+        <div class="fw-bold">{{ $mainpost->user->name }}</div>
+        <small class="text-muted">Author</small>
+    </div>
+
+</div>              <div class="sn-content">
               {!! $mainpost->desc !!}
                  </div>
 
@@ -118,6 +131,7 @@
                @foreach ($belongstocategory as $post )
                   <div class="nl-item">
                     <div class="nl-img">
+                      
                       <img style="height: 75px; width: 100px;" src="{{ asset($post->images->first()->path) }}" />
                     </div>
                     <div class="nl-title">
