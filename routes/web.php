@@ -84,6 +84,9 @@ Route::prefix('account/')->name('dashboard.')->middleware(['auth:web','verified'
   //////// Notifaction ///////////
   Route::controller(NotifactionController::class)->prefix('Notifaction/')->name('notifaction.')->group(function(){
     Route::get('','index')->name('show');
+    Route::match(['get','post'],'readall','readall')->name('readall');
+    Route::match(['get','post'],'Deleteall','Deleteall')->name('Deleteall');
+    Route::match(['get','post'],'deleteone/{id}','deleteone')->name('deleteone');
   });
     
         });

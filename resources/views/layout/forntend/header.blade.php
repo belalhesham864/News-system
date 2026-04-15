@@ -124,20 +124,56 @@
     <i class="fas fa-bell"></i>
     <span class="badge badge-danger">{{ auth()->user()->unreadNotifications()->count() }}</span>
 </a>
-<div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown" style="width: 300px;">
-  <h6 class="dropdown-header">Notifications</h6>
+<div class="dropdown-menu dropdown-menu-right"
+     aria-labelledby="notificationDropdown"
+     style="width: 300px; max-height: 350px; overflow-y: auto;">
+<div class="dropdown-header d-flex justify-content-between align-items-center">
 
+    <h6 class="mb-0">Notifications</h6>
+ @if (auth()->user()->unreadNotifications()->count() > 0)
+   
 
+    <form action="{{ route('forntend.dashboard.notifaction.readall') }}" method="POST">
+        @csrf
+        <button class="btn btn-sm btn-success">
+            Read All
+        </button>
+    </form>
+ @endif
+</div>
 
-@forelse (auth()->user()->unreadNotifications as  $notification)
-<div class="dropdown-item d-flex justify-content-between align-items-center">
-       <span>new comment on post :{{ $notification->data['post_title'] }}</span>
-          <a  href="{{ $notification->data['link'] }}?notify={{ $notification->id }}"> <i class="fa fa-eye"></i> </a>
+    @forelse (auth()->user()->unreadNotifications as $notification)
+
+        <div class="dropdown-item d-flex justify-content-between align-items-center gap-2">
+
+            {{-- Text --}}
+            <span class="small text-dark">
+                new comment on post:
+                <span class="text-primary">
+                    {{ $notification->data['post_title'] }}
+                </span>
+            </span>
+
+            {{-- Action --}}
+            <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}"
+               class="text-decoration-none text-primary">
+                <i class="fa fa-eye"></i>
+            </a>
+            <a href="{{ route('forntend.dashboard.notifaction.deleteone',$notification->id) }}"
+               class="text-decoration-none text-primary">
+                <i class="fa fa-trash"></i>
+            </a>
 
         </div>
-@empty
-  <div class="dropdown-item text-center">No notifications</div>  
-@endforelse
+
+    @empty
+
+        <div class="dropdown-item text-center text-muted">
+            No notifications
+        </div>
+
+    @endforelse
+
 </div>
 @endauth
               <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>

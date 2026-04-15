@@ -17,34 +17,47 @@
                     <div class="col-6">
                         <h2 class="mb-4">Notifications</h2>
                     </div>
-                    <div class="col-6">
-                        <button style="margin-left: 270px" class="btn btn-danger btn-sm">Delete All</button>
-                    </div>
+                  <div class="col-6 d-flex justify-content-end gap-2">
+
+    <form action="{{ route('forntend.dashboard.notifaction.readall') }}" method="POST">
+        @csrf
+        <button style="margin-right: 10px;" class="btn btn-success btn-sm ">
+            Read All
+        </button>
+    </form>
+
+ <form action="{{ route('forntend.dashboard.notifaction.Deleteall')  }}" method="POST">
+    @csrf
+    <button class="btn btn-danger btn-sm">Delete All</button>
+</form>
+
+</div>
+                  
+
                 </div>
-               <a href="">
+                @forelse (auth()->user()->notifications as $notifay )
+                
+                    <a href="{{ $notifay->data['link'] }}?notify={{ $notifay->id }}">
                 <div class="notification alert alert-info">
-                    <strong>Info!</strong> This is an informational notification.
-                    <div class="float-right">
-                        <button  class="btn btn-danger btn-sm">Delete</button>
+                    <strong>you have notifaction form : {{ $notifay->data['username'] }}!</strong> post title :{{ $notifay->data['post_title'] }}
+                        @if(!$notifay->read_at)
+                <span class="badge bg-danger">New</span>
+            @else
+                <span class="badge bg-success">Read</span>
+            @endif
+             <form action="{{  route('forntend.dashboard.notifaction.deleteone',$notifay->id)}}">
+                @csrf
+                       <div class="float-right">
+                        <button style="margin-top: -47px" class="btn btn-danger btn-sm">Delete</button>
                     </div>
+             </form>
                 </div>
                </a>
-               <a href="">
-                <div class="notification alert alert-warning">
-                    <strong>Warning!</strong> This is a warning notification.
-                    <div class="float-right">
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </div>
-               </a>
-               <a href="">
-                <div class="notification alert alert-success">
-                    <strong>Success!</strong> This is a success notification.
-                    <div class="float-right">
-                        <button class="btn btn-danger btn-sm">Delete</button>
-                    </div>
-                </div>
-               </a>
+               @empty
+               <div class="alert alert-info">Dont have notifaction</div>
+                @endforelse
+               
+          
             </div>
         </div>
       </div>
