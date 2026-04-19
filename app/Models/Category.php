@@ -13,5 +13,8 @@ class Category extends Model
      public function scopeActivee($query){
       $query->where('status',1);
     }
+    public function scopeActive($query){
+        $query->where('status',1);
+    }
 
 }

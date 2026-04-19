@@ -24,7 +24,7 @@ class ViewSerivesProvider extends ServiceProvider
     public function boot(): void
     {
         $relatedsite = RelatedNewsSite::select(['name', 'url'])->get();
-        $categories = Category::select('id', 'name', 'slug')->get();
+        $categories = Category::select('id', 'name', 'slug')->active()->get();
       $latest_three = Post::latest()->take(3)->get();
 $latest_four  = Post::latest()->take(4)->get();
 

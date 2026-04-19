@@ -17,9 +17,10 @@ class HomeController extends Controller
         $oldest_news = Post::active()->with('images')->oldest()->limit(3)->get();
         // $category=Category::with('posts')->get();
         // dd($category);
-        $categories=Category::all();
+        $categories=Category::has('posts')->active()->get();
+
         $categories_with_posts=$categories->map(function ($category) {
-            $category->posts =$category->posts()->limit(4)->get();
+            $category->posts =$category->posts()->active()->limit(4)->get();
             return $category;
 
         });

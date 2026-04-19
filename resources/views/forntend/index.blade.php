@@ -4,6 +4,7 @@ Home
 @stop
 @section('breadcrumb')
   @parent
+          <li class="breadcrumb-item"><a href="{{ route('forntend.index') }}">Home</a></li>
 
 @endsection
 @section('body')

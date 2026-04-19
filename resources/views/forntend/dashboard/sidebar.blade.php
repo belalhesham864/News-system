@@ -18,7 +18,7 @@
         <a
             href="{{ route('forntend.dashboard.porfile') }}"
             class="list-group-item list-group-item-action menu-item
-            {{ request()->routeIs('forntend.dashboard.porfile') ? 'active' : '' }}"
+           {{ $porfile_active ?? '' }}"
         >
             <i class="fas fa-user"></i> Profile
         </a>
@@ -26,7 +26,7 @@
         <a
             href="{{ route('forntend.dashboard.notifaction.show') }}"
             class="list-group-item list-group-item-action menu-item
-            {{ request()->routeIs('forntend.dashboard.notifaction.show') ? 'active' : '' }}"
+        {{ $notifay_active ?? '' }}"
         >
             <i class="fas fa-bell"></i> Notifications
         </a>
@@ -34,10 +34,31 @@
         <a
             href="{{ route('forntend.dashboard.setting') }}"
             class="list-group-item list-group-item-action menu-item
-            {{ request()->routeIs('forntend.dashboard.setting') ? 'active' : '' }}"
+          {{ $setting_active ?? ''}}"
         >
             <i class="fas fa-cog"></i> Settings
         </a>
+
+        <a
+            href="{{ $setting->whatsapp }}"
+            class="list-group-item list-group-item-action menu-item
+          {{ $setting_active ?? ''}}"
+        >
+            <i class="fas fa-phone"></i> Support
+        </a>
+
+        <a
+            href="javascript:void(0)"
+            onclick="document.getElementById('logoutform').submit()"
+            class="list-group-item list-group-item-action menu-item
+        "
+        >
+            <i class="fas fa-sign-out"></i> Logout
+        </a>
+        <form id="logoutform" method="post" action="{{ route('logout') }}">
+            @csrf
+
+        </form>
 
     </div>
 </aside>

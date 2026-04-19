@@ -11,7 +11,7 @@
       name="keywords"
     />
     <meta
-      content="Bootstrap News Template - Free HTML Templates"
+      content="@yield('meta_desc')"
       name="description"
     />
 
@@ -45,4 +45,10 @@
 
     {{-- summer note --}}
     <link rel="stylesheet" href="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.css') }}">
+   @auth('web')
+      <script>
+     var id={{ auth()->user()->id }}
+    </script>
+   @endauth
+@vite(['resources/js/app.js'])
   </head>

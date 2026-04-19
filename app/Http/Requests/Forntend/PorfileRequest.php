@@ -29,6 +29,7 @@ class PorfileRequest extends FormRequest
             'comment_able'=>'in:on, off',
             'images'=>'nullable',
             'images.*'=> 'image','mimes:jpg,jpeg,png,webp',
+            'SmallDesc'=>'required|max:150|min:50'
         ];
     }
  

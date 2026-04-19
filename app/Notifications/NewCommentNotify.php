@@ -6,19 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-
-class NewCommentNotify extends Notification
+use Illuminate\Notifications\Messages\BroadcastMessage;
+class NewCommentNotify extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      */
-    public $comment ,$post;
-    public function __construct($comment,$post)
+    public $comment ,$post,$commenter;
+    public function __construct($comment,$post,$commenter)
     {
       $this->comment=$comment;
       $this->post=$post;
+      $this->commenter=$commenter;
     }
 
     /**
@@ -28,7 +29,7 @@ class NewCommentNotify extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        return ['database','broadcast'];
     }
 
     /**
@@ -57,11 +58,30 @@ class NewCommentNotify extends Notification
     {
   return [
             'user_id'=>$this->comment->user_id,
-            'username'=>auth()->user()->username,
+            'username'=>$this->commenter->username,
             'post_title'=>$this->post->title,
             'comment'=>$this->comment->comment,
             'link'=>route('forntend.post.show',$this->post->slug),
 
         ];
     }
+   public function toBroadcast(object $notifiable): BroadcastMessage
+{
+    return new BroadcastMessage([
+        'user_id' => $this->comment->user_id,
+        'username' => $this->commenter->username,
+        'post_title' => $this->post->title,
+        'comment' => $this->comment->comment,
+        'link' => route('forntend.post.show', $this->post->slug),
+            'delete_link' => route('forntend.dashboard.notifaction.deleteone', '__id__'),
+    ]);
+}
+//     public function broadcastType(): string
+// {
+//     return 'NewCommentNotify';
+// }
+public function databaseType(object $notifiable): string
+{
+    return 'NewCommentNotify';
+}
 }

@@ -7,7 +7,7 @@
         <div class="dashboard container">
       <!-- Sidebar -->
   
-@include('forntend.dashboard.sidebar')
+@include('forntend.dashboard.sidebar',['setting_active'=>"active"])
       <!-- Main Content -->
       <div class="main-content">
         <!-- Settings Section -->

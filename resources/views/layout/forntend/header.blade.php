@@ -113,7 +113,7 @@
               </div>
              
               <a href="{{ route('forntend.contact') }}"class="nav-item nav-link   {{ request()->routeIs('forntend.contact') ? 'active' : '' }}">Contact Us</a>
-              <a href="{{ route('forntend.dashboard.porfile') }}" class="nav-item nav-link   {{ request()->routeIs('forntend.dashboard.porfile') ? 'active' : '' }}" >Dashboard</a>
+              <a href="{{ route('forntend.dashboard.porfile') }}" class="nav-item nav-link   {{ request()->routeIs('forntend.dashboard.porfile') ? 'active' : '' }}" >Account</a>
             </div>
             <div class="social ml-auto">
               @auth
@@ -122,7 +122,7 @@
                             <!-- Notification Dropdown -->
  <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <i class="fas fa-bell"></i>
-    <span class="badge badge-danger">{{ auth()->user()->unreadNotifications()->count() }}</span>
+    <span id="count-notifaction" class="badge badge-danger">{{ auth()->user()->unreadNotifications()->count() }}</span>
 </a>
 <div class="dropdown-menu dropdown-menu-right"
      aria-labelledby="notificationDropdown"
@@ -142,15 +142,17 @@
  @endif
 </div>
 
-    @forelse (auth()->user()->unreadNotifications as $notification)
+    @forelse (auth()->user()->unreadNotifications()->limit(7)->get() as $notification)
+<div id="push-notifaction">
+
 
         <div class="dropdown-item d-flex justify-content-between align-items-center gap-2">
 
-            {{-- Text --}}
+            
             <span class="small text-dark">
                 new comment on post:
                 <span class="text-primary">
-                    {{ $notification->data['post_title'] }}
+                    {{ substr( $notification->data['post_title'],0,10) }}
                 </span>
             </span>
 
@@ -165,7 +167,7 @@
             </a>
 
         </div>
-
+</div>
     @empty
 
         <div class="dropdown-item text-center text-muted">

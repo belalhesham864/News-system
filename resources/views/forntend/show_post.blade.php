@@ -4,7 +4,12 @@
 @endsection
 @section('breadcrumb')
   @parent
+            <li class="breadcrumb-item"><a href="{{ route('forntend.index') }}">Home</a></li>
+
             <li class="breadcrumb-item">{{ $mainpost->title }}</li>
+@endsection
+@section('meta_desc')
+ {{$mainpost->SmallDesc}}
 @endsection
 @section('body')
         <!-- Breadcrumb Start -->
@@ -53,7 +58,14 @@
     />
 
     <div>
+      <div class="d-flex justify-content-between align-items-center">
+
         <div class="fw-bold">{{ $mainpost->user->name }}</div>
+             <span class="text-muted small">
+            <i class="fa fa-clock"></i>
+            {{ $mainpost->created_at->diffForHumans() }}
+        </span>
+      </div>
         <small class="text-muted">Author</small>
     </div>
 
@@ -64,12 +76,16 @@
               <!-- Comment Section -->
               <div class="comment-section">
                 <!-- Comment Input -->
+                @auth
+                  
+            
            @if($mainpost->comment_able==true)
                 <form action="" id='commentform'>
                 <div class="comment-input">
             @csrf
                     <input title="comment" id="commentid" name="comment" type="text" placeholder="Add a comment..." id="commentBox" />
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
                     <input type="hidden" name="post_id" value="{{ $mainpost->id }}">
                   <button title="submit" id="addCommentBtn">Comment</button>
                 </div>
@@ -77,7 +93,7 @@
               @else
               <div class="alert alert-info">unable to comment</div>
            @endif
-
+    @endauth
 
               <div style="display: none" id="errormessage" class="alert alert-danger"></div>
                 <!-- Display Comments -->
@@ -88,8 +104,16 @@
                   <div class="comment">
                     <img src="{{ asset($comment->user->image) }}" alt="User Image" class="comment-img" />
                     <div class="comment-content">
-                      <span class="username">{{$comment->user->name}}</span>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <span class="username">{{$comment->user->name}}</span>
+        <span class="text-muted small">
+            <i class="fa fa-clock"></i>
+            {{ $comment->created_at->diffForHumans() }}
+        </span>
+    </div>
                       <p class="comment-text">{{ $comment->comment }}</p>
+                      <div>555</div>
                     </div>
                 </div>
                          @endforeach

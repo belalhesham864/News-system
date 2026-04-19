@@ -7,7 +7,7 @@
     <!-- Profile Start -->
 <div class="dashboard container">
   <!-- Sidebar -->
-@include('forntend.dashboard.sidebar')
+@include('forntend.dashboard.sidebar',['porfile_active'=>'active'])
 
 
   <!-- Main Content -->
@@ -40,6 +40,7 @@
               <div class="post-form p-3 border rounded">
                   <!-- Post Title -->
                   <input name="title" type="text" id="postTitle" class="form-control mb-2" placeholder="Post Title" />
+                  <textarea name="SmallDesc" type="text" id="SmallDesc" class="form-control mb-2" placeholder="Enter Small desc" ></textarea>
 
                   <!-- Post Content -->
                   <textarea name="desc" id="summernote" class="form-control mb-2" rows="3" placeholder="What's on your mind?"></textarea>

@@ -5,6 +5,8 @@
 
 @section('breadcrumb')
   @parent
+            <li class="breadcrumb-item"><a href="{{ route('forntend.index') }}">Home</a></li>
+
             <li class="breadcrumb-item active">{{ $category->name }}</li>
 @endsection
 

@@ -6,7 +6,7 @@
 @section('body')
     <div class="dashboard container">
         <!-- Sidebar -->
-      @include('forntend.dashboard.sidebar')
+      @include('forntend.dashboard.sidebar',['porfile_active'=>'active'])
 
         <!-- Main Content -->
         <div class="main-content col-md-9">
@@ -24,6 +24,11 @@
                             <input type="text" class="form-control mb-2 post-title" name="title"
                                 value="{{ $post->title }}" />
                                @error('title')
+                                   <div class="alert alert-danger">{{ $message }}</div>
+                               @enderror
+                            <textarea type="text" class="form-control mb-2 post-title" placeholder="Enter small desc" name="SmallDesc"
+                                value="{{ $post->SmallDesc ?? '' }}" ></textarea>
+                               @error('SmallDesc')
                                    <div class="alert alert-danger">{{ $message }}</div>
                                @enderror
                                <input type="hidden" name="id" value="{{ $post->id }}">

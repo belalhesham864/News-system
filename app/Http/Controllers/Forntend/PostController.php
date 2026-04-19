@@ -19,7 +19,7 @@ class PostController extends Controller
 
 
 
-        $belongstocategory = $category->posts()->select('id', 'title', 'slug')->latest()->limit(5)->get();
+        $belongstocategory = $category->posts()->select('id', 'title', 'slug')->latest()->active()->limit(5)->get();
         $mainpost->increment('numer_of_view');
         return view('forntend.show_post', compact('mainpost', 'belongstocategory'));
     }
@@ -41,10 +41,13 @@ class PostController extends Controller
       'post_id'=>$request->post_id,
       'ip_address'=>$request->ip(),
        ]);
-
+    $commenter=auth()->user();
      $post=Post::findOrFail($request->post_id);
      $user=$post->user;
-    $user->notify(new NewCommentNotify($comment,$post));
+     if(auth()->user()->id !=$post->user_id){
+
+         $user->notify(new NewCommentNotify($comment,$post,$commenter));
+         }
 
 
        $comment=$comment->load('user');

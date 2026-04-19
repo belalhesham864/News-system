@@ -86,7 +86,7 @@ Route::prefix('account/')->name('dashboard.')->middleware(['auth:web','verified'
     Route::get('','index')->name('show');
     Route::match(['get','post'],'readall','readall')->name('readall');
     Route::match(['get','post'],'Deleteall','Deleteall')->name('Deleteall');
-    Route::match(['get','post'],'deleteone/{id}','deleteone')->name('deleteone');
+    Route::delete('deleteone/{id}','deleteone')->name('deleteone');
   });
     
         });
