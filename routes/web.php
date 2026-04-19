@@ -31,9 +31,7 @@ Route::controller(VerificationController::class)->prefix('email')->name('verific
 
 Auth::routes();
 
-Route::get('test',function(){
-return view('forntend.dashboard.notifaction');
-});
+
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::redirect('/','/home');
 
