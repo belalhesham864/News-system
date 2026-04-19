@@ -2,7 +2,13 @@
 @section('title')
     Category  {{ $category->name}}
 @endsection
-
+@section('meta_desc')
+  {{ $category->SmallDesc }}
+@endsection
+@section('canc_tag')
+{{ url()->current() }}
+  
+@endsection
 @section('breadcrumb')
   @parent
             <li class="breadcrumb-item"><a href="{{ route('forntend.index') }}">Home</a></li>

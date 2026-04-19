@@ -23,6 +23,7 @@ class CategorySeeder extends Seeder
                 'status' => 1,
                 'created_at' => $date,
                 'updated_at' => $date,
+                'SmallDesc'=>'Small description for SEO optimization'
             ]);
         }
     }

@@ -2,6 +2,12 @@
 @section('title')
 Home
 @stop
+@section('meta_desc')
+{{ $setting->SmallDesc }}
+@endsection
+@section('canc_tag')
+{{ url()->full() }}  
+@endsection
 @section('breadcrumb')
   @parent
           <li class="breadcrumb-item"><a href="{{ route('forntend.index') }}">Home</a></li>

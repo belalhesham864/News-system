@@ -178,10 +178,10 @@
 
 </div>
 @endauth
-              <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" ><i class="fab fa-twitter"></i></a>
-              <a href="{{ $setting->facebook }}" title="facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-              <a href="{{ $setting->instgram }}" title="instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-              <a href="{{ $setting->youtube }}" title="youtube" target="_blank"><i class="fab fa-youtube"></i></a>
+              <a href="{{ $setting->tiwter }}" title="tiwter" target="_blank" rel="nofollow" ><i class="fab fa-twitter"></i></a>
+              <a href="{{ $setting->facebook }}" title="facebook" target="_blank" rel="nofollow"><i class="fab fa-facebook-f"></i></a>
+              <a href="{{ $setting->instgram }}" title="instagram" target="_blank" rel="nofollow"><i class="fab fa-instagram"></i></a>
+              <a href="{{ $setting->youtube }}" title="youtube" target="_blank" rel="nofollow"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
         </nav>

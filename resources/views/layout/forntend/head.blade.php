@@ -14,6 +14,8 @@
       content="@yield('meta_desc')"
       name="description"
     />
+    <link rel="canonical" href="@yield('canc_tag')">
+    <meta name="robots" content="index,follow">
 
     <!-- Favicon -->
     <link href="{{ asset('assets/forntend/img/favicon.ico') }}" rel="icon" />

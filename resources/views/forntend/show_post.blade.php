@@ -11,6 +11,10 @@
 @section('meta_desc')
  {{$mainpost->SmallDesc}}
 @endsection
+@section('canc_tag')
+{{ url()->current() }}
+  
+@endsection
 @section('body')
         <!-- Breadcrumb Start -->
 
@@ -113,7 +117,7 @@
         </span>
     </div>
                       <p class="comment-text">{{ $comment->comment }}</p>
-                      <div>555</div>
+                     
                     </div>
                 </div>
                          @endforeach
