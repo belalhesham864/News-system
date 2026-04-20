@@ -11,9 +11,17 @@
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
-
+   
             <!-- Main Content -->
-       @yield('body')
+     <div id="content">
+
+                <!-- Topbar -->
+             @include('layout.dashboard.navbar')
+                <!-- End of Topbar -->
+
+           @yield('body')
+
+            </div>
             <!-- End of Main Content -->
 
           @include('layout.dashboard.footer')
@@ -40,17 +48,19 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                  <form action="{{ route('admin.logout') }}" method="post">
+                    @csrf
+                     <button type="submit" class="btn btn-primary">Logout</button>
+                  </form>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset(' assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('assets/dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script src=" {{ asset('assets/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->

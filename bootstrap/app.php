@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Middleware\AdminAuthenticate;
+use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\CheckNotifaction;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,6 +22,10 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
        $middleware->web(append:[
         CheckNotifaction::class
+       ]);
+       $middleware->alias([
+           'admin.auth'=>CheckAuth::class,
+        'admin.guest'=>AdminAuthenticate::class,
        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
