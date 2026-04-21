@@ -13,8 +13,18 @@ class userController extends Controller
      */
     public function index()
     {
-        $users=User::all();
-      return view('admin.users.index',compact('users'));
+        // return request();
+        $order_by=request()->order_by ?? 'asc';
+        $Sort_By=request()->Sort_By ?? 'id';
+        $limit=request()->limit ?? 5;
+        
+        $users = User::when(request()->search, function ($query) {
+            $query->where('name', 'like', '%' . request()->search . '%')->orWhere('email', 'like', '%' . request()->search . '%');
+        })->when(request()->status !== null, function ($query) {
+            $query->where('status', request()->status);
+        });
+        $users=$users->orderBy($Sort_By,$order_by)->paginate($limit);
+        return view('admin.users.index', compact('users'));
     }
 
     /**

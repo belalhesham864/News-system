@@ -1,4 +1,4 @@
-@extends('layout.dashboard.app');
+@extends('layout.dashboard.app')
 @section('title')
     Users
 
@@ -18,57 +18,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
             </div>
-            {{-- <div class="card-body">
-                <div class="row">
-                    <div class="col-2">
-                        <div class="from-group">
-                         <select >
-                            <option value="id">Id</option>
-                            <option value="name">Name</option>
-                            <option value="created_at">Created_at</option>
-                         </select>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="from-group">
-                         <select >
-                            <option value="as">Acs</option>
-                            <option value="desc">Des</option>
-                       
-                         </select>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="from-group">
-                         <select >
-                            <option value="">Id</option>
-                            <option value="">Name</option>
-                            <option value="">Created_at</option>
-                         </select>
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="from-group">
-                         <select >
-                            <option value="">Id</option>
-                            <option value="">Name</option>
-                            <option value="">Created_at</option>
-                         </select>
-                        </div>
-                    </div>
-                     <div class="col-2">
-                        <div class="from-group">
-                      <input type="text" placeholder="Search here..." name="search">
-                        </div>
-                    </div>
-                    <div class="col-2">
-                        <div class="from-group">
-                        <button type="submit" class="btn btn-info">Search</button>
-                        </div>
-                    </div>
-                   
-                </div>
-            </div> --}}
+   @include('layout.dashboard.filte.filter')
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -77,6 +27,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>image</th>
                                 <th>Status</th>
                                 <th>Country</th>
                                 <th>Created At</th>
@@ -88,6 +39,7 @@
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Email</th>
+                                <th>image</th>
                                 <th>Status</th>
                                 <th>Country</th>
                                 <th>Created At</th>
@@ -103,6 +55,13 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>@if($user->image)
+
+                                        <img src="{{ asset($user->image) }}"   style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                        @else
+                                         <img src="{{ asset('assets/dashboard/img/undraw_profile.svg') }}"   style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover;">
+                                         @endif
+                                    </td>
                                     <td>
                                         @if($user->status == 1)
                                             <span class="badge badge-success px-3 py-2">Active</span>
@@ -132,7 +91,7 @@
                             @endforelse
                         </tbody>
                     </table>
-                
+                {{ $users->appends(request()->input())->links() }}
                 </div>
             </div>
         </div>
