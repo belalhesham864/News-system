@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
+use App\Http\Controllers\Admin\User\userController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -18,7 +19,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
             return view('admin.index');
         })->name('home');
     });
-    
+
+
+    ///////////// forget And reset password //////////////////// 
     Route::group(['prefix'=>'password', 'as'=>'password.'],function(){
       Route::controller(ForgetPassworController::class)->group(function(){
 
@@ -32,5 +35,8 @@ Route::controller(ResetPassworController::class)->group(function(){
       Route::post('reset','resetPassword')->name('reset');
           });
     });
+ 
+Route::resource('users',userController::class)->middleware('auth:admin');
+
 
 });

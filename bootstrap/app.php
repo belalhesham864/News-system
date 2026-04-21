@@ -28,6 +28,11 @@ return Application::configure(basePath: dirname(__DIR__))
         'admin.guest'=>AdminAuthenticate::class,
        ]);
     })
-    ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+->withExceptions(function (Exceptions $exceptions): void {
+   $exceptions->renderable(function($request){
+if($request->is('admin/*')|| $request->routeIs('admin/*')){
+    return redirect()->route('admin.login.show');
+}
+        return redirect()->route('login');
+    });
+})->create();
