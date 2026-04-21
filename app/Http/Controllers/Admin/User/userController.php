@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Utils\ImageManger;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
@@ -49,7 +50,8 @@ class userController extends Controller
     public function store(UserRequest $request)
     {
      $request->validated();
-  
+      try{
+        DB::beginTransaction();
         $request->merge([
         'email_verified_at' => $request->email_verified_at == 1 ? Carbon::now()->toDateTimeString() : null,
         'password' => bcrypt($request->password),
@@ -58,7 +60,13 @@ class userController extends Controller
        $user=User::create($request->except(['image','password_confirmation']));
      ImageManger::upload($request,null,$user);
      flash()->success('User added successfuly');
+     DB::commit();
      return redirect()->back();
+      }catch(\Exception $e){
+        DB::rollBack();
+        return redirect()->back()->withErrors($e->getMessage());
+      }
+
     }
                 
     /**
@@ -66,7 +74,8 @@ class userController extends Controller
      */
     public function show(string $id)
     {
-        return $id;
+        $user=User::findOrFail($id);
+        return view('admin.users.show',compact('user'));
     }
 
     /**

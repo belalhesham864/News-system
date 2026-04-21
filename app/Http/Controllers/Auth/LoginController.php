@@ -47,7 +47,10 @@ class LoginController extends Controller
     }
     protected function authenticated(Request $request, $user)
 {
+     if($user->status==1){
+
     flash()->success('Welcome back, ' . $user->name . '!');
+    }
     return redirect('/home');
 }
 }

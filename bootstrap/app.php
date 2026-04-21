@@ -3,6 +3,7 @@
 use App\Http\Middleware\AdminAuthenticate;
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\CheckNotifaction;
+use App\Http\Middleware\CheckUserStatus;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -27,6 +28,9 @@ return Application::configure(basePath: dirname(__DIR__))
        $middleware->alias([
            'admin.auth'=>CheckAuth::class,
         'admin.guest'=>AdminAuthenticate::class,
+       ]);
+       $middleware->web(append:[
+      CheckUserStatus::class
        ]);
     })
 ->withExceptions(function (Exceptions $exceptions): void {
