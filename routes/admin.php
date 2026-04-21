@@ -37,6 +37,6 @@ Route::controller(ResetPassworController::class)->group(function(){
     });
  
 Route::resource('users',userController::class)->middleware('auth:admin');
-
+Route::post('user/block/{id}',[userController::class,'userBlock'])->name('user.block')->middleware('auth:admin');
 
 });
