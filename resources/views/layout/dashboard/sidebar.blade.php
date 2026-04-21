@@ -75,11 +75,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                    <i class="fa-solid fa-users"></i>
+                       <span>User mangment</span>
                 </a>
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('admin.users.index') }}">Users</a>
-                        <a class="collapse-item" href="register.html">Add User</a>
+                        <a class="collapse-item" href="{{ route('admin.users.create') }}">Add User</a>
                         <a class="collapse-item" href="forgot-password.html">Block user</a>
                     
                     </div>

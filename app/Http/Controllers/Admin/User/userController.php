@@ -3,11 +3,16 @@
 namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\UserRequest;
 use App\Models\User;
+use App\Utils\ImageManger;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 use function Flasher\Prime\flash;
+use function Symfony\Component\Clock\now;
 
 class userController extends Controller
 {
@@ -35,17 +40,27 @@ class userController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        //
+     $request->validated();
+  
+        $request->merge([
+        'email_verified_at' => $request->email_verified_at == 1 ? Carbon::now()->toDateTimeString() : null,
+        'password' => bcrypt($request->password),
+    ]);
+       
+       $user=User::create($request->except(['image','password_confirmation']));
+     ImageManger::upload($request,null,$user);
+     flash()->success('User added successfuly');
+     return redirect()->back();
     }
-
+                
     /**
      * Display the specified resource.
      */

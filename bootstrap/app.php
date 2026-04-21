@@ -3,6 +3,7 @@
 use App\Http\Middleware\AdminAuthenticate;
 use App\Http\Middleware\CheckAuth;
 use App\Http\Middleware\CheckNotifaction;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -29,10 +30,12 @@ return Application::configure(basePath: dirname(__DIR__))
        ]);
     })
 ->withExceptions(function (Exceptions $exceptions): void {
-   $exceptions->renderable(function($request){
-if($request->is('admin/*')|| $request->routeIs('admin/*')){
-    return redirect()->route('admin.login.show');
-}
+    $exceptions->renderable(function (AuthenticationException $exception, $request) {
+
+        if ($request->is('admin/*') || $request->routeIs('admin.*')) {
+            return redirect()->route('admin.login.show');
+        }
+
         return redirect()->route('login');
     });
 })->create();
