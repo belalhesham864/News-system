@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
+use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\User\userController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,8 +36,13 @@ Route::controller(ResetPassworController::class)->group(function(){
       Route::post('reset','resetPassword')->name('reset');
           });
     });
- 
-Route::resource('users',userController::class)->middleware('auth:admin');
-Route::post('user/block/{id}',[userController::class,'userBlock'])->name('user.block')->middleware('auth:admin');
+
+ Route::middleware('auth:admin')->group(function(){
+
+     Route::resource('users',userController::class);
+     Route::post('user/block/{id}',[userController::class,'userBlock'])->name('user.block');
+     Route::resource('categories',CategoryController::class);
+     Route::post('category/changestatus/{id}',[CategoryController::class,'changestatus'])->name('category.changestatus');
+     });
 
 });

@@ -25,18 +25,18 @@ class ViewSerivesProvider extends ServiceProvider
     {
         $relatedsite = RelatedNewsSite::select(['name', 'url'])->get();
         $categories = Category::select('id', 'name', 'slug')->active()->get();
-      $latest_three = Post::latest()->take(3)->get();
-$latest_four  = Post::latest()->take(4)->get();
+      $latest_three = Post::latest()->take(3)->active()->get();
+$latest_four  = Post::latest()->take(4)->active()->get();
 
         if (!Cache::has('greats_post_comment')) {
-            $greats_post_comment = Post::withCount('comment')->orderBy('comment_count', 'desc')->take(5)->get();
+            $greats_post_comment = Post::withCount('comment')->orderBy('comment_count', 'desc')->active()->take(5)->get();
             Cache::remember('greats_post_comment', 3600, function () use ($greats_post_comment) {
                 return $greats_post_comment;
             });
         }
 
         $greats_post_comment = Cache::get('greats_post_comment');
-        $posts = Post::with('images')->latest()->paginate(9);
+        $posts = Post::with('images')->latest()->active()->paginate(9);
                   
 
         
