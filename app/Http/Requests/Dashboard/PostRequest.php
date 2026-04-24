@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Forntend;
+namespace App\Http\Requests\Dashboard;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class PorfileRequest extends FormRequest
+class PostRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,19 +23,21 @@ class PorfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'=>'required|string|min:3|max:50',
-            'desc'=> 'required|string|min:50',
+            'title'=>'required|min:5|string',
+            'SmallDesc'=>'required|min:10|string|max:50',
+            'desc'=>'required|min:20|string',
             'category_id'=>'required|exists:categories,id',
-            'images'=>'nullable',
-            'images.*'=> 'image','mimes:jpg,jpeg,png,webp',
-            'SmallDesc'=>'required|max:150|min:50'
+            'comment_able'=>'nullable',
+            'status'=>'required|in:1,0',
+            'images'=>'required|array',
+            'images.*'=>'image|mimes:jpg,jpeg,png,webp'
         ];
     }
- 
     public function attributes()
     {
-        return [
-            'title'=> 'post title'
-        ];
+        return[
+
+            'category_id'=>'Category Name',
+            ];
     }
 }

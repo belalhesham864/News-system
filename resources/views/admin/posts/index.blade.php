@@ -55,7 +55,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td>{{$post->category->name }}</td>
-                                    <td>{{$post->user->name }}</td>
+                                    <td>{{ $post->admin->name ?? $post->user->name }}</td>
                                     <td>{{$post->numer_of_view }}</td>
                                     <td>
                                         @if($post->status == 1)

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->longText('desc');
             $table->boolean('comment_able')->default(1);
             $table->boolean('status')->default(1);
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('admin_id')->nullable()->constrained('admins')->cascadeOnDelete();
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();
         });

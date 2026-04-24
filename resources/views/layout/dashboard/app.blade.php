@@ -79,7 +79,10 @@
 
     <!-- Page level custom scripts -->
     <script src="{{ asset('assets/dashboard/') }}/js/demo/datatables-demo.js"></script>
-
+      <script src="{{ asset('assets/forntend/vendor/file-input/js/fileinput.min.js') }}"></script>
+<script src="{{ asset('assets/forntend/vendor/file-input/themes/fa5/theme.min.js') }}"></script>
+<script src="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.js') }}"></script>
+    @stack('js')
 </body>
 
 </html>

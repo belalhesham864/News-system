@@ -55,16 +55,30 @@
               </div>
 <div class="alert shadow-sm bg-white border d-flex align-items-center gap-2 p-2">
 
-    <img
-        src="{{ asset($mainpost->user->image) }}"
-        alt="User Image"
-        style="width: 38px; height: 38px; object-fit: cover; border-radius: 50%; border: 2px solid #fff;"
+@if ($mainpost->admin && $mainpost->admin->image)
+    <img 
+        src="{{ asset($mainpost->admin->image) }}"
+        style="width:38px;height:38px;object-fit:cover;border-radius:50%;border:2px solid #fff;"
+        alt="Admin Image"
     />
+@elseif ($mainpost->user && $mainpost->user->image)
+    <img 
+        src="{{ asset($mainpost->user->image) }}"
+        style="width:38px;height:38px;object-fit:cover;border-radius:50%;border:2px solid #fff;"
+        alt="User Image"
+    />
+@else
+    <img 
+        src="{{ asset('assets/dashboard/img/undraw_profile.svg') }}"
+        style="width:38px;height:38px;object-fit:cover;border-radius:50%;border:2px solid #fff;"
+        alt="Default Image"
+    />
+@endif
 
     <div>
       <div class="d-flex justify-content-between align-items-center">
 
-        <div class="fw-bold">{{ $mainpost->user->name }}</div>
+        <div class="fw-bold">{{ $mainpost->user->name ?? $mainpost->admin->name }}</div>
              <span class="text-muted small">
             <i class="fa fa-clock"></i>
             {{ $mainpost->created_at->diffForHumans() }}
