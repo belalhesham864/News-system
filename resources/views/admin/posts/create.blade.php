@@ -1,14 +1,13 @@
 @extends('layout.dashboard.app')
 
 @section('title')
-    Create Post
+    Edit Post
 @endsection
 
 @section('body')
 <div class="container d-flex justify-content-center mt-4">
     <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data" class="w-100">
         @csrf
-
         <div class="card shadow-lg col-lg-10 mx-auto p-4">
             <h2 class="mb-4 text-center">Create New Post</h2>
 @if ($errors->any())
@@ -25,7 +24,7 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label">Post Title</label>
-                    <input type="text" name="title" placeholder="Enter Post Title" class="form-control">
+                    <input type="text" value="{{ @old('title') }}" name="title" placeholder="Enter Post Title" class="form-control">
                     @error('title')
                         <div class="text-danger mt-1">{{ $message }}</div>
                     @enderror
@@ -33,7 +32,7 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Small Description</label>
-                    <input type="text" name="SmallDesc" placeholder="Enter Small Description" class="form-control">
+                    <input type="text" value="{{ @old('SmallDesc') }}" name="SmallDesc" placeholder="Enter Small Description" class="form-control">
                     @error('SmallDesc')
                         <div class="text-danger mt-1">{{ $message }}</div>
                     @enderror

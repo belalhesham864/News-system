@@ -49,6 +49,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         ////////////// Post Table /////////////////////////////////////////
         Route::resource('posts', PostsController::class);
         Route::post('posts/changestatus/{id}', [PostsController::class, 'changestatus'])->name('posts.changestatus');
+        Route::post('posts/deleteimage/{id}', [PostsController::class, 'deleteimage'])->name('posts.deleteimage');
 
     });
 });

@@ -41,13 +41,11 @@
                                    <div class="alert alert-danger">{{ $message }}</div>
                                @enderror
 
-                            <!-- Image Upload Input for Editing -->
                             <input id="fileimage" name="images[]" type="file" class="form-control mt-2 edit-post-image"
                                 accept="image/*" multiple />
                                 @error('images[]')
                                    <div class="alert alert-danger">{{ $message }}</div>
                                @enderror
-                            <!-- Editable Category Dropdown -->
                             <select name="category_id" class="form-control mb-2 post-category">
                                 @foreach ($categories as $category)
 

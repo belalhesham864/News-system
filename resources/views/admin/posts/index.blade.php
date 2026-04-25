@@ -74,8 +74,15 @@
                                         <a class="modal-effect btn btn-sm btn-secondary" data-effect="effect-scale"
                                             data-toggle="modal" href="#Block{{$post->id}}" title="block"><i
                                                 class="fa-solid @if($post->status==1) fa-ban @else fa-unlock-keyhole @endif"></i></a>
+                                                @if ($post->admin_id==auth('admin')->id())
+                                                    
+                                                <a class="modal-effect btn btn-sm btn-info"
+                                                href="{{ route('admin.posts.edit', $post->id) }}" title="edit"><i
+                                                class="fa-solid fa-edit"></i>
+                                            </a>
+                                            @endif
                                         <a class="modal-effect btn btn-sm btn-info"
-                                            href="{{ route('admin.posts.show', $post->id) }}" title="eye"><i
+                                            href="{{ route('admin.posts.show', $post->id) }}" title="show"><i
                                                 class="fa-solid fa-eye"></i>
                                         </a>
                                     </td>
