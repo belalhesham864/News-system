@@ -11,8 +11,13 @@
             @csrf
            @method('PUT')
             <div class="card shadow-lg col-lg-10 mx-auto p-4">
-                <h2 class="mb-4 text-center"> Edit Post</h2>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Edit Post</h2>
 
+    <a href="{{ url()->previous() }}" class="btn btn-secondary">
+        Back
+    </a>
+</div>
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label class="form-label">Post Title</label>
@@ -89,11 +94,13 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-info w-100">
-                    Create Post
+                <button type="submit" class="btn btn-info ">
+                    Update Post
                 </button>
+               
             </div>
         </form>
+        
     </div>
 @endsection
 

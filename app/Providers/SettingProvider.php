@@ -16,8 +16,8 @@ class SettingProvider extends ServiceProvider
                 ['id'=>1], 
                 [
                     'site_name'  => 'news',
-                    'logo'       => '/img/logo.png',
-                    'favicon'    => 'default',
+                    'logo'       => 'uploads/setting/logo/4eb066b0-014b-4d6a-bee1-ecd091262e6b1777215471.png',
+                    'favicon'    => 'uploads/setting/favicon/f45c2d8e-f4aa-4b1a-a4b0-ed18331600651777215607.png',
                     'email'      => 'news@gmail.com',
                     'facebook'   => 'https://www.facebook.com/',
                     'tiwter'    => 'https://x.com/',     

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Posts\PostsController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\userController;
 use App\Http\Controllers\Forntend\PostController;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('posts', PostsController::class);
         Route::post('posts/changestatus/{id}', [PostsController::class, 'changestatus'])->name('posts.changestatus');
         Route::post('posts/deleteimage/{id}', [PostsController::class, 'deleteimage'])->name('posts.deleteimage');
-
+ /////////////// Setting ///////////////
+ Route::resource('setting',SettingController::class)->only(['index','edit','update']);
     });
 });

@@ -18,7 +18,7 @@
     <meta name="robots" content="index,follow">
 
     <!-- Favicon -->
-    <link href="{{ asset('assets/forntend/img/favicon.ico') }}" rel="icon" />
+    <link href="{{ asset($setting->favicon) }}" rel="icon" />
 
     <!-- Google Fonts -->
     <link
