@@ -142,7 +142,8 @@ class PostsController extends Controller
             ]);
             flash()->success("you deactivate the post successfuly");
         }
-        return redirect()->back();
+        return redirect()->route('admin.posts.index');
+       
     }
     public function deleteimage($id)
     {

@@ -1,68 +1,104 @@
 @extends('layout.dashboard.app')
 
 @section('title')
-    Show User
+    Show Post
 @endsection
 
 @section('body')
 
-<div class="container mt-4">
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
 
-    <div class="card shadow-lg border-0">
-        <div class="card-header bg-primary text-white">
-            <h4 class="mb-0">User Details</h4>
-        </div>
+            <h2 class="fw-bold mb-3">{{ $post->title }}</h2>
 
-        <div class="card-body">
-            <div class="row">
+             
+            <div class="d-flex align-items-center mb-3">
+                <img 
+                    src="{{ $post->user->image ?? asset('assets/dashboard/img/undraw_profile.svg') }}"
+                    class="rounded-circle me-2"
+                    style="width:45px;height:45px;object-fit:cover;"
+                >
+                <div>
+                    <div class="fw-bold">
+                      <a href="{{ route('admin.users.show',$post->user->id) }}"> {{ $post->user->name ?? $post->admin->name }}</a>
+                    </div>
+                    <small class="text-muted">
+                        {{ $post->created_at->diffForHumans() }}
+                    </small>
+                </div>
+            </div>
+<div class="d-flex align-items-center gap-3 mb-3 text-muted small">
 
-          
-                <div class="col-md-4 text-center">
-                    <img src="{{ asset($user->image ?? 'assets/dashboard/img/undraw_profile.svg') }}"
-                class="img-fluid rounded-circle shadow" style="width: 334.65px; height: 334.65px;">
+    <div class="d-flex align-items-center gap-1">
+        <i class="fa fa-eye"></i>
+        <span>{{ $post->numer_of_view}} views</span>
+    </div>
+
+
+
+</div>
+            <div id="newsCarousel" class="carousel slide mb-4" data-ride="carousel">
+                <div class="carousel-inner rounded shadow">
+
+                    @foreach ($post->images as $image)
+                        <div class="carousel-item @if ($loop->first) active @endif">
+                            <img 
+                                src="{{ asset($image->path) }}"
+                                class="d-block w-100"
+                                style="height:450px;object-fit:cover;"
+                            >
+                        </div>
+                    @endforeach
+
                 </div>
 
-               
-                <div class="col-md-8">
+                <a class="carousel-control-prev" href="#newsCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#newsCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
 
-                    <h4 class="mb-3">{{ $user->name }}</h4>
+            <div class="bg-white p-4 rounded shadow-sm mb-4" style="line-height:1.9;">
+                {!! $post->desc !!}
+            </div>
 
-                    <p ><strong>Username:</strong> {{ $user->username }}</p>
-                    <p><strong>Email:</strong> {{ $user->email }}</p>
-                    <p><strong>Email Verified:</strong>  @if($user->email_verified_at != null)
-                            <span class="badge bg-success">Active</span>
-                        @else
-                            <span class="badge bg-danger">Non Active</span>
-                        @endif</p>
-                    <p><strong>Phone:</strong> {{ $user->phone }}</p>
-
-                    <p>
-                        <strong>Status:</strong>
-                        @if($user->status == 1)
-                            <span class="badge bg-success">Active</span>
-                        @else
-                            <span class="badge bg-danger">Blocked</span>
-                        @endif
-                    </p>
-
-                    <p><strong>Country:</strong> {{ $user->country ?? 'N/A' }}</p>
-                    <p><strong>City:</strong> {{ $user->city ?? 'N/A' }}</p>
-                    <p><strong>Street:</strong> {{ $user->street ?? 'N/A' }}</p>
-
-                    <p><strong>Joined:</strong> {{ $user->created_at->format('Y-m-d') }}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-dark px-4">
+                     Back
+                </a>
+                <a data-effect="effect-scale" data-toggle="modal" href="#delete{{$post->id}}" class="btn btn-outline-dark px-4">
+                  <i class="fa fa-trash"></i>   Delete
+                </a>
+            </div>
+         
+        </div>
+    </div>
+          <div class="modal" id="delete{{$post->id}}">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content modal-content-demo">
+                        <div class="modal-header">
+                            <h6 class="modal-title">Delete post </h6><button aria-label="Close" class="close"
+                                data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                        </div>
+                        <form action="{{ route('admin.posts.destroy', $post->id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <div class="modal-body">
+                                <p>Do You want Delete the post </p>
+                                <input disabled name="post" value="{{ $post->title }}">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </div>
+                    </div>
+                    </form>
 
                 </div>
             </div>
-        </div>
-
-        <div class="card-footer text-end">
-            <a href="{{ url()->previous()}}" class="btn btn-secondary">
-                Back
-            </a>
-        </div>
-
-    </div>
-
 </div>
 
 @endsection
