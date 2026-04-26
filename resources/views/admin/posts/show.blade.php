@@ -66,7 +66,7 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center">
-                <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-dark px-4">
+                <a href="{{ route('admin.posts.index',['page'=>request()->page]) }}" class="btn btn-outline-dark px-4">
                      Back
                 </a>
                 <a data-effect="effect-scale" data-toggle="modal" href="#delete{{$post->id}}" class="btn btn-outline-dark px-4">

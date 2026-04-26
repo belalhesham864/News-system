@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
@@ -53,5 +54,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('posts/deleteimage/{id}', [PostsController::class, 'deleteimage'])->name('posts.deleteimage');
  /////////////// Setting ///////////////
  Route::resource('setting',SettingController::class)->only(['index','edit','update']);
+ //////////////// Admin ///////////////
+ Route::resource('admins',AdminController::class);
+         Route::post('admins/changestatus/{id}', [AdminController::class, 'changestatus'])->name('admins.changestatus');
+
     });
 });
