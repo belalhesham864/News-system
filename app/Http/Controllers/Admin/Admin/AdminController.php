@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use function Flasher\Prime\flash;
 
 class AdminController extends Controller
 {
@@ -31,7 +34,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.admins.create');
     }
 
     /**
@@ -39,7 +42,19 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      $data=$request->validate([
+            'name'=>'required|string|max:50',
+            'username'=>'required|string|max:60',
+            'status'=>'required',
+            'email'=>'required|email|max:50',
+            'password'=>'required|confirmed'
+        ]);
+        $data['password']=Hash::make($request->password);
+        Admin::create($data);
+        flash()->success('Admin Created Successfuly');
+        return redirect()->route('admin.admins.index');
+
+        
     }
 
     /**

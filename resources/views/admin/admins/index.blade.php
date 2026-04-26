@@ -16,7 +16,14 @@
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Admin Mangment</h6>
+                <div class="d-flex justify-content-between align-items-center">
+
+                    <h6 class="m-0 font-weight-bold text-primary">Admin Mangment</h6>
+                         <a class="modal-effect btn btn-sm btn-info"
+                                                href="{{ route('admin.admins.create',['page'=>request()->page]) }}" title="Add">Create Admin<i
+                                                class="fa-solid fa-add"></i>
+                                            </a>
+                </div>
             </div>
             @include('layout.dashboard.filte.filter')
             <div class="card-body">
@@ -61,7 +68,7 @@
                                         @endif
                                     </td>
         
-                                    <td>{{ $admin->created_at }}</td>
+                                    <td>{{ $admin->created_at?->format('Y-m-d h:i a') }}</td>
                                     <td>
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
