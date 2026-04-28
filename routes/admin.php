@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\Admin\AdminController;
 use App\Http\Controllers\Admin\Auth\LoginController;
 use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
+use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Setting\SettingController;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-
+   
     Route::controller(LoginController::class)->middleware('admin.guest')->group(function () {
         Route::get('login', 'showloginform')->name('login.show');
         Route::post('login', 'checkauth')->name('login.checkauth');
@@ -42,6 +43,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 
     Route::middleware('auth:admin')->group(function () {
+
+    ///////////////////Authorization //////////////////////
+    Route::resource('authorization',AuthorizationController::class);
         ///////////// User Table //////////////////////////
         Route::resource('users', userController::class);
         Route::post('user/block/{id}', [userController::class, 'userBlock'])->name('user.block');

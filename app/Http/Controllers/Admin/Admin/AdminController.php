@@ -50,8 +50,13 @@ class AdminController extends Controller
             'password'=>'required|confirmed'
         ]);
         $data['password']=Hash::make($request->password);
-        Admin::create($data);
-        flash()->success('Admin Created Successfuly');
+      $admin=Admin::create($data);
+if(!$admin){
+    
+      flash()->error('Please try again');
+        return redirect()->back();
+}
+      flash()->success('Admin Created Successfuly');
         return redirect()->route('admin.admins.index');
 
         
@@ -62,7 +67,8 @@ class AdminController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $admin=Admin::findOrFail($id);
+        return view('admin.admins.show',compact('admin'));
     }
 
     /**
@@ -86,7 +92,10 @@ class AdminController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+          $admin=Admin::findOrFail($id);
+          $admin->delete();
+           flash()->success("you Delete the admin successfuly");
+             return redirect()->route('admin.admins.index');
     }
         public function changestatus(string $id)
     {

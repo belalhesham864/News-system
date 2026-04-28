@@ -30,7 +30,7 @@
                   
                     <p><strong>UserName:</strong> {{ $admin->username }}</p>
                 
-                    <p><strong>Email:</strong> {{ $admin->email }}</p>
+                    <p><strong>Phone:</strong> {{ $admin->phone }}</p>
 
                     <p>
                         <strong>Status:</strong>
