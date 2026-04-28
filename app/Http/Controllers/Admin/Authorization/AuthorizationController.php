@@ -13,7 +13,10 @@ class AuthorizationController extends Controller
      */
     public function index()
     {
-        //
+        $authorization=Authorization::paginate(5);
+
+        // return $authorization;
+        return view('admin.authorization.index',compact('authorization'));
     }
 
     /**
@@ -38,7 +41,7 @@ class AuthorizationController extends Controller
       $auth->permessions=json_encode($request->permision);
       $auth->save();
       flash()->success('Role Add Successfuly');
-      return redirect()->back();
+      return redirect()->route('admin.authorization.index');
 
     }
 
@@ -71,6 +74,10 @@ class AuthorizationController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $role=Authorization::findOrFail($id);
+        $role->delete();
+        flash()->success('You deleted the role successfuly!!');
+        return  redirect()->route('admin.authorization.index');
+
     }
 }
