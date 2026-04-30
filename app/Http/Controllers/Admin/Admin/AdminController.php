@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Authorization;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -34,7 +35,8 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.admins.create');
+        $roles=Authorization::select('id','role')->get();
+        return view('admin.admins.create',compact('roles'));
     }
 
     /**
@@ -47,8 +49,11 @@ class AdminController extends Controller
             'username'=>'required|string|max:60',
             'status'=>'required',
             'email'=>'required|email|max:50',
-            'password'=>'required|confirmed'
+            'password'=>'required|confirmed',
+            'role_id'=>'required',
         ]);
+
+        
         $data['password']=Hash::make($request->password);
       $admin=Admin::create($data);
 if(!$admin){

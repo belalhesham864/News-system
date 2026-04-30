@@ -18,6 +18,7 @@ class AdminSeeder extends Seeder
         'email'=>'belal@gmail.com',
         'username'=>'belal',
         'password'=>bcrypt(123456789),
+        
         ]);
     }
 }

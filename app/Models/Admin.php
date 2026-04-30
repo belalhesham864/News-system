@@ -10,7 +10,7 @@ class Admin extends Authenticatable
 {
     use Notifiable;
     // protected $guarded = [];
-    protected $fillable = ['id','name','password','email','username','status'];
+    protected $fillable = ['id','name','password','email','username','status','role_id'];
         protected $hidden = [
         'password',
         'remember_token',
@@ -25,4 +25,8 @@ class Admin extends Authenticatable
      public function posts(){
         return $this->hasMany(Post::class,'admin_id');
     }
+public function role()
+{
+    return $this->belongsTo(Authorization::class, 'role_id');
+}
 }

@@ -80,7 +80,29 @@
                     @enderror
                     </div>
             </div>
+ <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <select name="role_id" id="" class="form-control">
+                                
+                                
+                                <option selected disabled>Select Role</option>
+                                @forelse ($roles as $role )
+                                <option value="{{ $role->id }}">{{$role->role}}</option>
+                                @empty
+                                <option value="" disabled selected>No Roles</option>
+                                @endforelse
+                            
 
+                            </select>
+                        </div>
+                        @error('role_id')
+                            <div class="text-danger">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+                </div>
                 <br>
                 <button type="submit" class="btn btn-info">Add Admin</button>
             </div>

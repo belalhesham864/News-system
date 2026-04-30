@@ -35,6 +35,7 @@
                                 <th>Name</th>
                                 <th>User Name</th>
                                 <th>Email</th>
+                                <th>permision</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -45,7 +46,7 @@
                                 <th>Name</th>
                                 <th>User Name</th>
                                 <th>Email</th>
-                                <th>Status</th>
+                                <th>permision</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -60,6 +61,7 @@
                                     <td>{{ $admin->name }}</td>
                                     <td>{{ $admin->username }}</td>
                                     <td>{{ $admin->email }}</td>
+                                    <td>{{ $admin->role->role }}</td>
                                    <td>
                                         @if($admin->status == 1)
                                             <span class="badge badge-success px-3 py-2">Active</span>

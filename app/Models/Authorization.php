@@ -10,4 +10,5 @@ class Authorization extends Model
     public function getpermessionsAttribute($permessions){
   return json_decode($permessions);
     }
+
 }

@@ -37,9 +37,7 @@ class AuthorizationController extends Controller
             'permision'=>'required|min:1',
         ]);
       $auth=new Authorization();
-      $auth->role=$request->name;
-      $auth->permessions=json_encode($request->permision);
-      $auth->save();
+      $this->Roles($request,$auth);
       flash()->success('Role Add Successfuly');
       return redirect()->route('admin.authorization.index');
 
@@ -69,15 +67,13 @@ class AuthorizationController extends Controller
     public function update(Request $request, string $id)
     {
               $request->validate([
-            'name'=>'required|min:5|unique:authorizations,role',
+            'name'=>'required|min:5|unique:authorizations,role,'.$id,
             'permision'=>'required|min:1',
         ]);
 
-        $role=Authorization::findOrFail($id);
+        $auth=Authorization::findOrFail($id);
        
-        $role->role=$request->name;
-        $role->permessions=json_encode($request->permision);
-        $role->save();
+       $this->Roles($request,$auth);
         flash()->success('Role Updated Successfuly');
         return redirect()->route('admin.authorization.index');
     }
@@ -92,5 +88,10 @@ class AuthorizationController extends Controller
         flash()->success('You deleted the role successfuly!!');
         return  redirect()->route('admin.authorization.index');
 
+    }
+    private function Roles($request,$auth){
+         $auth->role=$request->name;
+      $auth->permessions=json_encode($request->permision);
+      $auth->save();
     }
 }
