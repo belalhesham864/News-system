@@ -58,7 +58,9 @@ class AuthorizationController extends Controller
      */
     public function edit(string $id)
     {
-        //
+         $role=Authorization::findOrFail($id);
+         
+         return view('admin.authorization.edit',compact('role'));
     }
 
     /**
@@ -66,7 +68,18 @@ class AuthorizationController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+              $request->validate([
+            'name'=>'required|min:5|unique:authorizations,role',
+            'permision'=>'required|min:1',
+        ]);
+
+        $role=Authorization::findOrFail($id);
+       
+        $role->role=$request->name;
+        $role->permessions=json_encode($request->permision);
+        $role->save();
+        flash()->success('Role Updated Successfuly');
+        return redirect()->route('admin.authorization.index');
     }
 
     /**

@@ -74,8 +74,8 @@
                                                 class="fa-solid fa-trash"></i></a>
                                       
                                         <a class="modal-effect btn btn-sm btn-info"
-                                            href="{{ route('admin.authorization.show', $auth->id) }}" title="eye"><i
-                                                class="fa-solid fa-eye"></i>
+                                            href="{{ route('admin.authorization.edit', $auth->id) }}" title="edit"><i
+                                                class="fa-solid fa-edit"></i>
                                         </a>
                                     </td>
                                 </tr>
