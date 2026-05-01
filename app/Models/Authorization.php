@@ -10,5 +10,7 @@ class Authorization extends Model
     public function getpermessionsAttribute($permessions){
   return json_decode($permessions);
     }
-
+public function admins(){
+  return $this->hasMany(Admin::class,'role_id');
+}
 }

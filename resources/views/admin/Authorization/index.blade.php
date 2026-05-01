@@ -35,6 +35,8 @@
                                 <th>Role Name</th>
                                
                                 <th>permessions</th>
+                                                                <th>Related Admins</th>
+
                                 <th>Created At</th>
                                      <th>Action</th>
                             </tr>
@@ -45,6 +47,7 @@
                                 <th>Role Name</th>
                                
                                 <th>permessions</th>
+                                <th>Related Admins</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -65,6 +68,7 @@
                                     @endforelse
                                     
                                  </td>
+                                 <td>{{ $auth->admins->count() }}</td>
                     
                                     <td>{{ $auth->created_at?->format('Y-m-d h:i a') }}</td>
                                     <td>

@@ -29,4 +29,15 @@ public function role()
 {
     return $this->belongsTo(Authorization::class, 'role_id');
 }
+public function hasAcess($config_permesion){
+    $authorizaton=$this->role;
+    if(!$authorizaton){
+        return false;
+    }
+    foreach($authorizaton->permessions  as $permesion){
+    if($config_permesion == $permesion){
+return true;
+    }
+    }
+}
 }

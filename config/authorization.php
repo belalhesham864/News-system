@@ -1,11 +1,13 @@
 <?php
 return [
     'permessions'=>[
-     'users'=>'users',
-     'categories'=>'categories',
-     'posts'=>'posts',
-     'settings'=>'settings',
-     'contacts'=>'contacts',
-     
+     'users'        =>' Mangment users',
+     'categories'   =>' Mangment categories',
+     'posts'        =>' Mangment posts',
+     'settings'     =>' Mangment settings',
+     'contacts'     =>' Mangment contacts',
+     'home'         =>" Mangment dashboard ",
+     'authorization'=>'Mangment Authorization',
+     'admins'=>'admins'
     ],
 ];

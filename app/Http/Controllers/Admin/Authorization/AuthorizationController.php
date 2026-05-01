@@ -84,6 +84,10 @@ class AuthorizationController extends Controller
     public function destroy(string $id)
     {
         $role=Authorization::findOrFail($id);
+        if($role->admins->count()>0){
+              flash()->warning('Please Delete Related Admin First!!');
+              return redirect()->back();
+        }
         $role->delete();
         flash()->success('You deleted the role successfuly!!');
         return  redirect()->route('admin.authorization.index');

@@ -16,6 +16,10 @@ class AdminController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function __construct(){
+        $this->middleware('can:admins');
+
+    }
     public function index()
     {
               $order_by = request()->order_by ?? 'asc';

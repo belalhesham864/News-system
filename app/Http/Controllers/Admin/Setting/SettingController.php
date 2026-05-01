@@ -17,6 +17,10 @@ class SettingController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function __construct(){
+        $this->middleware('can:settings');
+    }
     public function index()
     {
         return view('admin.setting.setting');

@@ -13,11 +13,13 @@
             <hr class="sidebar-divider my-0">
 
             <!-- Nav Item - Dashboard -->
-            <li class="nav-item active">
+        @can('home')
+                <li class="nav-item active">
                 <a class="nav-link" href="index.html">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
+        @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -28,6 +30,9 @@
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
+            @can('posts')
+                
+          
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
@@ -42,8 +47,14 @@
                     </div>
                 </div>
             </li>
-
+  @endcan
+  
             <!-- Nav Item - Utilities Collapse Menu -->
+
+            {{-- Setting --}}
+            @can('settings')
+                
+          
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
@@ -59,6 +70,11 @@
                     </div>
                 </div>
             </li>
+  @endcan
+         {{-- Admins --}}
+         @can('admins')
+             
+
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities2"
                     aria-expanded="true" aria-controls="collapseUtilities2">
@@ -74,6 +90,10 @@
                     </div>
                 </div>
             </li>
+         @endcan
+            @can('authorization')
+                
+     
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities3"
                     aria-expanded="true" aria-controls="collapseUtilities3">
@@ -89,17 +109,18 @@
                     </div>
                 </div>
             </li>
-
+       @endcan
             <!-- Divider -->
             <hr class="sidebar-divider">
-
+{{-- 
             <!-- Heading -->
             <div class="sidebar-heading">
                 Addons
-            </div>
+            </div> --}}
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
+  @can('users')
+                       <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
                    <i class="fa-solid fa-users"></i>
@@ -114,21 +135,25 @@
                     </div>
                 </div>
             </li>
-
+  @endcan
+{{-- 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
                 <a class="nav-link" href="charts.html">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Charts</span></a>
-            </li>
+            </li> --}}
 
             <!-- Nav Item - Tables -->
+            @can('categories')
+                
+           
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('admin.categories.index') }}">
                   <i class="fa-solid fa-layer-group"></i>
                     <span>Categories</span></a>
             </li>
-
+ @endcan 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

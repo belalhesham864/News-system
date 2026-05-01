@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,5 +22,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrap();
-    }
+  foreach(config('authorization.permessions') as $config_permesion=>$value){
+ Gate::define($config_permesion,function($auth) use ($config_permesion){
+ return $auth->hasAcess($config_permesion);
+ });
+  }
+        }
 }
