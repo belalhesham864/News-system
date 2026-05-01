@@ -35,7 +35,8 @@
                                 <th>Name</th>
                                 <th>User Name</th>
                                 <th>Email</th>
-                                <th>permision</th>
+                                <th>Role</th>
+                                <th>Status</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -46,7 +47,8 @@
                                 <th>Name</th>
                                 <th>User Name</th>
                                 <th>Email</th>
-                                <th>permision</th>
+                                <th>Role</th>
+                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Action</th>
                             </tr>
@@ -79,6 +81,10 @@
                                          <a class="modal-effect btn btn-sm btn-secondary" data-effect="effect-scale"
                                             data-toggle="modal" href="#Block{{$admin->id}}" title="block"><i
                                                 class="fa-solid @if($admin->status==1) fa-ban @else fa-unlock-keyhole @endif"></i></a>
+                                                    <a class="modal-effect btn btn-sm btn-info"
+                                                href="{{ route('admin.admins.edit', $admin->id) }}" title="edit"><i
+                                                class="fa-solid fa-edit"></i>
+                                            </a>
                                         <a class="modal-effect btn btn-sm btn-info"
                                             href="{{ route('admin.admins.show', $admin->id) }}" title="eye"><i
                                                 class="fa-solid fa-eye"></i>

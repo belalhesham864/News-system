@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\Authorization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 use function Flasher\Prime\flash;
@@ -21,7 +22,7 @@ class AdminController extends Controller
         $Sort_By = request()->Sort_By ?? 'id';
         $limit = request()->limit ?? 5;
 
-        $admins = Admin::when(request()->search, function ($query) {
+        $admins = Admin::where('id','!=',Auth::guard('admin')->id())->when(request()->search, function ($query) {
             $query->where('name', 'like', '%' . request()->search . '%')->orWhere('email', 'like', '%' . request()->search . '%');
         })->when(request()->status !== null, function ($query) {
             $query->where('status', request()->status);
@@ -48,7 +49,7 @@ class AdminController extends Controller
             'name'=>'required|string|max:50',
             'username'=>'required|string|max:60',
             'status'=>'required',
-            'email'=>'required|email|max:50',
+            'email'=>'required|email|max:50|unique:admins,email',
             'password'=>'required|confirmed',
             'role_id'=>'required',
         ]);
@@ -81,7 +82,9 @@ if(!$admin){
      */
     public function edit(string $id)
     {
-        //
+        $admin=Admin::findOrFail($id);
+          $roles=Authorization::select('id','role')->get();
+        return view('admin.admins.edit',compact('admin','roles'));
     }
 
     /**
@@ -89,7 +92,23 @@ if(!$admin){
      */
     public function update(Request $request, string $id)
     {
-        //
+       
+        $request->validate([
+            'name'=>'required|string|max:50',
+            'username'=>'required|string|max:60|unique:admins,username,'.$id,
+            'status'=>'required',
+            'email'=>'required|email|max:50|unique:admins,email,'.$id,
+            'password'=>'nullable|confirmed',
+            'role_id'=>'required',
+        ]);
+        $data=$request->except('password');
+        $admin=Admin::findOrFail($id);
+        if($request->filled('password')){
+             $data['password']=hash::make($request->password);
+            }
+        $admin->update($data);
+           flash()->success('Admin updated Successfuly');
+        return redirect()->route('admin.admins.index');
     }
 
     /**
