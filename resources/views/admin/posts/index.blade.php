@@ -67,15 +67,21 @@
 
                                     <td>{{ $post->created_at }}</td>
                                     <td>
+@can('delete_post')
+    
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                             data-toggle="modal" href="#delete{{$post->id}}" title="block"><i
                                                 class="fa-solid fa-trash"></i></a>
+@endcan
+@can('block_post')
+    
+
                                         <a class="modal-effect btn btn-sm btn-secondary" data-effect="effect-scale"
                                             data-toggle="modal" href="#Block{{$post->id}}" title="block"><i
                                                 class="fa-solid @if($post->status==1) fa-ban @else fa-unlock-keyhole @endif"></i></a>
+                                                @endcan         
                                                 @if ($post->admin_id==auth('admin')->id())
-                                                    
                                                 <a class="modal-effect btn btn-sm btn-info"
                                                 href="{{ route('admin.posts.edit', $post->id) }}" title="edit"><i
                                                 class="fa-solid fa-edit"></i>

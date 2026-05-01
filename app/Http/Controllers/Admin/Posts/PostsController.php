@@ -23,6 +23,7 @@ class PostsController extends Controller
      */
      public function __construct() {
        $this->middleware('can:posts');
+       $this->middleware('can:Create_Post')->only(['create','store']);
     }
     public function index()
     {

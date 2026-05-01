@@ -18,8 +18,11 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h6 class="m-0 font-weight-bold text-primary">Categories Mangment</h6>
-                <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-toggle="modal"
-                    href="#Add_Category" title="Add Category">Add Category<i class="fa-solid fa-plus"></i></a>
+               @can('Add_categories')
+                   
+               <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-toggle="modal"
+               href="#Add_Category" title="Add Category">Add Category<i class="fa-solid fa-plus"></i></a>
+               @endcan
                 @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul class="mb-0">
@@ -75,17 +78,28 @@
 
                                     <td>{{ $Category->created_at }}</td>
                                     <td>
+@can('delete_categories')
+    
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                             data-toggle="modal" href="#delete{{$Category->id}}" title="Delete"><i
                                                 class="fa-solid fa-trash"></i></a>
+
+@endcan
+@can('Edit_categories')
+    
+
                                         <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                             data-toggle="modal" href="#Edit{{$Category->id}}" title="Edit"><i
                                                 class="fa-solid fa-edit"></i></a>
+                                                @endcan
+                                         @can('Block_categories')
+                                             
+                                       
                                         <a class="modal-effect btn btn-sm btn-secondary" data-effect="effect-scale"
                                             data-toggle="modal" href="#Block{{$Category->id}}" title="block"><i
                                                 class="fa-solid @if($Category->status == 1) fa-ban @else fa-unlock-keyhole @endif"></i></a>
-
+   @endcan 
                                     </td>
                                 </tr>
                             @empty

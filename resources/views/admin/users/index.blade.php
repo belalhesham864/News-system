@@ -75,17 +75,29 @@
                                     <td>{{ $user->country }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>
+@can('delete_User')
+    
 
                                         <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
                                             data-toggle="modal" href="#delete{{$user->id}}" title="block"><i
                                                 class="fa-solid fa-trash"></i></a>
+@endcan
+
+@can('edit_User')
+    
+
                                         <a class="modal-effect btn btn-sm btn-secondary" data-effect="effect-scale"
                                             data-toggle="modal" href="#Block{{$user->id}}" title="block"><i
                                                 class="fa-solid @if($user->status==1) fa-ban @else fa-unlock-keyhole @endif"></i></a>
+@endcan
+@can('show_User')
+    
+
                                         <a class="modal-effect btn btn-sm btn-info"
                                             href="{{ route('admin.users.show', $user->id) }}" title="eye"><i
                                                 class="fa-solid fa-eye"></i>
                                         </a>
+@endcan
                                     </td>
                                 </tr>
                             @empty

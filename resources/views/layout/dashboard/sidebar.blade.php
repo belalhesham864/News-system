@@ -43,7 +43,10 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">posts mangment:</h6>
                         <a class="collapse-item" href="{{ route('admin.posts.index') }}">posts</a>
+                        @can('Create_Post')
+                            
                         <a class="collapse-item" href="{{ route('admin.posts.create') }}">Create Post</a>
+                        @endcan
                     </div>
                 </div>
             </li>
@@ -129,7 +132,11 @@
                 <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('admin.users.index') }}">Users</a>
+                        @can('Add_User')
+                            
                         <a class="collapse-item" href="{{ route('admin.users.create') }}">Add User</a>
+                        @endcan 
+
                         <a class="collapse-item" href="forgot-password.html">Block user</a>
                     
                     </div>
