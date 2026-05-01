@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\Auth\Password\ForgetPassworController;
 use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Category\CategoryController;
+use App\Http\Controllers\Admin\Contact\ContactController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\userController;
@@ -61,5 +62,11 @@ Route::prefix('admin')->name('admin.')->group(function () {
  //////////////// Admin ///////////////
  Route::resource('admins',AdminController::class)->middleware('can:admins');
          Route::post('admins/changestatus/{id}', [AdminController::class, 'changestatus'])->name('admins.changestatus');
+////////////////// Countact-us //////////////////////////////
+         Route::controller(ContactController::class)->prefix('Contact')->as('Contact.')->group(function(){
+        Route::get('/','index')->name('index');
+        Route::get('/show/{id}','show')->name('show');
+        Route::delete('/destory/{id}','destory')->name('destory');
+         });
     });
 });

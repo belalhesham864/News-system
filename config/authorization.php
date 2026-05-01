@@ -21,6 +21,7 @@ return [
      'home'         =>" Mangment dashboard ",
      'authorization'=>'Mangment Authorization',
      'admins'=>'admins',
+     'Contacts'=>'Contacts',
      
     ],
 ];

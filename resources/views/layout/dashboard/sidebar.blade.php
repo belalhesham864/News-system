@@ -161,6 +161,17 @@
                     <span>Categories</span></a>
             </li>
  @endcan 
+           
+                
+           @can('Contacts')
+               
+           <li class="nav-item">
+               <a class="nav-link" href="{{ route('admin.Contact.index') }}">
+                   <i class="fa-solid fa-message"></i>
+                   <span>Contact</span></a>
+                </li>
+                @endcan
+
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 
