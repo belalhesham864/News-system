@@ -18,7 +18,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Contact Mangment</h6>
             </div>
-            @include('layout.dashboard.filte.filter')
+            @include('admin.contact.filte.filter')
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -29,6 +29,7 @@
                                 <th>User Name</th>
                                 <th>User Email</th>
                              <th>Title</th>
+                             <th>Status</th>
                               
                                 <th>Created At</th>
                                 <th>Action</th>
@@ -41,6 +42,7 @@
                                 <th>User Name</th>
                                 <th>User Email</th>
                                 <th>Title</th>
+                                  <th>Status</th>
                               
                                 <th>Created At</th>
                                 <th>Action</th>
@@ -56,7 +58,13 @@
                                     <td>{{ $contact->name }}</td>
                                     <td>{{$contact->email }}</td>
                                     <td>{{ $contact->title}}</td>
-                                     
+                                     <td>
+                                        @if($contact->status==0)
+                                        <div class="btn btn-danger"> UnRead</div>
+                                        @else
+                                        <div class="btn btn-info"> Read</div>
+                                        @endif
+                                     </td>
 
                                     <td>{{ $contact->created_at }}</td>
                                     <td>

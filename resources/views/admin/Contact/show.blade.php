@@ -37,7 +37,7 @@
                     <p class="text-muted">{{ $contact->phone }}</p>
                 </div>
 
-                <!-- Right (Details) -->
+               
                 <div class="col-md-8">
 
                     <div class="mb-3">
@@ -73,10 +73,16 @@
         </div>
 
         <!-- Footer -->
-        <div class="card-footer bg-white text-end">
+        <div class="d-flex justify-content-between align-items-center card-footer bg-white text-end">
             <a href="{{ url()->previous() }}" class="btn btn-outline-secondary">
-                Back
+                Back 
             </a>
+            {{-- <a href="mailto:{{ $contact->email }}?subject=Re {{ urlencode($contact->title) }}" class="btn btn-outline-primary">
+                Replay
+            </a> --}}
+            <a href="https://mail.google.com/mail/?view=cm&to={{ $contact->email }}&subject={{ urlencode('Re: '.$contact->title) }}" target="_blank" class="btn btn-outline-primary">
+    Reply <i class="fa fa-reply"></i>
+</a>
         </div>
 
     </div>

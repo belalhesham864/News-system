@@ -28,7 +28,12 @@ class ContactController extends Controller
     
     public function show($id){
    $contact=Contact::findOrFail($id);
-   
+   if($contact->status==0){
+    $contact->update([
+        'status'=>1
+    ]);
+    
+   }
     return view('admin.contact.show',compact('contact'));
     }
     public function destory($id){
