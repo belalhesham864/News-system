@@ -19,4 +19,14 @@
     <link rel="stylesheet" href="{{ asset('assets/forntend/vendor/file-input/css/fileinput.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.css') }}">
 @stack('css')
+
+    
+@auth('admin')
+<script>
+  var role="admin";
+    window.adminId = {{ auth('admin')->id() }};
+</script>
+@endauth
+
+@vite(['resources/js/app.js'])
 </head>

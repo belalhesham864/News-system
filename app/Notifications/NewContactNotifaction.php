@@ -52,7 +52,7 @@ class NewContactNotifaction extends Notification
             'name'=>$this->contact->name,
             'email'=>$this->contact->email,
             'title'=>$this->contact->title,
-            'Created_at'=>$this->contact->created_at,
+            'created_at'=>now()->format('d M Y - h:i A'),
             'link' => route('admin.Contact.show',$this->contact->id)
         ];
     }
@@ -60,5 +60,6 @@ class NewContactNotifaction extends Notification
 {
     return 'NewContatcNotify';
 }
+
  
 }

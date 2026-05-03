@@ -1,5 +1,6 @@
 import './bootstrap';
-window.Echo.private('users.'+id)
+if(role=="user"){
+    window.Echo.private('users.'+id)
 .notification((event)=>{
     $('#push-notifaction').prepend(`
          <div class="dropdown-item d-flex justify-content-between align-items-center gap-2">
@@ -28,3 +29,29 @@ window.Echo.private('users.'+id)
          $('#count-notifaction').text(count);
 
 });
+}
+
+///////// lesting admin ////////////////
+if(role=="admin"){
+    window.Echo.private(`admins.${window.adminId}`)
+.notification((event)=>{
+  $('#notify_push').prepend(`
+        
+                 <a class="dropdown-item d-flex align-items-center" href="${event.link}">
+                                    <div class="mr-3">
+                                        <div class="icon-circle bg-primary">
+                                            <i class="fas fa-file-alt text-white"></i>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="small text-gray-500">${event.created_at}</div>
+                                        <span class="font-weight-bold">${event.title}</span>
+                                    </div>
+                                </a>
+        `)
+
+        var count=Number($('#count-push').text());
+        count++
+        $('#count-push').text(count);
+});
+}

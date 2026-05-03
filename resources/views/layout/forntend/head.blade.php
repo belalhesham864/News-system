@@ -49,6 +49,7 @@
     <link rel="stylesheet" href="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.css') }}">
    @auth('web')
       <script>
+       var role="user"
      var id={{ auth()->user()->id }}
     </script>
    @endauth

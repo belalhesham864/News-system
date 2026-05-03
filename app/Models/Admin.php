@@ -40,4 +40,11 @@ return true;
     }
     }
 }
+
+
+
+    public function receivesBroadcastNotificationsOn(): string
+    {
+        return 'admins.'.$this->id;
+    }
 }
