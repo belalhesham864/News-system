@@ -22,6 +22,6 @@ return [
      'authorization'=>'Mangment Authorization',
      'admins'=>'admins',
      'Contacts'=>'Contacts',
-     
+     'porfile'=>'porfile'
     ],
 ];

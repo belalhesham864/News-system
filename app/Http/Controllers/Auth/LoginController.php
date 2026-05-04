@@ -45,6 +45,7 @@ class LoginController extends Controller
     {
         flash()->warning('your loggedout');
     }
+    
     protected function authenticated(Request $request, $user)
 {
      if($user->status==1){

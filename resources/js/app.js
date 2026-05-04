@@ -37,7 +37,7 @@ if(role=="admin"){
 .notification((event)=>{
   $('#notify_push').prepend(`
         
-                 <a class="dropdown-item d-flex align-items-center" href="${event.link}">
+                 <a class="dropdown-item d-flex align-items-center" href="${event.link}?notifyadmin=${event.id}">
                                     <div class="mr-3">
                                         <div class="icon-circle bg-primary">
                                             <i class="fas fa-file-alt text-white"></i>

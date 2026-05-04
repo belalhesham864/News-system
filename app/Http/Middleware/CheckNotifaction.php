@@ -16,10 +16,17 @@ class CheckNotifaction
     public function handle(Request $request, Closure $next): Response
     {
         if($request->query('notify')){
-           $notifaction=auth()->user()->unreadNotifications()->where('id',$request->query('notify'))->first();
+           $notifaction=auth()->user()->unreadNotifications->where('id',$request->query('notify'))->first();
 
            if($notifaction){
             $notifaction->markAsRead();
+           }
+        }
+        if($request->query('notifyadmin')){
+           $notifyadmin=auth('admin')->user()->unreadNotifications->where('id',$request->query('notifyadmin'))->first();
+
+           if($notifyadmin){
+            $notifyadmin->markAsRead();
            }
         }
         return $next($request);

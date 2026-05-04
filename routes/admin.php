@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Contact\ContactController;
+use App\Http\Controllers\Admin\Porfile\PorfileController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\userController;
@@ -67,6 +68,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/','index')->name('index');
         Route::get('/show/{id}','show')->name('show');
         Route::delete('/destory/{id}','destory')->name('destory');
+         });
+         Route::controller(PorfileController::class)->prefix('porfile')->as('porfile.')->group(function(){
+            Route::get('/','index')->name('index');
+            Route::post('/otp/{id}','SendOtp')->name('otp');
+            Route::match(['get','post'],'/verifayotp','verifayotp')->name('verifayotp');
+            Route::get('/ChangePassword','ChangePassword')->name('ChangePassword');
+            Route::post('/UpdatePassword/{id}','UpdatePassword')->name('UpdatePassword');
          });
     });
 });

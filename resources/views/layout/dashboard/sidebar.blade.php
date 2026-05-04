@@ -171,6 +171,14 @@
                    <span>Contact</span></a>
                 </li>
                 @endcan
+           @can('porfile')
+               
+           <li class="nav-item">
+               <a class="nav-link" href="{{ route('admin.porfile.index') }}">
+                   <i class="fa-solid fa-user"></i>
+                   <span>Porfile</span></a>
+                </li>
+                @endcan
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
