@@ -19,7 +19,6 @@
                 <!-- End of Topbar -->
 
            @yield('body')
-
             </div>
             <!-- End of Main Content -->
 
@@ -83,6 +82,9 @@
 <script src="{{ asset('assets/forntend/vendor/file-input/themes/fa5/theme.min.js') }}"></script>
 <script src="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.js') }}"></script>
     @stack('js')
+
+        @livewireScripts
+
 </body>
 
 </html>

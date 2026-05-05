@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Auth\Password\ResetPassworController;
 use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Contact\ContactController;
+use App\Http\Controllers\Admin\Home\HomeController;
 use App\Http\Controllers\Admin\Porfile\PorfileController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Setting\SettingController;
@@ -15,18 +16,19 @@ use App\Http\Controllers\Forntend\PostController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function () {
+    
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('home',[HomeController::class,'index'])->name('home');
+        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+    });
 
    
     Route::controller(LoginController::class)->middleware('admin.guest')->group(function () {
         Route::get('login', 'showloginform')->name('login.show');
         Route::post('login', 'checkauth')->name('login.checkauth');
     });
-    Route::middleware('auth:admin')->group(function () {
-        Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-        Route::get('home', function () {
-            return view('admin.index');
-        })->name('home');
-    });
+
 
 
     ///////////// forget And reset password //////////////////// 

@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Hash;
 
 class PorfileController extends Controller
 {
+
+public function __construct(){
+    $this->middleware('can:porfile');
+}
     public function index(){
         $id=Auth::guard('admin')->id();
 $admin=Admin::findOrFail($id);

@@ -15,9 +15,9 @@
             <!-- Nav Item - Dashboard -->
         @can('home')
                 <li class="nav-item active">
-                <a class="nav-link" href="index.html">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Dashboard</span></a>
+                <a class="nav-link" href="{{ route('admin.home') }}">
+                    <i class="fas fa-fw fa-home"></i>
+                    <span>Home</span></a>
             </li>
         @endcan
 
