@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\PostRequest;
 use App\Http\Requests\Dashboard\UpdatePostRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Image;
 use App\Models\Post;
 use App\Utils\ImageManger;
@@ -81,7 +82,7 @@ class PostsController extends Controller
      */
     public function show(string $id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('comment')->findOrFail($id);
         return view('admin.posts.show', compact('post'));
     }
 
@@ -166,5 +167,11 @@ class PostsController extends Controller
             'status' => 200,
             'msg' => 'image deleted successfuly'
         ]);
+    }
+    public function deletecomment($id){
+       $comment= Comment::findOrFail($id);
+       $comment->delete();
+       flash()->success('the comment deleted successfuly');
+       return redirect()->back();
     }
 }

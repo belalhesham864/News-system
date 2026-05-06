@@ -60,6 +60,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('posts', PostsController::class)->middleware('can:posts');
         Route::post('posts/changestatus/{id}', [PostsController::class, 'changestatus'])->name('posts.changestatus');
         Route::post('posts/deleteimage/{id}', [PostsController::class, 'deleteimage'])->name('posts.deleteimage');
+        Route::delete('posts/deletecomment/{id}', [PostsController::class, 'deletecomment'])->name('posts.deletecomment');
  /////////////// Setting ///////////////
  Route::resource('setting',SettingController::class)->only(['index','edit','update']);
  //////////////// Admin ///////////////
