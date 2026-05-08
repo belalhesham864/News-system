@@ -17,7 +17,10 @@
                 <th>Category</th>
                 <th>Comment Count</th>
                 <th>Status</th>
+                @can('posts')
+                    
                 <th>show</th>
+                @endcan
             </tr>
         </thead>
         <tbody>
@@ -30,10 +33,13 @@
                     <span class="badge bg-info">Active</span>
                 </td>
                 <td>
+                    @can('posts')
+                        
                     <a class="btn btn-sm btn-info"
-                       href="{{ route('admin.posts.show', $post->id) }}">
-                        <i class="fa-solid fa-eye"></i>
-                    </a>
+                    href="{{ route('admin.posts.show', $post->id) }}">
+                    <i class="fa-solid fa-eye"></i>
+                </a>
+                @endcan
                 </td>
             </tr>
         @empty
@@ -73,9 +79,14 @@
             <tr>
                 <td>{{ $comment->user->name }}</td>
 <td>
-    <a href="{{ route('admin.posts.show', $comment->post->id) }}">
+  @can('posts')
+        <a href="{{ route('admin.posts.show', $comment->post->id) }}">
         {{ $comment->post?->title }}
     </a>
+  @endcan
+  @cannot('posts')
+       {{ $comment->post?->title }}
+  @endcannot
 </td>                <td>{{ substr($comment->comment, 0, 30) }}...</td>
 
                 <td>

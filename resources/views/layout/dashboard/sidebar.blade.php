@@ -82,7 +82,7 @@
                         <a class="collapse-item" href="{{ route('admin.users.create') }}">Add User</a>
                         @endcan 
 
-                        <a class="collapse-item" href="forgot-password.html">Block user</a>
+                       
                     
                     </div>
                 </div>

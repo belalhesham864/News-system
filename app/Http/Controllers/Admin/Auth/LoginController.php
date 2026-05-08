@@ -30,7 +30,13 @@ class LoginController extends Controller
   }
   $request->session()->regenerate();
     flash()->success("welcome mr : ".auth('admin')->user()->name);
-    return redirect()->route('admin.home');
+  // if admin has permession home go to home else go to first page has peremession
+  $permession=Auth::guard('admin')->user()->role->permessions;
+  $F=$permession[0];
+   if(!in_array('home',$permession)){
+return redirect()->intended('admin/'.$F);
+     }
+     return redirect()->route('admin.home');
   
     }
     public function logout(Request $request){
