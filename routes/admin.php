@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\Authorization\AuthorizationController;
 use App\Http\Controllers\Admin\Category\CategoryController;
 use App\Http\Controllers\Admin\Contact\ContactController;
 use App\Http\Controllers\Admin\Home\HomeController;
+use App\Http\Controllers\Admin\Notifications\NotificationController;
 use App\Http\Controllers\Admin\Porfile\PorfileController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Setting\SettingController;
@@ -72,6 +73,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/show/{id}','show')->name('show');
         Route::delete('/destory/{id}','destory')->name('destory');
          });
+
+         ///////////////////Porfile //////////////////
          Route::controller(PorfileController::class)->prefix('porfile')->as('porfile.')->group(function(){
             Route::get('/','index')->name('index');
             Route::post('/otp/{id}','SendOtp')->name('otp');
@@ -79,5 +82,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/ChangePassword','ChangePassword')->name('ChangePassword');
             Route::post('/UpdatePassword/{id}','UpdatePassword')->name('UpdatePassword');
          });
+
+         /////////////////Notifaction ////////////////////////////
+         Route::get('notification',[NotificationController::class,'index'])->name('notifaction');
+         Route::post('notification/{id}',[NotificationController::class,'delete'])->name('notifaction.delete');
+         Route::post('DeleteAll',[NotificationController::class,'deleteAll'])->name('notifaction.deleteAll');
     });
 });

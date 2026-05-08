@@ -171,6 +171,14 @@
                    <span>Contact</span></a>
                 </li>
                 @endcan
+           @can('notifaction')
+               
+           <li class="nav-item">
+               <a class="nav-link" href="{{ route('admin.notifaction') }}">
+                   <i class="fa-solid fa-bell"></i>
+                   <span>Notification</span></a>
+                </li>
+                @endcan
            @can('porfile')
                
            <li class="nav-item">

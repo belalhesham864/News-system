@@ -18,7 +18,7 @@
                             class="rounded-circle me-2" style="width:45px;height:45px;object-fit:cover;">
                         <div>
                             <div class="fw-bold">
-                                <a href="{{ route('admin.users.show', $post->user->id) }}">
+                                <a  class="text-decoration-none text-dark fw-bold fs-5"  href="{{ route('admin.users.show', $post->user->id) }}">
                                     {{ $post->user->name ?? $post->admin->name }}</a>
                             </div>
                             <small class="text-muted">
@@ -130,16 +130,16 @@
 
                             <div class="d-flex gap-3">
 
-                                <a href="{{ route('admin.users.show', $post->user->id) }}">
-                                    <img src="{{ asset($post->user->image) }}" class="rounded-circle border shadow-sm"
+                                <a href="{{ route('admin.users.show', $comment->user->id) }}">
+                                    <img src="{{ asset($comment->user->image) }}" class="rounded-circle border shadow-sm"
                                         style="width: 55px; height: 55px; object-fit: cover;" alt="">
                                 </a>
 
                                 <div>
 
-                                    <a href="{{ route('admin.users.show', $post->user->id) }}"
+                                    <a href="{{ route('admin.users.show', $comment->user->id) }}"
                                         class="text-decoration-none text-dark fw-bold fs-5">
-                                        {{ $post->user->name }}
+                                        {{  $comment->user->name }}
                                     </a>
 
                                     <p class="mb-2 text-secondary" style="line-height: 1.7;">

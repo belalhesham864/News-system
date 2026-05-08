@@ -45,8 +45,8 @@
                                 </form>
                             </div>
                         </li>
-
-                        <!-- Nav Item - Alerts -->
+@can('notifaction')
+                          <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -71,14 +71,19 @@
                                         <span class="font-weight-bold">{{ $notify->data['title'] }}</span>
                                     </div>
                                 </a>
+                                  <a class="dropdown-item text-center small text-gray-500" href="{{ route('admin.notifaction') }}">Show All Alerts</a>
                            @empty
-                            <p>Not Notification yet</p> 
+                           
+                     <a class="dropdown-item text-center small text-gray-500" >Not Notifaction yet</a>
+
                            @endforelse
                            
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                              
                             </div>
                         </li>
 
+@endcan
+  
                         <!-- Nav Item - Messages -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"

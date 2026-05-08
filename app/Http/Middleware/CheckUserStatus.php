@@ -17,7 +17,7 @@ class CheckUserStatus
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::guard('web')->check() && Auth::guard('web')->user()->status==0){
+        if(Auth::guard('web')->check()&& Auth::guard('web')->user()->status==0){
             flash()->error('Your account has been blocked.');
           Auth::logout();
  return redirect()->route('login');
