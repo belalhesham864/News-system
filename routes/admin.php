@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\Home\HomeController;
 use App\Http\Controllers\Admin\Notifications\NotificationController;
 use App\Http\Controllers\Admin\Porfile\PorfileController;
 use App\Http\Controllers\Admin\Posts\PostsController;
+use App\Http\Controllers\Admin\Search\SearchController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\userController;
 use App\Http\Controllers\Forntend\PostController;
@@ -87,5 +88,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
          Route::get('notification',[NotificationController::class,'index'])->name('notifaction');
          Route::post('notification/{id}',[NotificationController::class,'delete'])->name('notifaction.delete');
          Route::post('DeleteAll',[NotificationController::class,'deleteAll'])->name('notifaction.deleteAll');
+
+         //////////////Search //////////////////////
+         Route::get('search',[SearchController::class,'index'])->name('Search');
     });
 });

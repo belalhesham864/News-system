@@ -1,4 +1,4 @@
-@extends('layout.dashboard.admin');
+@extends('layout.dashboard.admin')
 @section('title')
 Login
 @stop
