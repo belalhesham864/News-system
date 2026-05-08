@@ -52,22 +52,30 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
     ///////////////////Authorization //////////////////////
     Route::resource('authorization',AuthorizationController::class)->middleware('can:authorization');
+
         ///////////// User Table //////////////////////////
         Route::resource('users', userController::class);
         Route::post('user/block/{id}', [userController::class, 'userBlock'])->name('user.block');
+
         ////////////// Category Table ///////////////////////////////////
         Route::resource('categories', CategoryController::class);
         Route::post('category/changestatus/{id}', [CategoryController::class, 'changestatus'])->name('category.changestatus');
+
         ////////////// Post Table /////////////////////////////////////////
         Route::resource('posts', PostsController::class)->middleware('can:posts');
         Route::post('posts/changestatus/{id}', [PostsController::class, 'changestatus'])->name('posts.changestatus');
         Route::post('posts/deleteimage/{id}', [PostsController::class, 'deleteimage'])->name('posts.deleteimage');
         Route::delete('posts/deletecomment/{id}', [PostsController::class, 'deletecomment'])->name('posts.deletecomment');
+
  /////////////// Setting ///////////////
  Route::resource('setting',SettingController::class)->only(['index','edit','update']);
+
  //////////////// Admin ///////////////
  Route::resource('admins',AdminController::class)->middleware('can:admins');
          Route::post('admins/changestatus/{id}', [AdminController::class, 'changestatus'])->name('admins.changestatus');
+         Route::get('admins/changepassword/{id}', [AdminController::class, 'changePassword'])->name('admins.changePassword');
+         Route::post('admins/UpdatePassword', [AdminController::class, 'UpdatePassword'])->name('admins.UpdatePassword');
+
 ////////////////// Countact-us //////////////////////////////
          Route::controller(ContactController::class)->prefix('Contact')->as('Contact.')->group(function(){
         Route::get('/','index')->name('index');

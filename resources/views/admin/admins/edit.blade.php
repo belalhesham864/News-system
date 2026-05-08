@@ -46,7 +46,7 @@
 
                 </div>
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-12">
                         <div class="form-group">
                             <select name="status" id="" class="form-control">
                                 <option selected disabled>Select Stauts</option>
@@ -62,25 +62,7 @@
 
 
                 </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <input type="password" name="password" placeholder="Enter User password" class="form-control">
-                    </div>
-                    @error('password')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-                <div class="col-6">
-                    <div class="form-group">
-                        <input type="password" name="password_confirmation" placeholder="Enter User password again" class="form-control">
-                    </div>
-                
-                @error('password_confirmation')
-                    <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                    </div>
-            </div>
+    
  <div class="row">
                     <div class="col-12">
                         <div class="form-group">
@@ -105,7 +87,12 @@
 
                 </div>
                 <br>
-                <button type="submit" class="btn btn-info">Update Admin</button>
+
+                <div class="d-flex justify-content-between align-items ">
+
+                    <button type="submit" class="btn btn-info">Update Admin</button>
+                    <a href="{{ route('admin.admins.changePassword',$admin->id) }}">Change password</a>
+                </div>
             </div>
         </form>
  </div>

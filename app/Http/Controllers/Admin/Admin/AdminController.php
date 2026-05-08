@@ -102,14 +102,12 @@ if(!$admin){
             'username'=>'required|string|max:60|unique:admins,username,'.$id,
             'status'=>'required',
             'email'=>'required|email|max:50|unique:admins,email,'.$id,
-            'password'=>'nullable|confirmed',
+          
             'role_id'=>'required',
         ]);
         $data=$request->except('password');
         $admin=Admin::findOrFail($id);
-        if($request->filled('password')){
-             $data['password']=hash::make($request->password);
-            }
+       
         $admin->update($data);
            flash()->success('Admin updated Successfuly');
         return redirect()->route('admin.admins.index');
@@ -143,4 +141,26 @@ if(!$admin){
         return redirect()->route('admin.admins.index');
        
     }
+    public function changePassword($id){
+        
+return view('admin.admins.ChangPassword',['id'=>$id]);
+    }
+    public function UpdatePassword(Request $request){
+        $request->validate([
+            'password_current'=>'required',
+            'password'=>'required|confirmed|min:8',
+        ]);
+
+        $admin=Admin::findOrFail($request->id);
+        if(!Hash::check($request->password_current,$admin->password)){
+            flash()->error('Current password is invalid');
+            return redirect()->back();
+        }
+        $admin->update(['password'=>Hash::make($request->password)]);
+        flash()->success('Password Updated Successfuly');
+        return redirect()->route('admin.admins.index');
+     
+        
+    }
+
 }
