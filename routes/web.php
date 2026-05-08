@@ -23,7 +23,7 @@ use function Laravel\Prompts\search;
 
 /////////////AUTH//////////////////////////////
 Route::controller(VerificationController::class)->prefix('email')->name('verification.')->group(function(){
-
+   
     Route::get('/verify', 'show')->name('notice');
     Route::get('/verify/{id}/{hash}', 'verify')->name('verify');
     Route::post('/resend','resend')->name('resend');
@@ -37,6 +37,9 @@ Route::redirect('/','/home');
 
 
 Route::group(['as'=>'forntend.',],function(){
+    Route::fallback(function(){
+        return response()->view('forntend.error.404');
+    });
     //////////////// home page /////////////////////////
 Route::get('/home',[HomeController::class,'index'])->name('index');
 /////////////// NewsSubscrribe /////////////////////////////////////

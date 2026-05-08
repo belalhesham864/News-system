@@ -15,6 +15,9 @@ class PostController extends Controller
         $mainpost = Post::with(['comment'=>function($query){
             $query->latest()->limit(3);
         }])->whereSlug($slug)->first();
+        if(!$mainpost){
+          return view('forntend.error.404');
+        }
         $category = $mainpost->category;
 
 
