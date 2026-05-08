@@ -73,11 +73,18 @@ Login
                         <hr>
                      <div class="row mb-3">
     <div class="col-12 d-flex justify-content-center">
-        <a style="border-radius: 20px" href="{{ route('auth.google.redirect') }}"
+        <a style="border-radius: 20px" href="{{ route('auth.google.redirect','google') }}"
            class="btn btn-danger btn-user px-4">
            
             <i class="fab fa-google me-2"></i>
             Login with Google
+        </a>
+       
+        <a style="border-radius: 20px" href="{{ route('auth.google.redirect','facebook') }}"
+           class="btn btn-primary btn-user px-4">
+           
+            <i class="fab fa-facebook me-2"></i>
+            Login with Facebook
         </a>
     </div>
 </div>

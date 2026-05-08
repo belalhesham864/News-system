@@ -42,7 +42,7 @@
         <a
             href="{{ $setting->whatsapp }}"
             class="list-group-item list-group-item-action menu-item
-          {{ $setting_active ?? ''}}"
+          "
         >
             <i class="fas fa-phone"></i> Support
         </a>
