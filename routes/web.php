@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\Sociliat\SocialLoginController;
 use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\Forntend\CategoryController;
 use App\Http\Controllers\Forntend\ContactUsController;
@@ -30,7 +31,10 @@ Route::controller(VerificationController::class)->prefix('email')->name('verific
     });
 
 Auth::routes();
+///////////////Google Sociliat ///////////////////
 
+Route::get('auth/google/redirect',[SocialLoginController::class,'redirect'])->name('auth.google.redirect');
+Route::get('auth/google/callback',[SocialLoginController::class,'callback'])->name('auth.google.callback');
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::redirect('/','/home');

@@ -70,6 +70,17 @@ Login
                                 @endif
                             </div>
                         </div>
+                        <hr>
+                     <div class="row mb-3">
+    <div class="col-12 d-flex justify-content-center">
+        <a style="border-radius: 20px" href="{{ route('auth.google.redirect') }}"
+           class="btn btn-danger btn-user px-4">
+           
+            <i class="fab fa-google me-2"></i>
+            Login with Google
+        </a>
+    </div>
+</div>
                     </form>
                 </div>
                    
