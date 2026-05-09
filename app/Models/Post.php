@@ -34,8 +34,18 @@ class Post extends Model
             ]
         ];
     }
+    
     public function scopeActive($query){
       $query->where('status',1);
     }
-
+    public function scopeActiveUser($query){
+      $query->whereHas('user',function($user) {
+        $user->where('status',1);
+      });
+    }
+    public function scopeActiveCategory($query){
+      $query->whereHas('category',function($category) {
+        $category->where('status',1);
+      });
+    }
 }

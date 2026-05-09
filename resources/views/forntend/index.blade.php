@@ -24,7 +24,7 @@ Home
             
             <div class="col-md-6">
               <div class="tn-img">
-               <img style="height: 383px; width: 510px;" src="{{ asset($post->images->first()->path)}}" />
+               <img style="height: 450px; width: 550px;" src="{{ asset($post->images->first()->path)}}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
@@ -39,7 +39,7 @@ Home
             @foreach ($latest_four as $post )
              <div class="col-md-6">
               <div class="tn-img">
-                <img style="height: 383px; width: 510px;" src="{{asset($post->images->first()->path) }}" />
+                <img style="height: 223px; width: 350px;" src="{{asset($post->images->first()->path) }}" />
                 <div class="tn-title">
                   <a href="{{ route('forntend.post.show',$post->slug) }}">{{ $post->title }}</a>
                 </div>
