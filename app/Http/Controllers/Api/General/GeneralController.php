@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\General;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
 use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -11,17 +13,18 @@ class GeneralController extends Controller
 {
     public function getPosts()
     {
-        $query = Post::query()->with(['user', 'category'])->activeUser()->activeCategory()->active();
-        $posts = $query->get();
-        $latest_post = $this->latestPosts($query);
-        $most_read_posts = $this->most_read_posts($query);
-        $oldest_news = $this->oldest_news($query);
-        $popular_posts = $this->popular_posts($query);
-        $categories = $this->categories();
-        $category_with_posts = $this->category_with_posts($categories);
-
+        $query               = Post::query()->with(['user', 'category','admin'])->activeUser()->activeCategory()->active();
+        $posts               = clone $query->orderBy('created_at','desc')->get();
+        $latest_post         = $this->latestPosts(clone $query);
+        $most_read_posts     = $this->most_read_posts(clone $query);
+        $oldest_news         = $this->oldest_news( clone $query);
+        $popular_posts       = $this->popular_posts(clone $query);
+        $categories          = $this->categories();
+        $category_with_posts = $this->category_with_posts( $categories);
+        $post=Post::first();
         return response()->json([
-            'posts' => $posts,
+            'all_posts' =>  new PostCollection($posts),
+            'one post'  => new PostResource($post),
             'latest_post' => $latest_post,
             'most_read_posts' => $most_read_posts,
             'popular_posts' => $popular_posts,

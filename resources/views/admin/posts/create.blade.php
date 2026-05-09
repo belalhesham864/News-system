@@ -1,7 +1,7 @@
 @extends('layout.dashboard.app')
 
 @section('title')
-    Edit Post
+    Create Post
 @endsection
 
 @section('body')

@@ -47,4 +47,7 @@ return true;
     {
         return 'admins.'.$this->id;
     }
+        public function status(){
+return $this->status==1 ? 'Active' : 'Not Active';
+    }
 }

@@ -39,13 +39,23 @@ class Post extends Model
       $query->where('status',1);
     }
     public function scopeActiveUser($query){
-      $query->whereHas('user',function($user) {
+    $query->where(function($query){
+        $query->whereHas('user',function($user) {
         $user->where('status',1);
       });
+    })->orwhere('user_id',null);
     }
     public function scopeActiveCategory($query){
       $query->whereHas('category',function($category) {
         $category->where('status',1);
       });
+    }
+
+
+    public function status(){
+return $this->status==1 ? 'Active' : 'Not Active';
+    }
+    public function comment_able(){
+      return $this->comment_able==1 ? 'Active' : 'Not Active';
     }
 }
