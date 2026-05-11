@@ -10,10 +10,11 @@ use Illuminate\Http\Request;
 class PostController extends Controller
 {
         public function showPost($slug){
-        $post=Post::active()->activeUser()->activeCategory()->where('slug',$slug)->first();
+        $post=Post::with(['admin','category','user','images'])->active()->activeUser()->activeCategory()->where('slug',$slug)->first();
+      
         if(!$post){
-            return response()->json(['message'=>" post not found"],404);
+            return apiResponse(404,'Not Found',);
             }
-            return response()->json(['data'=>new PostResource($post)],200);
+return apiResponse(200,'Success',new PostResource($post));
     }
 }

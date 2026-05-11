@@ -14,12 +14,19 @@ class CategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
-            'Category_name'=>$this->name,
-            'Category_slug'=>$this->slug,
-            'status'=>$this->status(),
-            'Date'=>$this->created_at->diffForHumans(),
-            'posts'=>new PostCollection($this->posts)
-        ];
+       
+            $data=[
+
+                'Category_name'=>$this->name,
+                'Category_slug'=>$this->slug,
+                'status'=>$this->status(),
+                'Date'=>$this->created_at->diffForHumans(),
+                ];
+            if(!$request->is('api/post/show/*')){
+
+               $data['posts']=new PostCollection($this->posts);
+                }
+                return $data;
+       
     }
 }
