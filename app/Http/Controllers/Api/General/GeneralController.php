@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\General;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryCollection;
 use App\Http\Resources\PostCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Category;
@@ -13,25 +14,27 @@ class GeneralController extends Controller
 {
     public function getPosts()
     {
-        $query               = Post::query()->with(['user', 'category','admin'])->activeUser()->activeCategory()->active();
-        $posts               = clone $query->orderBy('created_at','desc')->get();
+        $query               = Post::query()->with(['user', 'category','admin','images'])->activeUser()->activeCategory()->active();
+        $posts               = clone $query->orderBy('created_at','desc')->paginate(4);
         $latest_post         = $this->latestPosts(clone $query);
         $most_read_posts     = $this->most_read_posts(clone $query);
         $oldest_news         = $this->oldest_news( clone $query);
         $popular_posts       = $this->popular_posts(clone $query);
         $categories          = $this->categories();
         $category_with_posts = $this->category_with_posts( $categories);
-        $post=Post::first();
+       
         return response()->json([
-            'all_posts' =>  new PostCollection($posts),
-            'one post'  => new PostResource($post),
-            'latest_post' => $latest_post,
-            'most_read_posts' => $most_read_posts,
-            'popular_posts' => $popular_posts,
-            'category_with_posts' => $category_with_posts,
-            'oldest_news' => $oldest_news,
+            
+            'all_posts' => ( new PostCollection($posts))->response()->getData(true),
+          
+           
+            'latest_post' => new PostCollection( $latest_post),
+            'most_read_posts' => new PostCollection( $most_read_posts),
+            'popular_posts' => new PostCollection( $popular_posts),
+            'category_with_posts' => new CategoryCollection( $category_with_posts),
+            'oldest_news' => new PostCollection( $oldest_news),
 
-        ]);
+        ],200);
     }
 
 
@@ -71,4 +74,6 @@ class GeneralController extends Controller
 
         return $popular_posts;
     }
+
+
 }

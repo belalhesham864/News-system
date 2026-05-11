@@ -14,24 +14,34 @@ class PostResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+       
+            $data=[
+
             'title'=>$this->title,
             'slug'=>$this->slug,
-            'Description'=>$this->desc,
             'numer_of_views'=>$this->numer_of_view,
-             'comment_able' =>$this->comment_able(),
-            //  'status'=>$this->status==1 ? 'Active' :'Not Active',
-             'status'=>$this->status(),
-              'small_desc'=>$this->SmallDesc,
+            'status'=>$this->status(),
+            'media'=> new ImageCollection($this->images),
+       'post_url'=>route('forntend.post.show',$this->slug),
             'Date'=>$this->created_at->diffForHumans(),
-
-
-            'category'=>new CategoryResource($this->category),
             'Publisher'=> $this->user_id==null ? new AdminResource($this->admin) : new UserResource($this->user),
+                        ];
+
+           
             // 'Publisher_name'=>$this->admin->name ?? $this->user->name,
             // 'User'=> new UserResource($this->user),
             // 'Admin'=> new AdminResource($this->admin),
-        ];
+    
+
+
+            if($request->is('api/post/show/*')){
+                $data['comment_able']=$this->comment_able();
+                $data['Description']=$this->desc;
+                $data['small_desc']=$this->SmallDesc;
+               
+                $data['category']=new CategoryResource($this->category);
+                }
+                return $data;
     }
 }
 

@@ -17,6 +17,9 @@ class CategoryResource extends JsonResource
         return [
             'Category_name'=>$this->name,
             'Category_slug'=>$this->slug,
+            'status'=>$this->status(),
+            'Date'=>$this->created_at->diffForHumans(),
+            'posts'=>new PostCollection($this->posts)
         ];
     }
 }
