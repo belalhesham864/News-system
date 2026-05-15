@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\Notifications\NotificationController;
 use App\Http\Controllers\Admin\Porfile\PorfileController;
 use App\Http\Controllers\Admin\Posts\PostsController;
 use App\Http\Controllers\Admin\Search\SearchController;
+use App\Http\Controllers\Admin\setting\Realted_SiteController;
 use App\Http\Controllers\Admin\Setting\SettingController;
 use App\Http\Controllers\Admin\User\userController;
 use App\Http\Controllers\Forntend\PostController;
@@ -69,7 +70,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
  /////////////// Setting ///////////////
  Route::resource('setting',SettingController::class)->only(['index','edit','update']);
-
+Route::resource('related_site',Realted_SiteController::class);
  //////////////// Admin ///////////////
  Route::resource('admins',AdminController::class)->middleware('can:admins');
          Route::post('admins/changestatus/{id}', [AdminController::class, 'changestatus'])->name('admins.changestatus');

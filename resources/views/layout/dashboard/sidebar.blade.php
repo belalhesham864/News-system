@@ -162,6 +162,7 @@
                         <h6 class="collapse-header">Setting Mangment:</h6>
                     
                         <a class="collapse-item" href="{{ route('admin.setting.index') }}">Setting</a>
+                        <a class="collapse-item" href="{{ route('admin.related_site.index') }}">Realted Site</a>
                     </div>
                 </div>
             </li>
