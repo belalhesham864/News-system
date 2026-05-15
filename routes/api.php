@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\General\GeneralController;
 use App\Http\Controllers\Api\General\PostController;
+use App\Http\Controllers\Api\General\SettingController;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -11,5 +12,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 
-Route::get('posts',[GeneralController::class,'getPosts'])->name('General');
-Route::get('post/show/{slug}',[PostController::class,'showPost'])->name('showPost');
+Route::get('posts',[GeneralController::class,'getPosts']);
+Route::get('post/show/{slug}',[PostController::class,'showPost']);
+
+Route::get('setting',[SettingController::class,'getsetting']);

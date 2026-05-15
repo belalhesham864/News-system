@@ -89,4 +89,5 @@ class GeneralController extends Controller
         }
         return $popular_posts;
     }
+  
 }
