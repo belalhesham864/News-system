@@ -8,7 +8,7 @@
     <div class="container-fluid">
 
         <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Related_site</h1>
+        <h1 class="h3 mb-2 text-gray-800">Related Site</h1>
         <p class="mb-4">
             You can manage all Related site here and add a description for each category to clarify its content and better
             organize your posts.

@@ -13,7 +13,7 @@ class Realted_SiteController extends Controller
      */
     public function index()
     {
-        $Realted_site=RelatedNewsSite::select('name','url','id','created_at')->get();
+        $Realted_site=RelatedNewsSite::select('name','url','id','created_at')->orderBy('created_at','desc')->get();
 return view('admin.Related_site.index',compact('Realted_site'));
     }
 

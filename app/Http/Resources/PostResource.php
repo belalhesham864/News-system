@@ -38,7 +38,7 @@ class PostResource extends JsonResource
                 $data['comment_able']=$this->comment_able();
                 $data['Description']=$this->desc;
                 $data['small_desc']=$this->SmallDesc;
-               
+                // $data['comment']=new CommentCollection($this->comment);
                 $data['category']=new CategoryResource($this->category);
                 }
                 return $data;

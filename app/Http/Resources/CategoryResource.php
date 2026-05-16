@@ -22,7 +22,7 @@ class CategoryResource extends JsonResource
                 'status'=>$this->status(),
                 'Date'=>$this->created_at->diffForHumans(),
                 ];
-            if(!$request->is('api/post/show/*')){
+            if(! $request->is('api/post/show/*') && $request->is('category')){
 
                $data['posts']=new PostCollection($this->posts);
                 }

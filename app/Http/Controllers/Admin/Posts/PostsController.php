@@ -47,7 +47,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $categorise = Category::select('id', 'name')->get();
+        $categorise = Category::select('id', 'name')->activee()->get();
         return view('admin.posts.create', compact('categorise'));
     }
 
@@ -92,7 +92,7 @@ class PostsController extends Controller
     public function edit(string $id)
     {
         $post = Post::findOrFail($id);
-        $categorise = Category::select('id', 'name')->get();
+        $categorise = Category::select('id', 'name')->activee()->get();
         return view('admin.posts.edit', compact('post', 'categorise'));
     }
 
