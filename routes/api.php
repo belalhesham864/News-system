@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\General\CategoryController;
+use App\Http\Controllers\Api\General\ContactsController;
 use App\Http\Controllers\Api\General\GeneralController;
 use App\Http\Controllers\Api\General\PostController;
 use App\Http\Controllers\Api\General\SearchController;
@@ -15,11 +16,20 @@ Route::get('/user', function (Request $request) {
 
 
 Route::get('posts',[GeneralController::class,'getPosts']);
-Route::get('post/show/{slug}',[PostController::class,'showPost']);
-Route::get('post/comment/{slug}',[PostController::class,'getpostcomment']);
+
+//////////////// posts Route ///////////
+Route::controller(PostController::class)->prefix('post/')->group(function(){
+    Route::get('show/{slug}','showPost');
+    Route::get('comment/{slug}','getpostcomment');
+    });
 
 Route::get('setting',[SettingController::class,'getsetting']);
-
-Route::get('category',[CategoryController::class,'getCategories']);
-Route::get('category/{slug}/posts',[CategoryController::class,'getCategoryposts']);
+//////////////// category Route ///////////
+Route::controller(CategoryController::class)->prefix('category/')->group(function(){
+    Route::get('','getCategories');
+    Route::get('{slug}/posts','getCategoryposts');
+    });
+ //////////////// Search Route ///////////
 Route::post('search',SearchController::class);
+//////////////// Contacts Route ///////////
+Route::post('contacts',ContactsController::class);
