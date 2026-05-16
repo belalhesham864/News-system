@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\General\CategoryController;
 use App\Http\Controllers\Api\General\GeneralController;
 use App\Http\Controllers\Api\General\PostController;
+use App\Http\Controllers\Api\General\SearchController;
 use App\Http\Controllers\Api\General\SettingController;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -21,3 +22,4 @@ Route::get('setting',[SettingController::class,'getsetting']);
 
 Route::get('category',[CategoryController::class,'getCategories']);
 Route::get('category/{slug}/posts',[CategoryController::class,'getCategoryposts']);
+Route::post('search',SearchController::class);
