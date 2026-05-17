@@ -11,9 +11,9 @@ use Illuminate\Support\Facades\Hash;
 
 class SettingController extends Controller
 {
-    public function updateSetting(SettingRequest $request,$user_id){
+    public function updateSetting(SettingRequest $request){
             $request->validated();
-     $user=User::find($user_id);
+     $user=$request->user();
      if(!$user){
         return apiResponse(404,'Not Found');
      }

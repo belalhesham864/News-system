@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Account\SettingController as AccountSettingController;
+use App\Http\Controllers\Api\Account\PostController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\Password\ResetPasswordController;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Api\Auth\VerifayEmailController;
 use App\Http\Controllers\Api\General\CategoryController;
 use App\Http\Controllers\Api\General\ContactsController;
 use App\Http\Controllers\Api\General\GeneralController;
-use App\Http\Controllers\Api\General\PostController;
 use App\Http\Controllers\Api\General\RelatedNewsController;
 use App\Http\Controllers\Api\General\SearchController;
 use App\Http\Controllers\Api\General\SettingController;
@@ -25,9 +25,16 @@ Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
     });
     Route::controller(AccountSettingController::class)->prefix('setting/')->group(function(){
 
-        Route::put('{user_id}','updateSetting');
+        Route::put('','updateSetting');
         Route::post('change-password','changePassword');
         });
+    Route::controller(PostController::class)->prefix('posts/')->group(function(){
+
+        Route::get('','getPosts');
+        // Route::post('change-password','changePassword');
+        });
+
+
 });
 
 Route::get('posts', [GeneralController::class, 'getPosts']);
