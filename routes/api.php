@@ -19,11 +19,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('auth:sanctum')->prefix('account')->group(function(){
+Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
     Route::get('user',function(){
         return new UserResource(request()->user());
     });
-    Route::put('setting/{user_id}',[AccountSettingController::class,'updateSetting']);
+    Route::controller(AccountSettingController::class)->prefix('setting/')->group(function(){
+
+        Route::put('{user_id}','updateSetting');
+        Route::post('change-password','changePassword');
+        });
 });
 
 Route::get('posts', [GeneralController::class, 'getPosts']);
