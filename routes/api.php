@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\Password\ForgetPasswordController;
+use App\Http\Controllers\Api\Auth\Password\ResetPasswordController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\Auth\VerifayEmailController;
 use App\Http\Controllers\Api\General\CategoryController;
@@ -41,7 +43,7 @@ Route::post('contacts', ContactsController::class);
 
 ////////////////// auth//////////////
 Route::prefix('auth/')->group(function () {
-    
+
     Route::post('register', [RegisterController::class, 'register']);
 
     Route::controller(VerifayEmailController::class)->middleware('auth:sanctum')->group(function () {
@@ -49,8 +51,13 @@ Route::prefix('auth/')->group(function () {
         Route::get('email/verifay', 'sendOtpAgain');
     });
     Route::controller(LoginController::class)->group(function () {
-
         Route::post('login', 'login');
         Route::delete('logout', 'logout')->middleware('auth:sanctum');
-    });
+        });
+        Route::controller(ForgetPasswordController::class)->prefix('password/email')->group(function () {
+            Route::post('', 'sendotp');
+            Route::post('/checkotp', 'checkOtp');
+        });
+
+    Route::post('password/reset',[ResetPasswordController::class,'resetPassword']);
 });
