@@ -61,21 +61,30 @@ class PostController extends Controller
         }
         return apiResponse(404, 'Not Comment FOUND');
     }
-    public function UpdatedPost(PorfileRequest $request,$post_id){
+    public function UpdatedPost(PorfileRequest $request, $post_id)
+    {
         // return $post_id;
-   $request->validated();
-       $user=$request->user();
-        $post=Post::where('id',$post_id)->first();
-             if (!$post) {
-            return apiResponse(404, 'Not Found Post');
-        }
-        $post->update($request->except('images'));
-        ImageManger::delete($post);
-        ImageManger::upload($request,$post,$user);
+        $request->validated();
+        try {
+            DB::beginTransaction();
 
-    return apiResponse(200, 'Post Updated Successfully', [
-        'post' => $post
-    ]);
+            $user = $request->user();
+            $post = Post::where('id', $post_id)->first();
+            if (!$post) {
+                return apiResponse(404, 'Not Found Post');
+            }
+            $post->update($request->except('images'));
+            ImageManger::delete($post);
+            ImageManger::upload($request, $post, $user);
+            DB::commit();
+            return apiResponse(200, 'Post Updated Successfully', [
+                'post' => $post
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error in updated post .' . $e->getMessage());
+            return apiResponse(400, 'Please Try Again');
+        }
     }
     public function destroy($post_id)
     {
@@ -89,4 +98,24 @@ class PostController extends Controller
         $post->delete();
         return apiResponse(200, 'Post Deleted Successfuly');
     }
+    public function AddComment($post_id,Request $request){
+     $request->validate(['comment'=>'required|string|min:3']);
+     $user=$request->user();
+     $post=Post::where('id',$post_id)->first();
+          if (!$post) {
+            return apiResponse(404, 'Not Found Post');
+        }
+      $comment=  $post->comment()->create([
+            'user_id'=>$user->id,
+            'comment'=>$request->comment,
+            'ip_address'=>$request->ip(),
+            
+        ]);
+        if(!$comment){
+            return apiResponse(400,'Try again Letter');
+        }
+        return apiResponse(201,'Comment Created',$comment);
+        
+    }
+
 }
