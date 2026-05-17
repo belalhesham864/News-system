@@ -14,11 +14,19 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        $data= [
             'User_name'=>$this->name,
             'User_image'=>asset($this->image),
             'User_status'=>$this->status(),
             'Created_date'=>$this->created_at->format('y-m-d h:m a')
         ];
+        if($request->is('api/account/user')){
+            $data['email']=$this->email;
+            $data['phone']=$this->phone;
+            $data['country']=$this->country;
+            $data['city']=$this->city;
+            $data['street']=$this->street;
+        }
+        return $data;
     }
 }

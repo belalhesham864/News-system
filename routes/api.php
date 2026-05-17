@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Account\SettingController as AccountSettingController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\Password\ForgetPasswordController;
 use App\Http\Controllers\Api\Auth\Password\ResetPasswordController;
@@ -9,16 +10,21 @@ use App\Http\Controllers\Api\General\CategoryController;
 use App\Http\Controllers\Api\General\ContactsController;
 use App\Http\Controllers\Api\General\GeneralController;
 use App\Http\Controllers\Api\General\PostController;
+use App\Http\Controllers\Api\General\RelatedNewsController;
 use App\Http\Controllers\Api\General\SearchController;
 use App\Http\Controllers\Api\General\SettingController;
+use App\Http\Resources\UserResource;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
 
+Route::middleware('auth:sanctum')->prefix('account')->group(function(){
+    Route::get('user',function(){
+        return new UserResource(request()->user());
+    });
+    Route::put('setting/{user_id}',[AccountSettingController::class,'updateSetting']);
+});
 
 Route::get('posts', [GeneralController::class, 'getPosts']);
 
@@ -39,7 +45,8 @@ Route::post('search', SearchController::class);
 //////////////// Contacts Route ///////////
 Route::post('contacts', ContactsController::class);
 
-
+////////////// Realted News /////////
+Route::get('realted-News',RelatedNewsController::class);
 
 ////////////////// auth//////////////
 Route::prefix('auth/')->group(function () {

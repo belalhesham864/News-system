@@ -42,6 +42,9 @@
               <input type="file" name="image" id="profile-image" accept="image/*" />
             </div>
             <div class="form-group">
+              <img src="{{ asset($user->image) }}" style="width: 100px"  id="profile_image" class="img-thumbnail">
+            </div>
+            <div class="form-group">
               <label for="Phone">Phone:</label>
               <input
                 type="text"
@@ -116,4 +119,22 @@
         </section>
       </div>
     </div>
+    
 @endsection
+@push('js')
+<script>
+  
+  $(document).on('change','#profile-image',function(e){
+    e.preventDefault();
+    var file =this.files[0];
+    if(file){
+      var reder=new FileReader();
+      reder.onload=function(e){
+        $('#profile_image').attr('src',e.target.result);
+      }
+      reder.readAsDataURL(file);
+    }
+  });
+</script>
+  
+@endpush

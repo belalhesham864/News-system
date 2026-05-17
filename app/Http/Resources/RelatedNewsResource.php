@@ -14,6 +14,10 @@ class RelatedNewsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'name'=>$this->name,
+            'url'=>$this->url,
+            'Date'=>$this->created_at->format('y-m-d h:m a')
+        ];
     }
 }

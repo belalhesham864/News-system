@@ -14,6 +14,9 @@ class RelatedNewsCollection extends ResourceCollection
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'related_news'=>$this->collection,
+            'count'=>$this->count(),
+        ];
     }
 }
