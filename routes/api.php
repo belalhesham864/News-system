@@ -31,7 +31,10 @@ Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
     Route::controller(PostController::class)->prefix('posts/')->group(function(){
 
         Route::get('','getPosts');
+        Route::get('get-commentPost/{post_id}','getCommentPost');
         Route::post('create','createPost');
+        Route::put('Update-Post/{post_id}','UpdatedPost');
+        Route::delete('destroy/{post_id}','destroy');
         });
 
 

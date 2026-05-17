@@ -16,7 +16,7 @@ class PostResource extends JsonResource
     {
        
             $data=[
-
+      
             'title'=>$this->title,
             'slug'=>$this->slug,
             'numer_of_views'=>$this->numer_of_view,
