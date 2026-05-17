@@ -55,7 +55,7 @@ return [
             'throw' => false,
             'report' => false,
         ],
-      
+    
 
         's3' => [
             'driver' => 's3',
