@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
     Route::controller(PostController::class)->prefix('posts/')->group(function(){
 
         Route::get('','getPosts');
-        // Route::post('change-password','changePassword');
+        Route::post('create','createPost');
         });
 
 
