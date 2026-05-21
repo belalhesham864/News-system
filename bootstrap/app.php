@@ -43,7 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
             return redirect()->route('admin.login.show');
         }
 
-        return redirect()->route('login');
+        return redirect()->route('unauthorizad');
     });
     
 })->create();

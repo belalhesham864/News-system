@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\Account\NotificationController;
 use App\Http\Controllers\Api\Account\SettingController as AccountSettingController;
 use App\Http\Controllers\Api\Account\PostController;
 use App\Http\Controllers\Api\Auth\LoginController;
@@ -39,9 +40,12 @@ Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
         Route::delete('destroy/{post_id}','destroy');
         });
 
-
+Route::get('notifaction',[NotificationController::class,'getcomment']);
 });
 
+Route::get('unauthorizad',function(){
+    return response()->json(['message'=>'unauthorizad'],401);
+})->name('unauthorizad');
 Route::get('posts', [GeneralController::class, 'getPosts']);
 
 //////////////// posts Route ///////////

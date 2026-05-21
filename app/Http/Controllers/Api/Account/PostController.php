@@ -8,6 +8,7 @@ use App\Http\Requests\Forntend\PorfileRequest;
 use App\Http\Resources\CommentCollection;
 use App\Http\Resources\PostCollection;
 use App\Models\Post;
+use App\Notifications\NewCommentNotify;
 use App\Utils\ImageManger;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -111,8 +112,13 @@ class PostController extends Controller
             'ip_address'=>$request->ip(),
             
         ]);
+            $commenter=auth()->user();
+
         if(!$comment){
             return apiResponse(400,'Try again Letter');
+        }
+        if(auth()->user()->id!=$post->user_id){
+$post->user->notify(new NewCommentNotify($comment,$post,$commenter) );
         }
         return apiResponse(201,'Comment Created',$comment);
         
