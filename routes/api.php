@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->prefix('account/')->group(function () {
     Route::get('user', function () {
-        return new UserResource(request()->user());
+        return new UserResource(auth()->guard('sanctum')->user());
     });
     Route::controller(AccountSettingController::class)->prefix('setting/')->group(function () {
 

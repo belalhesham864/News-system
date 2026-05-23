@@ -70,7 +70,19 @@ Login
                                 @endif
                             </div>
                         </div>
-                        <hr>
+                    <br>
+                        <div class="row d-flex justify-content-center">
+                            {!! NoCaptcha::display() !!}
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            @if ($errors->has('g-recaptcha-response'))
+    <span class="help-block">
+        <strong class="text-danger">{{ $errors->first('g-recaptcha-response') }}</strong>
+    </span>
+@endif
+
+                        </div>
+                            <hr>
                      <div class="row mb-3">
     <div class="col-12 d-flex justify-content-center">
         <a style="border-radius: 20px" href="{{ route('auth.google.redirect','google') }}"
@@ -97,3 +109,8 @@ Login
 </div>
   <br>  <br>
 @endsection
+@push('js')
+ {!! NoCaptcha::renderJs() !!}
+    
+@endpush
+
