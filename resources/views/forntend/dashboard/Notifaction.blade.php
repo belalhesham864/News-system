@@ -40,7 +40,7 @@
 <div class="notification alert alert-info d-flex justify-content-between align-items-center">
 
     <!-- TEXT -->
-    <a href="{{ $notifay->data['link'] }}?notify={{ $notifay->id }}" class="text-decoration-none text-dark flex-grow-1">
+    <a href="{{route('forntend.post.show',$notifay->data['post_slug'])  }}?notify={{ $notifay->id }}" class="text-decoration-none text-dark flex-grow-1">
         <strong>
             You have notification from: {{ $notifay->data['username'] }}
         </strong>

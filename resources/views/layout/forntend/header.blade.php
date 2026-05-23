@@ -157,7 +157,7 @@
             </span>
 
             {{-- Action --}}
-            <a href="{{ $notification->data['link'] }}?notify={{ $notification->id }}"
+            <a href="{{ route('forntend.post.show',$notification->data['post_slug']) }}?notify={{ $notification->id }}"
                class="text-decoration-none text-primary">
                 <i class="fa fa-eye"></i>
             </a>

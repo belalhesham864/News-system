@@ -61,8 +61,8 @@ class NewCommentNotify extends Notification implements ShouldQueue
             'username'=>$this->commenter->username,
             'post_title'=>$this->post->title,
             'comment'=>$this->comment->comment,
-            'link'=>route('forntend.post.show',$this->post->slug),
-
+            // 'link'=>route('forntend.post.show',$this->post->slug),
+  'post_slug'=>$this->post->slug,
         ];
     }
    public function toBroadcast(object $notifiable): BroadcastMessage
@@ -72,7 +72,8 @@ class NewCommentNotify extends Notification implements ShouldQueue
         'username' => $this->commenter->username,
         'post_title' => $this->post->title,
         'comment' => $this->comment->comment,
-        'link' => route('forntend.post.show', $this->post->slug),
+        // 'link' => route('forntend.post.show', $this->post->slug),
+        'post_slug'=>$this->post->slug,
             'delete_link' => route('forntend.dashboard.notifaction.deleteone', '__id__'),
     ]);
 }

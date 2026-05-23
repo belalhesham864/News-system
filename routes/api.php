@@ -20,31 +20,31 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware('auth:sanctum')->prefix('account/')->group(function(){
-    Route::get('user',function(){
+Route::middleware('auth:sanctum')->prefix('account/')->group(function () {
+    Route::get('user', function () {
         return new UserResource(request()->user());
     });
-    Route::controller(AccountSettingController::class)->prefix('setting/')->group(function(){
+    Route::controller(AccountSettingController::class)->prefix('setting/')->group(function () {
 
-        Route::put('','updateSetting');
-        Route::post('change-password','changePassword');
-        });
-    Route::controller(PostController::class)->prefix('posts/')->group(function(){
+        Route::put('', 'updateSetting');
+        Route::post('change-password', 'changePassword');
+    });
+    Route::controller(PostController::class)->prefix('posts/')->group(function () {
 
-        Route::get('','getPosts');
-        Route::get('get-commentPost/{post_id}','getCommentPost');
-        Route::post('create','createPost');
-        Route::post('add-comment/{post_id}','AddComment');
-        Route::put('Update-Post/{post_id}','UpdatedPost');
+        Route::get('', 'getPosts');
+        Route::get('get-commentPost/{post_id}', 'getCommentPost');
+        Route::post('create', 'createPost');
+        Route::post('add-comment/{post_id}', 'AddComment');
+        Route::put('Update-Post/{post_id}', 'UpdatedPost');
 
-        Route::delete('destroy/{post_id}','destroy');
-        });
+        Route::delete('destroy/{post_id}', 'destroy');
+    });
 
-Route::get('notifaction',[NotificationController::class,'getcomment']);
+    Route::get('notifaction', [NotificationController::class, 'getcomment']);
 });
 
-Route::get('unauthorizad',function(){
-    return response()->json(['message'=>'unauthorizad'],401);
+Route::get('unauthorizad', function () {
+    return response()->json(['message' => 'unauthorizad'], 401);
 })->name('unauthorizad');
 Route::get('posts', [GeneralController::class, 'getPosts']);
 
@@ -66,7 +66,7 @@ Route::post('search', SearchController::class);
 Route::post('contacts', ContactsController::class);
 
 ////////////// Realted News /////////
-Route::get('realted-News',RelatedNewsController::class);
+Route::get('realted-News', RelatedNewsController::class);
 
 ////////////////// auth//////////////
 Route::prefix('auth/')->group(function () {
@@ -80,11 +80,11 @@ Route::prefix('auth/')->group(function () {
     Route::controller(LoginController::class)->group(function () {
         Route::post('login', 'login');
         Route::delete('logout', 'logout')->middleware('auth:sanctum');
-        });
-        Route::controller(ForgetPasswordController::class)->prefix('password/email')->group(function () {
-            Route::post('', 'sendotp');
-            Route::post('/checkotp', 'checkOtp');
-        });
+    });
+    Route::controller(ForgetPasswordController::class)->prefix('password/email')->group(function () {
+        Route::post('', 'sendotp');
+        Route::post('/checkotp', 'checkOtp');
+    });
 
-    Route::post('password/reset',[ResetPasswordController::class,'resetPassword']);
+    Route::post('password/reset', [ResetPasswordController::class, 'resetPassword']);
 });
