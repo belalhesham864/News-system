@@ -7,6 +7,7 @@ use App\Http\Requests\Dashboard\PostRequest;
 use App\Http\Requests\Forntend\PorfileRequest;
 use App\Http\Resources\CommentCollection;
 use App\Http\Resources\PostCollection;
+use App\Http\Resources\PostResource;
 use App\Models\Post;
 use App\Notifications\NewCommentNotify;
 use App\Utils\ImageManger;
@@ -27,6 +28,14 @@ class PostController extends Controller
             return apiResponse(404, 'Not post Found');
         }
         return apiResponse(200, 'user posts', new PostCollection($posts));
+    }
+
+    public function showPost($slug){
+        $post=Post::where('slug',$slug)->first();
+        if(!$post){
+             return apiResponse(404, 'Not post Found');
+        }
+          return apiResponse(200, 'show post', new PostResource($post));
     }
     public function createPost(PostRequest $request)
     {

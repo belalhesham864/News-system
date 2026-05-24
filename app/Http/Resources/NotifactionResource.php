@@ -20,7 +20,7 @@ class NotifactionResource extends JsonResource
             'username'=>$this->data['username'],
             'post title'=>$this->data['post_title'],
             'comment'=>$this->data['comment'],
-            'link'=>$this->data['post_slug'],
+            'link'=>route('api.posts.show',$this->data['post_slug']).'?notify='.$this->id   ,
            "Date"=> $this->created_at->diffForHumans()
 
         ];

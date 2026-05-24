@@ -27,6 +27,10 @@ return Application::configure(basePath: dirname(__DIR__))
        $middleware->web(append:[
         CheckNotifaction::class
        ]);
+       $middleware->api(append:[
+        CheckNotifaction::class,
+        CheckUserStatus::class
+       ]);
        $middleware->alias([
            'admin.auth'=>CheckAuth::class,
         'admin.guest'=>AdminAuthenticate::class,

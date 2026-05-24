@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class CheckNotifaction
@@ -16,7 +17,13 @@ class CheckNotifaction
     public function handle(Request $request, Closure $next): Response
     {
         if($request->query('notify')){
-           $notifaction=auth()->user()->unreadNotifications->where('id',$request->query('notify'))->first();
+            if(auth()->guard('sanctum')->check()){
+                
+                $notifaction=Auth::guard('sanctum')->user()->unreadNotifications->where('id',$request->query('notify'))->first();
+            }else{
+
+                $notifaction=Auth::guard('web')->user()->unreadNotifications->where('id',$request->query('notify'))->first();
+                }
 
            if($notifaction){
             $notifaction->markAsRead();

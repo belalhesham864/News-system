@@ -2,6 +2,7 @@ import './bootstrap';
 if(role=="user"){
     window.Echo.private('users.'+id)
 .notification((event)=>{
+    let link=showpost.replace(':slug',event.post_slug)+'?notify='+event.id;
     $('#push-notifaction').prepend(`
          <div class="dropdown-item d-flex justify-content-between align-items-center gap-2">
 
@@ -13,7 +14,7 @@ if(role=="user"){
                 </span>
             </span>
 
-            <a href="${event.link}?notify=${event.id}"
+            <a href="${link}"
                class="text-decoration-none text-primary">
                 <i class="fa fa-eye"></i>
             </a>

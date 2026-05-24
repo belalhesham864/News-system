@@ -49,8 +49,9 @@
     <link rel="stylesheet" href="{{ asset('assets/forntend/vendor/SummerNote/summernote-bs4.min.css') }}">
    @auth('web')
       <script>
-       var role="user"
-     var id={{ auth()->user()->id }}
+       var role="user";
+     var id={{ auth()->user()->id }};
+     var showpost="{{ route('forntend.post.show',':slug') }}";
     </script>
    @endauth
 @vite(['resources/js/app.js'])

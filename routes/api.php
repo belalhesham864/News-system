@@ -34,23 +34,25 @@ Route::middleware('auth:sanctum')->prefix('account/')->group(function () {
         Route::get('', 'getPosts');
         Route::get('get-commentPost/{post_id}', 'getCommentPost');
         Route::post('create', 'createPost');
-        Route::post('add-comment/{post_id}', 'AddComment');
+        Route::post('add-comment/{post_id}', 'AddComment')->middleware('throttle:comment');
         Route::put('Update-Post/{post_id}', 'UpdatedPost');
 
         Route::delete('destroy/{post_id}', 'destroy');
     });
 
     Route::get('notifaction', [NotificationController::class, 'getcomment']);
+    Route::get('notifaction/read/{id}', [NotificationController::class, 'readnotifaction']);
 });
 
 Route::get('unauthorizad', function () {
     return response()->json(['message' => 'unauthorizad'], 401);
 })->name('unauthorizad');
+
 Route::get('posts', [GeneralController::class, 'getPosts']);
 
 //////////////// posts Route ///////////
 Route::controller(PostController::class)->prefix('post/')->group(function () {
-    Route::get('show/{slug}', 'showPost');
+    Route::get('show/{slug}', 'showPost')->name('api.posts.show');
     Route::get('comment/{slug}', 'getpostcomment');
 });
 
@@ -63,7 +65,7 @@ Route::controller(CategoryController::class)->prefix('category/')->group(functio
 //////////////// Search Route ///////////
 Route::post('search', SearchController::class);
 //////////////// Contacts Route ///////////
-Route::post('contacts', ContactsController::class);
+Route::post('contacts', ContactsController::class)->middleware('throttle:contact');
 
 ////////////// Realted News /////////
 Route::get('realted-News', RelatedNewsController::class);
@@ -78,7 +80,7 @@ Route::prefix('auth/')->group(function () {
         Route::get('email/verifay', 'sendOtpAgain');
     });
     Route::controller(LoginController::class)->group(function () {
-        Route::post('login', 'login');
+        Route::post('login', 'login')->middleware('throttle:login');
         Route::delete('logout', 'logout')->middleware('auth:sanctum');
     });
     Route::controller(ForgetPasswordController::class)->prefix('password/email')->group(function () {
