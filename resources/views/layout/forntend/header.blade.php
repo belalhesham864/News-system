@@ -48,7 +48,7 @@
           <div class="col-lg-3 col-md-4">
             <div class="b-logo">
               <a href="index.html">
-                <img src="{{asset($setting->logo)}}" style="width: 300px; height: auto;" alt="Logo" />
+                <img src="{{asset('assets/forntend/img/logo.png')}}" style="width: 300px; height: auto;" alt="Logo" />
               </a>
             </div>
           </div>

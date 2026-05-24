@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\UserRequest;
+use App\Jobs\SendOtpTask;
 use App\Models\User;
 use App\Notifications\Api\SendOtpRegister;
 use App\Utils\ImageManger;
@@ -22,7 +23,7 @@ class RegisterController extends Controller
          if(!$user){
             return apiResponse(404,'Please Try Again');
          }
-           $user->notify(new SendOtpRegister());
+           SendOtpTask::dispatch($user);
       
 if($request->hasFile('image')){
         ImageManger::upload($request,null,$user);
