@@ -28,6 +28,7 @@ class RegisterController extends Controller
 if($request->hasFile('image')){
         ImageManger::upload($request,null,$user);
 }
+            $
          $token=$user->createToken('auth-registet')->plainTextToken;
        
          DB::commit();

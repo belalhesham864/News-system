@@ -21,9 +21,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('auth:sanctum')->prefix('account/')->group(function () {
-    Route::get('user', function () {
-        return new UserResource(auth()->guard('sanctum')->user());
+
+    Route::get('user', function (Illuminate\Http\Request $request) {
+        return $request->user();
     });
+    
     Route::controller(AccountSettingController::class)->prefix('setting/')->group(function () {
 
         Route::put('', 'updateSetting');
@@ -80,7 +82,7 @@ Route::prefix('auth/')->group(function () {
         Route::get('email/verifay', 'sendOtpAgain');
     });
     Route::controller(LoginController::class)->group(function () {
-        Route::post('login', 'login')->middleware('throttle:login');
+        Route::post('login', 'login');
         Route::delete('logout', 'logout')->middleware('auth:sanctum');
     });
     Route::controller(ForgetPasswordController::class)->prefix('password/email')->group(function () {
